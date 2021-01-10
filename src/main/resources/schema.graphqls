@@ -1,92 +1,105 @@
 schema {
   query: GraphQLQuery
+  mutation: GraphQLMutation
 }
 
+directive @defer on FIELD
 type AddressQT {
-  id: Int
+  active: Boolean
   addressLine1: String
   addressLine2: String
+  district: DistrictQT
   districtId: Int
+  id: Int
   lastUpdate: String
-  active: Boolean
-  districtName: String
-  cityId: Int
-  cityName: String
-  countryId: Int
-  countryName: String
+}
+
+scalar BigDecimal
+
+input CashAccountMT {
+  merchantId: ID!
+  regularInvoiceLimit: BigDecimal!
+  balance: BigDecimal
 }
 
 type CashAccountQT {
-  id: Int
-  merchantId: String
-  fiscalYear: Int
-  totalReceived: BigDecimal
-  totalPaid: BigDecimal
-  outstandingBalance: BigDecimal
-  balance: BigDecimal
-  regularInvoiceLimit: BigDecimal
-  lastUpdate: String
   active: Boolean
+  balance: BigDecimal
+  cashTransaction: [CashTransactionQT]
+  fiscalYear: Int
+  id: Int
+  lastUpdate: String
   merchant: MerchantQT
-  accountTransactions: [CashAccountTransactionQT]
+  merchantId: String
+  outstandingBalance: BigDecimal
+  regularInvoiceLimit: BigDecimal
+  totalPaid: BigDecimal
+  totalReceived: BigDecimal
 }
 
-type CashAccountTransactionQT {
-  id: Int
-  cashAccountId: Int
-  transactionDate: String
-  transactionType: CashAccountTransactionType
-  transactionAmount: BigDecimal
-  explanation: String
-  lastUpdate: String
+input CashTransactionMT {
+  cashAccountId: ID!
+  transactionDate: String!
+  transactionType: CashTransactionType!
+  transactionAmount: BigDecimal!
+  explanation: String!
+}
+
+type CashTransactionQT {
   active: Boolean
   cashAccount: CashAccountQT
+  cashAccountId: Int
+  explanation: String
+  id: Int
+  lastUpdate: String
+  transactionAmount: BigDecimal
+  transactionDate: String
+  transactionType: CashTransactionType
 }
 
-enum CashAccountTransactionType {
+enum CashTransactionType {
   RECEIVED
   PAID
   OUTSTANDING
 }
 
 type CityQT {
+  country: CountryQT
+  countryId: Int
+  districts: [DistrictQT]
   id: Int
   name: String
-  countryId: Int
-  countryName: CountryQT
-  districts: [DistrictQT]
-  districts2: [DistrictQT]
 }
 
 type CountryQT {
-  id: ID
+  city: [CityQT]
+  id: Int
   iso2: String
   iso3: String
   name: String
-  cities: [CityQT]
 }
 
 type CustomerAddressQT {
-  id: Int
-  customerId: String
-  addressId: Int
-  description: String
-  lastUpdate: String
   active: Boolean
   address: AddressQT
+  addressId: Int
+  customerId: String
+  description: String
+  id: Int
+  lastUpdate: String
 }
 
 type CustomerDebitQT {
-  id: ID
-  customerId: String
-  saleId: Int
-  dueDate: String
-  totalDue: String
-  status: CustomerDebitStatus
   active: Boolean
-  lastUpdate: String
   customer: CustomerQT
-  customerPayments: CustomerPaymentQT
+  customerId: String
+  customerPayment: CustomerPaymentQT
+  dueDate: String
+  id: ID
+  lastUpdate: String
+  saleId: Int
+  status: CustomerDebitStatus
+  totalDue: String
 }
 
 enum CustomerDebitStatus {
@@ -97,14 +110,14 @@ enum CustomerDebitStatus {
 }
 
 type CustomerDiscountQT {
-  id: ID
-  productId: String
-  customerId: String
-  insertedAt: String
-  rate: BigDecimal
   active: Boolean
   customer: CustomerQT
+  customerId: String
+  id: ID
+  insertedAt: String
   product: ProductQT
+  productId: String
+  rate: BigDecimal
 }
 
 enum CustomerPaymentApprovalStatus {
@@ -115,121 +128,116 @@ enum CustomerPaymentApprovalStatus {
 }
 
 type CustomerPaymentQT {
-  id: ID
-  customerId: String
-  customerDebitId: Int
-  amountPaid: BigDecimal
-  paymentDate: String
-  paymentType: String
-  approvalStatus: CustomerPaymentApprovalStatus
-  lastUpdate: String
   active: Boolean
+  amountPaid: BigDecimal
+  approvalStatus: CustomerPaymentApprovalStatus
   customer: CustomerQT
   customerDebit: CustomerDebitQT
+  customerDebitId: Int
+  customerId: String
+  id: ID
+  lastUpdate: String
+  paymentDate: String
+  paymentType: String
 }
 
 type CustomerQT {
-  id: String
-  merchantId: String
-  typeId: Int
-  taxOffice: String
-  taxpayerId: String
-  nationalIdNumber: String
-  iban: String
-  name: String
-  debtTotal: BigDecimal
+  active: Boolean
+  aspNetUserId: String
+  customerAddress: [CustomerAddressQT]
+  customerDebit: [CustomerDebitQT]
+  customerDiscount: [CustomerDiscountQT]
+  customerPayment: [CustomerPaymentQT]
   debtLimit: BigDecimal
   debtLimitExceedCount: Int
-  maturityDaysTotal: Int
-  maturityDaysLimit: Int
-  maturityOverdueCount: Int
+  debtTotal: BigDecimal
+  engagedOn: String
+  iban: String
+  id: String
+  lastUpdate: String
   liasonPerson: String
   liasonPhone: String
-  aspNetUserId: String
-  active: Boolean
-  engagedOn: String
-  lastUpdate: String
-  company: MerchantQT
-  customerType: CustomerTypeQT
-  customerAddresses: [CustomerAddressQT]
-  customerDebits: [CustomerDebitQT]
-  customerDiscounts: [CustomerDiscountQT]
-  customerPayments: [CustomerPaymentQT]
-  sales: [SaleQT]
-  vehicleDriverCustomers: [VehicleDriverCustomerQT]
+  maturityDaysLimit: Int
+  maturityDaysTotal: Int
+  maturityOverdueCount: Int
+  merchant: MerchantQT
+  merchantId: String
+  name: String
+  nationalIdNumber: String
+  sale: [SaleQT]
+  taxOffice: String
+  taxpayerId: String
+  type: CustomerTypeQT
+  typeId: Int
+  vehicleDriverCustomer: [VehicleDriverCustomerQT]
 }
 
 type CustomerTypeQT {
-  id: ID
-  name: String
-  insertedAt: String
   active: Boolean
   customer: CustomerQT
+  id: ID
+  insertedAt: String
+  name: String
 }
 
-#scalar String
-
-scalar BigDecimal
-
 type DistrictQT {
-  id: ID
-  cityId: Int
-  name: String
   city: CityQT
-  addresses: [AddressQT]
+  cityId: Int
+  id: Int
+  name: String
 }
 
 type DocumentInvoiceQT {
-  id: String
-  merchantId: String
-  saleId: ID
+  active: Boolean
   customerId: String
-  referenceNumber: ID
-  serialNumber: String
-  sequenceNumber: Int
+  deliveredAt: String
+  deliveryPersonId: String
+  documentShipment: [DocumentShipmentQT]
+  id: String
+  insertedAt: String
+  isCancelled: Boolean
+  isPaperPrinted: Boolean
   issueDate: String
+  merchant: MerchantQT
+  merchantId: String
+  note: String
+  paperPrintedAt: String
+  receiver: String
+  referenceNumber: ID
+  sale: SaleQT
+  saleId: ID
+  sequenceNumber: Int
+  serialNumber: String
   subTotal: BigDecimal
   taxAmount: BigDecimal
   totalDue: BigDecimal
-  deliveryPersonId: String
-  receiver: String
-  deliveredAt: String
-  note: String
-  isPaperPrinted: Boolean
-  paperPrintedAt: String
-  insertedAt: String
-  isCancelled: Boolean
-  active: Boolean
-  merchant: MerchantQT
-  sale: SaleQT
-  documentShipments: [DocumentShipmentQT]
 }
 
 type DocumentShipmentQT {
-  id: ID
-  invoiceId: String
-  shipmentLoadId: Int
-  merchantId: String
+  active: Boolean
   customerId: String
-  referenceNumber: String
-  serialNumber: String
-  sequenceNumber: Int
+  deliveredAt: String
+  deliveryPersonId: String
+  id: ID
+  insertedAt: String
+  invoice: DocumentInvoiceQT
+  invoiceId: String
+  isCancelled: Boolean
+  isPaperPrinted: Boolean
   issueDate: String
+  merchant: MerchantQT
+  merchantId: String
+  note: String
+  paperPrintedAt: String
+  receiver: String
+  referenceNumber: String
+  sequenceNumber: Int
+  serialNumber: String
+  shipmentLoad: ShipmentLoadQT
+  shipmentLoadId: Int
   subTotal: BigDecimal
   taxAmount: BigDecimal
   totalDue: BigDecimal
-  deliveryPersonId: String
-  receiver: String
-  deliveredAt: String
-  note: String
-  isPaperPrinted: Boolean
-  paperPrintedAt: String
-  insertedAt: String
-  isCancelled: Boolean
-  active: Boolean
-  merchant: MerchantQT
-  documentInvoice: DocumentInvoiceQT
-  shipmentLoad: ShipmentLoadQT
 }
 
 enum DocumentType {
@@ -242,51 +250,51 @@ enum DocumentType {
 }
 
 type EmployeeAddressQT {
-  id: Int
-  employeeId: String
-  addressId: Int
-  description: String
-  lastUpdate: String
   active: Boolean
   address: AddressQT
+  addressId: Int
+  description: String
+  employeeId: String
+  id: Int
+  lastUpdate: String
 }
 
 type EmployeeLeaveQT {
-  id: ID
-  employeeId: String
-  laeveFrom: String
-  leaveTo: String
-  insertedAt: String
   active: Boolean
   employee: EmployeeQT
+  employeeId: String
+  id: ID
+  insertedAt: String
+  laeveFrom: String
+  leaveTo: String
 }
 
 type EmployeeQT {
-  id: ID
-  merchantId: String
-  ssn: String
-  firstName: String
-  middleName: String
-  lastName: String
-  nationalIdNumber: String
-  bitrhDate: String
-  gender: Gender
-  maritalStatus: MaritalStatus
-  phone: String
-  hireDate: String
-  resignDate: String
-  jobId: Int
-  vacationDaysLeft: Int
-  sickHoursLeave: Int
-  aspUserId: String
-  insertedAt: String
-  lastUpdate: String
   active: Boolean
-  merchant: MerchantQT
+  aspUserId: String
+  bitrhDate: String
+  employeeAddress: [EmployeeAddressQT]
+  employeeLeave: [EmployeeLeaveQT]
+  firstName: String
+  gender: Gender
+  hireDate: String
+  id: ID
+  insertedAt: String
   job: JobQT
-  employeeAddresses: [EmployeeAddressQT]
-  employeeLeaves: [EmployeeLeaveQT]
-  vehicleDrivers: [VehicleDriverQT]
+  jobId: Int
+  lastName: String
+  lastUpdate: String
+  maritalStatus: MaritalStatus
+  merchant: MerchantQT
+  merchantId: String
+  middleName: String
+  nationalIdNumber: String
+  phone: String
+  resignDate: String
+  sickHoursLeave: Int
+  ssn: String
+  vacationDaysLeft: Int
+  vehicleDriver: [VehicleDriverQT]
 }
 
 enum Gender {
@@ -294,52 +302,75 @@ enum Gender {
   FEMALE
 }
 
-type GraphQLQuery {
-  account(accountId: Int!): CashAccountQT
-  accounts(merchantId: String!): [CashAccountQT]
-  accountTransaction(transactionId: Int!): CashAccountTransactionQT
-  accountTransactions(accountId: Int!): [CashAccountTransactionQT]
-  transactions2(accountId: Int!, fiscalYear: Int, transactionType: CashAccountTransactionType): [CashAccountTransactionQT]
-  accountBalance(accountId: Int!): BigDecimal
-  balance(merchantId: String!): BigDecimal
-  countries: [CountryQT]
-  country(id: Int!): CountryQT
-  cities: [CityQT]
-  city(id: Int!): CityQT
-  districts: [DistrictQT]
-  district(id: Int!): DistrictQT
-  addresses: [AddressQT]
-  address(id: Int!): AddressQT
-  merchantAddresses(merchantId: String!): [MerchantAddressQT]
-  customerAddresses(customerId: String!): [CustomerAddressQT]
-  employeeAddress(employeeId: String!): EmployeeAddressQT
-  merchant(id: String!): MerchantQT
-  customer(id: String!): CustomerQT
-  customers(id: String!): [CustomerQT]
-  customerCount(merchantId: String!): Int
-  employee(id: String!): EmployeeQT
-  employees(merchantId: String!): [EmployeeQT]
-  product(id: String!): ProductQT
-  products(merchantId: String!): [ProductQT]
-  productAttributes(productId: String!): [ProductQT]
-  categories(merchantId: String!): [ProductCategoryQT]
-  order(id: Int!): SaleQT
-  orders(merchantId: String!): [SaleQT]
-  ordersProgressPercent(merchantId: String!): Int
-  vehicle(id: String!): VehicleQT
-  vehiclesByCompany(id: String!): [VehicleQT]
+type GraphQLMutation {
+  addCashAccount(cashAccount: CashAccountMT!): CashAccountQT
+  addCashTransaction(cashTransaction: CashTransactionMT!): CashTransactionQT
+  addOrder(order: SaleMT!): SaleQT
+  deleteCashTransaction(id: ID!): Boolean
+  finalizeAndRenewCashAccount(cashAccount: CashAccountMT!): CashAccountQT
+  updateCashTransaction(
+    id: ID!
+    transactionAmount: BigDecimal
+    explanation: String
+  ): CashTransactionQT
 }
 
-scalar String
+type GraphQLQuery {
+  address(id: Int!): AddressQT
+  cashAccount(id: ID!, includeTransactions: Boolean): CashAccountQT
+  cashAccountBalance(accountId: ID!): BigDecimal
+  cashAccountBalanceByMerchant(merchantId: ID!): BigDecimal
+  cashAccounts(merchantId: ID!, includeTransactions: Boolean): [CashAccountQT]
+  cashTransaction(
+    transactionId: ID!
+    includeAccount: Boolean
+  ): CashTransactionQT
+  cashTransactions(
+    accountId: ID!
+    dateFrom: String
+    dateTo: String
+    transactionType: CashTransactionType
+  ): [CashTransactionQT]
+  cities(countryId: Int!): [CityQT]
+  city(id: Int!): CityQT
+  countries: [CountryQT]
+  country(id: Int!): CountryQT
+  customer(id: ID!): CustomerQT
+  customerAddress(customerId: Int!): CustomerAddressQT
+  customerCount(merchantId: ID!): Int
+  customerDebit(id: ID!): CustomerDebitQT
+  customerDebits(customerId: ID!): [CustomerDebitQT]
+  customerDiscount(id: ID!): CustomerDiscountQT
+  customerDiscounts(customerId: ID!): [CustomerDiscountQT]
+  customerPayment(id: ID!): CustomerPaymentQT
+  customerPayments(customerId: ID!): [CustomerPaymentQT]
+  customers(merchantId: ID!): [CustomerQT]
+  district(id: Int!): DistrictQT
+  districts(cityId: Int!): [DistrictQT]
+  employee(id: ID!): EmployeeQT
+  employeeAddress(employeeId: Int!): EmployeeAddressQT
+  employeeLeaves(employeeId: ID!): [EmployeeLeaveQT]
+  employees(merchantId: ID!): [EmployeeQT]
+  employeesLeaves(merchantId: ID!): [EmployeeLeaveQT]
+  merchant(id: ID!): MerchantQT
+  merchantAddress(merchantId: ID!): [MerchantAddressQT]
+  order(id: ID!, detailed: Boolean): SaleQT
+  orders(merchantId: ID!, detailed: Boolean): [SaleQT]
+  ordersProgressPercent(merchantId: ID!): Int
+  product(id: ID!, detailed: Boolean): ProductQT
+  products(merchantId: ID!, detailed: Boolean): [ProductQT]
+  vehicle(id: ID!, detailed: Boolean): VehicleQT
+  vehicles(id: ID!, detailed: Boolean): [VehicleQT]
+}
 
 type JobQT {
+  active: Boolean
+  employee: [EmployeeQT]
   id: ID
+  lastUpdate: String
+  merchant: MerchantQT
   merchantId: String
   title: String
-  lastUpdate: String
-  active: Boolean
-  merchant: MerchantQT
-  employees: [EmployeeQT]
 }
 
 enum MaritalStatus {
@@ -348,114 +379,138 @@ enum MaritalStatus {
 }
 
 type MerchantAddressQT {
-  id: ID
-  merchantId: String
-  addressId: Int
-  description: String
-  lastUpdate: String
   active: Boolean
   address: AddressQT
+  addressId: Int
+  description: String
+  id: ID
+  lastUpdate: String
+  merchantId: String
 }
 
 type MerchantQT {
-  id: String
-  name: String
+  active: Boolean
+  cashAccount: [CashAccountQT]
   commercialTitle: String
-  tradeRegistrationId: String
-  mersisId: String
-  taxOffice: String
-  taxpayerId: String
+  customer: [CustomerQT]
+  documentInvoice: [DocumentInvoiceQT]
+  documentShipment: [DocumentShipmentQT]
+  employee: [EmployeeQT]
+  engagedOn: String
   iban: String
-  typeId: Int
+  id: String
+  job: [JobQT]
+  lastUpdate: String
   liasonPerson: String
   liasonPhone: String
+  merchantAddress: [MerchantAddressQT]
+  mersisId: String
+  name: String
   phone: String
+  product: [ProductQT]
+  sale: [SaleQT]
+  taxOffice: String
+  taxpayerId: String
+  tradeRegistrationId: String
+  type: MerchantTypeQT
+  typeId: Int
+  vehicle: [VehicleQT]
   web: String
-  engagedOn: String
-  lastUpdate: String
-  active: Boolean
 }
 
 type MerchantTypeQT {
-  id: ID
-  name: String
-  insertedAt: String
   active: Boolean
+  id: ID
+  insertedAt: String
   merchant: MerchantQT
-  productCategories: ProductCategoryQT
-  productProperties: ProductPropertyQT
-}
-
-type ProductAttributeQT {
-  id: ID
-  productId: String
-  productPropertyId: Int
-  insertedAt: String
-  active: Boolean
-  product: ProductQT
+  name: String
+  productCategory: ProductCategoryQT
   productProperty: ProductPropertyQT
 }
 
-type ProductCategoryQT {
+type ProductAttributeQT {
+  active: Boolean
   id: ID
+  insertedAt: String
+  product: ProductQT
+  productId: String
+  productProperty: ProductPropertyQT
+  productPropertyId: Int
+}
+
+type ProductCategoryQT {
+  active: Boolean
+  id: ID
+  lastUpdate: String
+  merchantType: MerchantTypeQT
   merchantTypeId: Int
   name: String
-  lastUpdate: String
-  active: Boolean
-  merchantType: MerchantTypeQT
-  products: [ProductQT]
+  product: [ProductQT]
 }
 
 type ProductPropertyQT {
+  active: Boolean
   id: ID
+  lastUpdate: String
+  merchantType: MerchantTypeQT
   merchantTypeId: Int
   name: String
-  lastUpdate: String
-  active: Boolean
-  merchantType: MerchantTypeQT
-  productAttributes: [ProductAttributeQT]
+  productAttribute: [ProductAttributeQT]
 }
 
 type ProductQT {
-  id: String
-  merchantId: String
-  productCategoryId: Int
-  name: String
+  active: Boolean
+  customerDiscount: [CustomerDiscountQT]
   description: String
-  weight: Int
-  standartCost: BigDecimal
-  listPrice: BigDecimal
-  taxRate: BigDecimal
-  onSale: Boolean
+  discontinuedOn: String
+  id: String
   imageUrl: String
   insertedAt: String
   lastUpdate: String
-  discontinuedOn: String
-  active: Boolean
+  listPrice: BigDecimal
   merchant: MerchantQT
+  merchantId: String
+  name: String
+  onSale: Boolean
+  productAttribute: [ProductAttributeQT]
   productCategory: ProductCategoryQT
-  customerDiscounts: [CustomerDiscountQT]
-  productAttributes: [ProductAttributeQT]
-  saleItems: [SaleDetailQT]
+  productCategoryId: Int
+  saleDetail: [SaleDetailQT]
+  standartCost: BigDecimal
+  taxRate: BigDecimal
+  weight: Int
 }
 
-type SaleDetailQT {
-  id: ID
-  saleId: Int
+input SaleDetailMT {
+  saleId: ID
   carrierTrackingNumber: String
-  productId: String
+  productId: ID
   quantity: Int
   unitPrice: BigDecimal
   lineTotal: BigDecimal
   taxAmount: BigDecimal
   totalDue: BigDecimal
   shippingDayPart: ShippingPartsOfDay
-  lastUpdate: String
   status: SaleDetailStatus
+}
+
+type SaleDetailQT {
   active: Boolean
+  carrierTrackingNumber: String
+  id: ID
+  lastUpdate: String
+  lineTotal: BigDecimal
   product: ProductQT
+  productId: String
+  quantity: Int
   sale: SaleQT
-  shipmentLoads: [ShipmentLoadQT]
+  saleId: Int
+  shipmentLoad: [ShipmentLoadQT]
+  shippingDayPart: ShippingPartsOfDay
+  status: SaleDetailStatus
+  taxAmount: BigDecimal
+  totalDue: BigDecimal
+  unitPrice: BigDecimal
 }
 
 enum SaleDetailStatus {
@@ -468,14 +523,11 @@ enum SaleDetailStatus {
   CANCELLED
 }
 
-type SaleQT {
-  id: Int
-  merchantId: String
-  customerId: String
+input SaleMT {
+  merchantId: ID
+  customerId: ID
   orderDate: String
   dueDate: String
-  shipDate: String
-  deliveryDate: String
   subTotal: BigDecimal
   taxAmount: BigDecimal
   totalDue: BigDecimal
@@ -485,14 +537,34 @@ type SaleQT {
   onlineOrderFlag: Boolean
   documentType: DocumentType
   status: SaleStatus
-  lastUpdate: String
+  saleDetail: [SaleDetailMT]
+}
+
+type SaleQT {
   active: Boolean
   billToAddress: AddressQT
-  merchant: MerchantQT
+  billToAddressId: Int
   customer: CustomerQT
+  customerId: String
+  deliveryDate: String
+  documentInvoice: [DocumentInvoiceQT]
+  documentType: DocumentType
+  dueDate: String
+  id: Int
+  lastUpdate: String
+  merchant: MerchantQT
+  merchantId: String
+  onlineOrderFlag: Boolean
+  orderDate: String
+  saleDetail: [SaleDetailQT]
+  shipDate: String
+  shipmentMethod: ShipmentMethod
   shipToAddress: AddressQT
-  documentInvoices: [DocumentInvoiceQT]
-  saleItems: [SaleDetailQT]
+  shipToAddressId: Int
+  status: SaleStatus
+  subTotal: BigDecimal
+  taxAmount: BigDecimal
+  totalDue: BigDecimal
 }
 
 enum SaleStatus {
@@ -506,17 +578,17 @@ enum SaleStatus {
 }
 
 type ShipmentLoadQT {
-  id: ID
-  shipmentId: Int
-  saleDetailId: Int
-  deliveryDate: String
-  returnedQuantity: Int
-  status: ShipmentLoadStatus
-  lastUpdate: String
   active: Boolean
-  saleItem: SaleDetailQT
+  deliveryDate: String
+  documentShipment: [DocumentShipmentQT]
+  id: ID
+  lastUpdate: String
+  returnedQuantity: Int
+  saleDetail: SaleDetailQT
+  saleDetailId: Int
   shipment: ShipmentQT
-  documentShipments: [DocumentShipmentQT]
+  shipmentId: Int
+  status: ShipmentLoadStatus
 }
 
 enum ShipmentLoadStatus {
@@ -535,43 +607,43 @@ enum ShipmentMethod {
 }
 
 type ShipmentQT {
-  id: ID
-  carrierId: Int
-  shipmentRouteId: Int
-  date: String
-  timeStart: String
-  timeEnd: String
-  odometerStart: Int
-  odometerEnd: Int
-  status: ShipmentStatus
-  lastUpdate: String
   active: Boolean
   carrier: VehicleDriverQT
+  carrierId: Int
+  date: String
+  id: ID
+  lastUpdate: String
+  odometerEnd: Int
+  odometerStart: Int
+  shipmentLoad: [ShipmentLoadQT]
   shipmentRoute: ShipmentRouteQT
-  shipmentLoads: [ShipmentLoadQT]
+  shipmentRouteId: Int
+  status: ShipmentStatus
+  timeEnd: String
+  timeStart: String
 }
 
 type ShipmentRouteIndexQT {
+  active: Boolean
   id: ID
-  shipmentRouteId: Int
-  locationId: Int
   indexInRoute: Short
   lastUpdate: String
-  active: Boolean
+  location: CustomerAddressQT
+  locationId: Int
   shipmentRoute: ShipmentRouteQT
-  customerAddress: CustomerAddressQT
+  shipmentRouteId: Int
 }
 
 type ShipmentRouteQT {
+  active: Boolean
   id: ID
-  vehicleDriverId: Int
-  name: String
   insertedAt: String
   lastUpdate: String
-  active: Boolean
+  name: String
+  shipment: [ShipmentQT]
+  shipmentRouteIndex: [ShipmentRouteIndexQT]
   vehicleDriver: VehicleDriverQT
-  shipments: [ShipmentQT]
-  shipmentRouteIndexes: [ShipmentRouteIndexQT]
+  vehicleDriverId: Int
 }
 
 enum ShipmentStatus {
@@ -595,42 +667,42 @@ enum ShippingPartsOfDay {
 scalar Short
 
 type VehicleDriverCustomerQT {
-  id: ID
-  driverId: Int
-  customerId: String
-  validFrom: String
-  validTo: String
   active: Boolean
   customer: CustomerQT
-  vehicleDriver: VehicleDriverQT
+  customerId: String
+  driver: VehicleDriverQT
+  driverId: Int
+  id: ID
+  validFrom: String
+  validTo: String
 }
 
 type VehicleDriverQT {
-  id: ID
-  vehicleId: Int
-  employeeId: String
-  validFrom: String
-  validTo: String
   active: Boolean
   employee: EmployeeQT
-  vehicle: VehicleQT
+  employeeId: String
+  id: ID
   shipment: [ShipmentQT]
   shipmentRoute: [ShipmentRouteQT]
+  validFrom: String
+  validTo: String
+  vehicle: VehicleQT
   vehicleDriverCustomer: [VehicleDriverCustomerQT]
+  vehicleId: Int
 }
 
 type VehicleQT {
-  id: ID
-  merchantId: String
-  plateNumber: String
+  active: Boolean
   assesmentDate: String
   assuranceRenewalDate: String
-  outOfOrderFlag: Boolean
-  serviceType: VehicleServiceType
+  id: ID
   lastUpdate: String
-  active: Boolean
   merchant: MerchantQT
-  vehicleDrivers: [VehicleDriverQT]
+  merchantId: String
+  outOfOrderFlag: Boolean
+  plateNumber: String
+  serviceType: VehicleServiceType
+  vehicleDriver: [VehicleDriverQT]
 }
 
 enum VehicleServiceType {
