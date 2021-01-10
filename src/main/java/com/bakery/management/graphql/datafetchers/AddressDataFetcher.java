@@ -8,7 +8,7 @@ import graphql.schema.DataFetcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.List;
 
 @Component
 public class AddressDataFetcher {
@@ -25,7 +25,7 @@ public class AddressDataFetcher {
         };
     }
 
-    public DataFetcher<Set<City>> fetchCityByCountry() {
+    public DataFetcher<List<City>> fetchCityByCountry() {
         return dataFetchingEnvironment -> {
             int countryId = dataFetchingEnvironment.getArgument("countryId");
             var cities = cityRepository.getWithCountry(countryId);

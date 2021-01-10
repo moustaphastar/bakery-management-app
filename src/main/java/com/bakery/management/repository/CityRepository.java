@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public interface CityRepository extends JpaRepository<City, Integer> {
@@ -15,5 +15,5 @@ public interface CityRepository extends JpaRepository<City, Integer> {
             "from City as c " +
             "join Country as co on co.id = c.country.id " +
             "where c.country.id = :countryId")
-    Optional<Set<City>> getWithCountry(@Param("countryId") int countryId);
+    Optional<List<City>> getWithCountry(@Param("countryId") int countryId);
 }
