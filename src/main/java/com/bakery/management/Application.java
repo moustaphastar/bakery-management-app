@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication()
 @ComponentScan({"com.bakery.management"})
-@EntityScan("com.bakery.management.db")
+@EntityScan("com.bakery.management.model")
 @EnableJpaRepositories("com.bakery.management.repository")
 public class Application {
 
