@@ -1,7 +1,7 @@
 package com.bakery.management.graphql.datafetchers;
 
-import com.bakery.management.db.entity.Address;
-import com.bakery.management.db.entity.City;
+import com.bakery.management.model.entity.Address;
+import com.bakery.management.model.entity.City;
 import com.bakery.management.repository.AddressRepository;
 import com.bakery.management.repository.CityRepository;
 import graphql.schema.DataFetcher;
@@ -30,6 +30,14 @@ public class AddressDataFetcher {
             int countryId = dataFetchingEnvironment.getArgument("countryId");
             var cities = cityRepository.getWithCountry(countryId);
             return cities.orElse(null);
+        };
+    }
+
+    public DataFetcher<Address> getCustomerAddress() {
+        return dataFetchingEnvironment -> {
+            String customerId = dataFetchingEnvironment.getArgument("customerId");
+            var address = addressRepository.getCustomerAddress(customerId);
+            return address.orElse(null);
         };
     }
 }

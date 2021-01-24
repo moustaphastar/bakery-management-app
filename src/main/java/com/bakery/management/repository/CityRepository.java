@@ -1,6 +1,6 @@
 package com.bakery.management.repository;
 
-import com.bakery.management.db.entity.City;
+import com.bakery.management.model.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
