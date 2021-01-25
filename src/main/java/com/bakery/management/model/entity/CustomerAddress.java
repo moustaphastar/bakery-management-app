@@ -1,6 +1,9 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.AddressType;
+import com.bakery.management.enums.converters.AddressTypeConverter;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,37 +16,37 @@ import java.util.Set;
 @Table(name = "CustomerAddress", schema = "dbo", catalog = "onlineaccounting")
 public class CustomerAddress implements java.io.Serializable {
 
-	private int id;
-	private Address address;
-	private Customer customer;
-	private String description;
-	private Date lastUpdate;
-	private boolean active;
-	private Set<ShipmentRouteIndex> shipmentRouteIndexes = new HashSet<>(0);
+    private int id;
+    private Address address;
+    private Customer customer;
+    private AddressType description;
+    private Date lastUpdate;
+    private boolean active;
+    private Set<ShipmentRouteIndex> shipmentRouteIndexes = new HashSet<>(0);
 
-	public CustomerAddress() {
-	}
+    public CustomerAddress() {
+    }
 
-	public CustomerAddress(int id, Address address, Customer customer, String description, Date lastUpdate,
-						   boolean active) {
-		this.id = id;
-		this.address = address;
-		this.customer = customer;
-		this.description = description;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
+    public CustomerAddress(int id, Address address, Customer customer, AddressType description, Date lastUpdate,
+                           boolean active) {
+        this.id = id;
+        this.address = address;
+        this.customer = customer;
+        this.description = description;
+        this.lastUpdate = lastUpdate;
+        this.active = active;
+    }
 
-	public CustomerAddress(int id, Address address, Customer customer, String description, Date lastUpdate,
-						   boolean active, Set<ShipmentRouteIndex> shipmentRouteIndexes) {
-		this.id = id;
-		this.address = address;
-		this.customer = customer;
-		this.description = description;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.shipmentRouteIndexes = shipmentRouteIndexes;
-	}
+    public CustomerAddress(int id, Address address, Customer customer, AddressType description, Date lastUpdate,
+                           boolean active, Set<ShipmentRouteIndex> shipmentRouteIndexes) {
+        this.id = id;
+        this.address = address;
+        this.customer = customer;
+        this.description = description;
+        this.lastUpdate = lastUpdate;
+        this.active = active;
+        this.shipmentRouteIndexes = shipmentRouteIndexes;
+    }
 
 	@Id
 
@@ -66,32 +69,33 @@ public class CustomerAddress implements java.io.Serializable {
 		this.address = address;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CustomerId", nullable = false)
-	public Customer getCustomer() {
-		return this.customer;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CustomerId", nullable = false)
+    public Customer getCustomer() {
+        return this.customer;
+    }
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
-	@Column(name = "Description", nullable = false)
-	public String getDescription() {
-		return this.description;
-	}
+    @Convert(converter = AddressTypeConverter.class)
+    @Column(name = "Description", nullable = false, length = 1)
+    public AddressType getDescription() {
+        return this.description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(AddressType description) {
+        this.description = description;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LastUpdate", nullable = false, length = 19)
-	public Date getLastUpdate() {
-		return this.lastUpdate;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "LastUpdate", nullable = false, length = 19)
+    public Date getLastUpdate() {
+        return this.lastUpdate;
+    }
 
-	public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 

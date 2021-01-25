@@ -1,6 +1,9 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.DebitStatus;
+import com.bakery.management.enums.converters.DebitStatusConverter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -19,7 +22,7 @@ public class CustomerDebit implements java.io.Serializable {
 	private String saleId;
 	private Date dueDate;
 	private BigDecimal totalDue;
-	private char status;
+	private DebitStatus status;
 	private boolean active;
 	private Date lastUpdate;
 	private Set<CustomerPayment> customerPayments = new HashSet<>(0);
@@ -27,8 +30,8 @@ public class CustomerDebit implements java.io.Serializable {
 	public CustomerDebit() {
 	}
 
-	public CustomerDebit(int id, Customer customer, Date dueDate, BigDecimal totalDue, char status, boolean active,
-			Date lastUpdate) {
+	public CustomerDebit(int id, Customer customer, Date dueDate, BigDecimal totalDue, DebitStatus status, boolean active,
+						 Date lastUpdate) {
 		this.id = id;
 		this.customer = customer;
 		this.dueDate = dueDate;
@@ -38,7 +41,7 @@ public class CustomerDebit implements java.io.Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public CustomerDebit(int id, Customer customer, String saleId, Date dueDate, BigDecimal totalDue, char status,
+	public CustomerDebit(int id, Customer customer, String saleId, Date dueDate, BigDecimal totalDue, DebitStatus status,
 						 boolean active, Date lastUpdate, Set<CustomerPayment> customerPayments) {
 		this.id = id;
 		this.customer = customer;
@@ -100,12 +103,13 @@ public class CustomerDebit implements java.io.Serializable {
 		this.totalDue = totalDue;
 	}
 
+	@Convert(converter = DebitStatusConverter.class)
 	@Column(name = "Status", nullable = false, length = 1)
-	public char getStatus() {
+	public DebitStatus getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(char status) {
+	public void setStatus(DebitStatus status) {
 		this.status = status;
 	}
 
