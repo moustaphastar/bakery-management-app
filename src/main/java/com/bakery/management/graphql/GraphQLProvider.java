@@ -1,6 +1,7 @@
 package com.bakery.management.graphql;
 
 import com.bakery.management.graphql.datafetchers.AddressDataFetcher;
+import com.bakery.management.graphql.datafetchers.CashAccountDataFetcher;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import graphql.GraphQL;
@@ -28,6 +29,8 @@ public class GraphQLProvider {
     GraphQLDataFetchers graphQLDataFetchers;
     @Autowired
     AddressDataFetcher addressDataFetcher;
+    @Autowired
+    CashAccountDataFetcher cashAccountDataFetcher;
 
     @PostConstruct
     public void init() throws IOException {
@@ -48,11 +51,15 @@ public class GraphQLProvider {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("GraphQLQuery")
                         .dataFetcher("address", addressDataFetcher.fetchAddress())
-                        .dataFetcher("account", graphQLDataFetchers.CashAccountFetcher())
-                        .dataFetcher("accountTransaction", graphQLDataFetchers.CashAccountTransactionFetcher())
-                        .dataFetcher("accountTransactions", graphQLDataFetchers.CashAccountTransactionsFetcher())
+                        .dataFetcher("cashAccount", cashAccountDataFetcher.fetchCashAccount())
+                        .dataFetcher("cashTransaction", graphQLDataFetchers.CashTransactionFetcher())
+                        .dataFetcher("cashTransactions", graphQLDataFetchers.CashTransactionsFetcher())
                         .dataFetcher("merchant", graphQLDataFetchers.MerchantFetcher())
                         .dataFetcher("cities", addressDataFetcher.fetchCityByCountry())
+                        .dataFetcher("customerAddress", addressDataFetcher.getCustomerAddress())
+                )
+                .type(newTypeWiring("GraphQLMutation")
+                        .dataFetcher("addCashAccount", cashAccountDataFetcher.addCashAccount())
                 )
                 .build();
     }
