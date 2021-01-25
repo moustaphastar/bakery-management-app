@@ -336,7 +336,7 @@ type GraphQLQuery {
   countries: [CountryQT]
   country(id: Int!): CountryQT
   customer(id: ID!): CustomerQT
-  customerAddress(customerId: Int!): CustomerAddressQT
+  customerAddress(customerId: String!): CustomerAddressQT
   customerCount(merchantId: ID!): Int
   customerDebit(id: ID!): CustomerDebitQT
   customerDebits(customerId: ID!): [CustomerDebitQT]
