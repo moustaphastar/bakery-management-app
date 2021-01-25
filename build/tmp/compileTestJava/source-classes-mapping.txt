@@ -1,0 +1,2 @@
+com/cayirozu/accounting/FinancialAccountingSpringbootApplicationTests.java
+ com.cayirozu.accounting.FinancialAccountingSpringbootApplicationTests
