@@ -1,6 +1,11 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.PaymentStatus;
+import com.bakery.management.enums.PaymentType;
+import com.bakery.management.enums.converters.PaymentStatusConverter;
+import com.bakery.management.enums.converters.PaymentTypeConverter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,8 +22,8 @@ public class CustomerPayment implements java.io.Serializable {
 	private CustomerDebit customerDebit;
 	private BigDecimal amountPaid;
 	private Date paymentDate;
-	private char paymentType;
-	private char approvalStatus;
+	private PaymentType paymentType;
+	private PaymentStatus approvalStatus;
 	private Date lastUpdate;
 	private boolean active;
 
@@ -26,7 +31,7 @@ public class CustomerPayment implements java.io.Serializable {
 	}
 
 	public CustomerPayment(int id, Customer customer, CustomerDebit customerDebit, BigDecimal amountPaid,
-			Date paymentDate, char paymentType, char approvalStatus, Date lastUpdate, boolean active) {
+						   Date paymentDate, PaymentType paymentType, PaymentStatus approvalStatus, Date lastUpdate, boolean active) {
 		this.id = id;
 		this.customer = customer;
 		this.customerDebit = customerDebit;
@@ -88,21 +93,23 @@ public class CustomerPayment implements java.io.Serializable {
 		this.paymentDate = paymentDate;
 	}
 
+	@Convert(converter = PaymentTypeConverter.class)
 	@Column(name = "PaymentType", nullable = false, length = 1)
-	public char getPaymentType() {
+	public PaymentType getPaymentType() {
 		return this.paymentType;
 	}
 
-	public void setPaymentType(char paymentType) {
+	public void setPaymentType(PaymentType paymentType) {
 		this.paymentType = paymentType;
 	}
 
+	@Convert(converter = PaymentStatusConverter.class)
 	@Column(name = "ApprovalStatus", nullable = false, length = 1)
-	public char getApprovalStatus() {
+	public PaymentStatus getApprovalStatus() {
 		return this.approvalStatus;
 	}
 
-	public void setApprovalStatus(char approvalStatus) {
+	public void setApprovalStatus(PaymentStatus approvalStatus) {
 		this.approvalStatus = approvalStatus;
 	}
 

@@ -1,6 +1,9 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.AddressType;
+import com.bakery.management.enums.converters.AddressTypeConverter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,27 +14,27 @@ import java.util.Date;
 @Table(name = "EmployeeAddress", schema = "dbo", catalog = "onlineaccounting")
 public class EmployeeAddress implements java.io.Serializable {
 
-	private int id;
-	private Address address;
-	private Employee employee;
-	private String description;
-	private Date lastUpdate;
-	private boolean active;
+    private int id;
+    private Address address;
+    private Employee employee;
+    private AddressType description;
+    private Date lastUpdate;
+    private boolean active;
 
-	public EmployeeAddress() {
-	}
+    public EmployeeAddress() {
+    }
 
-	public EmployeeAddress(int id, Address address, Employee employee, String description, Date lastUpdate,
-						   boolean active) {
-		this.id = id;
-		this.address = address;
-		this.employee = employee;
-		this.description = description;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
+    public EmployeeAddress(int id, Address address, Employee employee, AddressType description, Date lastUpdate,
+                           boolean active) {
+        this.id = id;
+        this.address = address;
+        this.employee = employee;
+        this.description = description;
+        this.lastUpdate = lastUpdate;
+        this.active = active;
+    }
 
-	@Id
+    @Id
 
 	@Column(name = "Id", unique = true, nullable = false)
 	public int getId() {
@@ -52,32 +55,33 @@ public class EmployeeAddress implements java.io.Serializable {
 		this.address = address;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "EmployeeId", nullable = false)
-	public Employee getEmployee() {
-		return this.employee;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EmployeeId", nullable = false)
+    public Employee getEmployee() {
+        return this.employee;
+    }
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
-	@Column(name = "Description", nullable = false)
-	public String getDescription() {
-		return this.description;
-	}
+    @Convert(converter = AddressTypeConverter.class)
+    @Column(name = "Description", nullable = false)
+    public AddressType getDescription() {
+        return this.description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(AddressType description) {
+        this.description = description;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LastUpdate", nullable = false, length = 19)
-	public Date getLastUpdate() {
-		return this.lastUpdate;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "LastUpdate", nullable = false, length = 19)
+    public Date getLastUpdate() {
+        return this.lastUpdate;
+    }
 
-	public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 

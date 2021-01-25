@@ -1,6 +1,8 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.VehicleServiceType;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -19,7 +21,7 @@ public class Vehicle implements java.io.Serializable {
 	private Date assesmentDate;
 	private Date assuranceRenewalDate;
 	private boolean outOfOrderFlag;
-	private Character serviceType;
+	private VehicleServiceType serviceType;
 	private Date lastUpdate;
 	private boolean active;
 	private Set<VehicleDriver> vehicleDrivers = new HashSet<>(0);
@@ -28,7 +30,7 @@ public class Vehicle implements java.io.Serializable {
 	}
 
 	public Vehicle(int id, Merchant merchant, String plateNumber, Date assesmentDate, boolean outOfOrderFlag,
-			Date lastUpdate, boolean active) {
+				   Date lastUpdate, boolean active) {
 		this.id = id;
 		this.merchant = merchant;
 		this.plateNumber = plateNumber;
@@ -39,7 +41,7 @@ public class Vehicle implements java.io.Serializable {
 	}
 
 	public Vehicle(int id, Merchant merchant, String plateNumber, Date assesmentDate, Date assuranceRenewalDate,
-			boolean outOfOrderFlag, Character serviceType, Date lastUpdate, boolean active, Set<VehicleDriver> vehicleDrivers) {
+				   boolean outOfOrderFlag, VehicleServiceType serviceType, Date lastUpdate, boolean active, Set<VehicleDriver> vehicleDrivers) {
 		this.id = id;
 		this.merchant = merchant;
 		this.plateNumber = plateNumber;
@@ -111,12 +113,13 @@ public class Vehicle implements java.io.Serializable {
 		this.outOfOrderFlag = outOfOrderFlag;
 	}
 
+	@Convert(converter = VehicleServiceType.class)
 	@Column(name = "ServiceType", length = 1)
-	public Character getServiceType() {
+	public VehicleServiceType getServiceType() {
 		return this.serviceType;
 	}
 
-	public void setServiceType(Character serviceType) {
+	public void setServiceType(VehicleServiceType serviceType) {
 		this.serviceType = serviceType;
 	}
 

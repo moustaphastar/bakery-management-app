@@ -1,6 +1,8 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.ShipmentStatus;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,7 +23,7 @@ public class Shipment implements java.io.Serializable {
 	private Date timeEnd;
 	private Integer odometerStart;
 	private Integer odometerEnd;
-	private char status;
+	private ShipmentStatus status;
 	private Date lastUpdate;
 	private boolean active;
 	private Set<ShipmentLoad> shipmentLoads = new HashSet<>(0);
@@ -29,7 +31,7 @@ public class Shipment implements java.io.Serializable {
 	public Shipment() {
 	}
 
-	public Shipment(int id, VehicleDriver vehicleDriver, Date date, char status, Date lastUpdate, boolean active) {
+	public Shipment(int id, VehicleDriver vehicleDriver, Date date, ShipmentStatus status, Date lastUpdate, boolean active) {
 		this.id = id;
 		this.vehicleDriver = vehicleDriver;
 		this.date = date;
@@ -39,8 +41,8 @@ public class Shipment implements java.io.Serializable {
 	}
 
 	public Shipment(int id, ShipmentRoute shipmentRoute, VehicleDriver vehicleDriver, Date date, Date timeStart,
-			Date timeEnd, Integer odometerStart, Integer odometerEnd, char status, Date lastUpdate, boolean active,
-			Set<ShipmentLoad> shipmentLoads) {
+					Date timeEnd, Integer odometerStart, Integer odometerEnd, ShipmentStatus status, Date lastUpdate, boolean active,
+					Set<ShipmentLoad> shipmentLoads) {
 		this.id = id;
 		this.shipmentRoute = shipmentRoute;
 		this.vehicleDriver = vehicleDriver;
@@ -134,12 +136,13 @@ public class Shipment implements java.io.Serializable {
 		this.odometerEnd = odometerEnd;
 	}
 
+	@Convert(converter = ShipmentStatus.class)
 	@Column(name = "Status", nullable = false, length = 1)
-	public char getStatus() {
+	public ShipmentStatus getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(char status) {
+	public void setStatus(ShipmentStatus status) {
 		this.status = status;
 	}
 

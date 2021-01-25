@@ -1,6 +1,11 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.Gender;
+import com.bakery.management.enums.MaritalStatus;
+import com.bakery.management.enums.converters.GenderConverter;
+import com.bakery.management.enums.converters.MaritalStatusConverter;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,27 +18,27 @@ import java.util.Set;
 @Table(name = "Employee", schema = "dbo", catalog = "onlineaccounting")
 public class Employee implements java.io.Serializable {
 
-	private String id;
-	private Job job;
-	private Merchant merchant;
-	private String ssn;
-	private String firstName;
-	private String middleName;
-	private String lastName;
-	private String nationalIdNumber;
-	private Date bitrhDate;
-	private Character gender;
-	private Character maritalStatus;
-	private String phone;
-	private Date hireDate;
-	private Date resignDate;
-	private Byte vacationDaysLeft;
-	private Byte sickHoursLeave;
-	private String aspUserId;
-	private Date insertedAt;
-	private Date lastUpdate;
-	private boolean active;
-	private Set<EmployeeAddress> employeeAddresses = new HashSet<>(0);
+    private String id;
+    private Job job;
+    private Merchant merchant;
+    private String ssn;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String nationalIdNumber;
+    private Date bitrhDate;
+    private Gender gender;
+    private MaritalStatus maritalStatus;
+    private String phone;
+    private Date hireDate;
+    private Date resignDate;
+    private Byte vacationDaysLeft;
+    private Byte sickHoursLeave;
+    private String aspUserId;
+    private Date insertedAt;
+    private Date lastUpdate;
+    private boolean active;
+    private Set<EmployeeAddress> employeeAddresses = new HashSet<>(0);
 	private Set<EmployeeLeave> employeeLeaves = new HashSet<>(0);
 	private Set<VehicleDriver> vehicleDrivers = new HashSet<>(0);
 
@@ -57,10 +62,10 @@ public class Employee implements java.io.Serializable {
 	}
 
 	public Employee(String id, Job job, Merchant merchant, String ssn, String firstName,
-					String middleName, String lastName, String nationalIdNumber, Date bitrhDate, Character gender,
-					Character maritalStatus, String phone, Date hireDate, Date resignDate, Byte vacationDaysLeft,
-					Byte sickHoursLeave, String aspUserId, Date insertedAt, Date lastUpdate, boolean active,
-					Set<EmployeeAddress> employeeAddresses, Set<EmployeeLeave> employeeLeaves, Set<VehicleDriver> vehicleDrivers) {
+                    String middleName, String lastName, String nationalIdNumber, Date bitrhDate, Gender gender,
+                    MaritalStatus maritalStatus, String phone, Date hireDate, Date resignDate, Byte vacationDaysLeft,
+                    Byte sickHoursLeave, String aspUserId, Date insertedAt, Date lastUpdate, boolean active,
+                    Set<EmployeeAddress> employeeAddresses, Set<EmployeeLeave> employeeLeaves, Set<VehicleDriver> vehicleDrivers) {
 		this.id = id;
 		this.job = job;
 		this.merchant = merchant;
@@ -162,41 +167,43 @@ public class Employee implements java.io.Serializable {
 		this.nationalIdNumber = nationalIdNumber;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "BitrhDate", nullable = false, length = 10)
-	public Date getBitrhDate() {
-		return this.bitrhDate;
-	}
+    @Temporal(TemporalType.DATE)
+    @Column(name = "BitrhDate", nullable = false, length = 10)
+    public Date getBitrhDate() {
+        return this.bitrhDate;
+    }
 
-	public void setBitrhDate(Date bitrhDate) {
-		this.bitrhDate = bitrhDate;
-	}
+    public void setBitrhDate(Date bitrhDate) {
+        this.bitrhDate = bitrhDate;
+    }
 
-	@Column(name = "Gender", length = 1)
-	public Character getGender() {
-		return this.gender;
-	}
+    @Convert(converter = GenderConverter.class)
+    @Column(name = "Gender", length = 1)
+    public Gender getGender() {
+        return this.gender;
+    }
 
-	public void setGender(Character gender) {
-		this.gender = gender;
-	}
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
-	@Column(name = "MaritalStatus", length = 1)
-	public Character getMaritalStatus() {
-		return this.maritalStatus;
-	}
+    @Convert(converter = MaritalStatusConverter.class)
+    @Column(name = "MaritalStatus", length = 1)
+    public MaritalStatus getMaritalStatus() {
+        return this.maritalStatus;
+    }
 
-	public void setMaritalStatus(Character maritalStatus) {
-		this.maritalStatus = maritalStatus;
-	}
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
 
-	@Column(name = "Phone", length = 10)
-	public String getPhone() {
-		return this.phone;
-	}
+    @Column(name = "Phone", length = 10)
+    public String getPhone() {
+        return this.phone;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+    public void setPhone(String phone) {
+        this.phone = phone;
 	}
 
 	@Temporal(TemporalType.DATE)

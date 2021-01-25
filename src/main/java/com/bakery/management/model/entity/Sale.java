@@ -1,6 +1,13 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.DocumentType;
+import com.bakery.management.enums.OrderStatus;
+import com.bakery.management.enums.ShipmentMethod;
+import com.bakery.management.enums.converters.DocumentTypeConverter;
+import com.bakery.management.enums.converters.OrderStatusConverter;
+import com.bakery.management.enums.converters.ShipmentMethodConverter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -26,10 +33,10 @@ public class Sale implements java.io.Serializable {
 	private BigDecimal subTotal;
 	private BigDecimal taxAmount;
 	private BigDecimal totalDue;
-	private Character shipmentMethod;
+	private ShipmentMethod shipmentMethod;
 	private boolean onlineOrderFlag;
-	private Character documentType;
-	private char status;
+	private DocumentType documentType;
+	private OrderStatus status;
 	private Date lastUpdate;
 	private boolean active;
 	private Set<DocumentInvoice> documentInvoices = new HashSet<>(0);
@@ -39,7 +46,7 @@ public class Sale implements java.io.Serializable {
 	}
 
 	public Sale(int id, Customer customer, Merchant merchant, Date orderDate, Date dueDate, BigDecimal subTotal,
-			BigDecimal taxAmount, boolean onlineOrderFlag, char status, Date lastUpdate, boolean active) {
+				BigDecimal taxAmount, boolean onlineOrderFlag, OrderStatus status, Date lastUpdate, boolean active) {
 		this.id = id;
 		this.customer = customer;
 		this.merchant = merchant;
@@ -54,10 +61,10 @@ public class Sale implements java.io.Serializable {
 	}
 
 	public Sale(int id, Address addressByBillToAddressId, Address addressByShipToAddressId, Customer customer,
-			Merchant merchant, Date orderDate, Date dueDate, Date shipDate, Date deliveryDate, BigDecimal subTotal,
-			BigDecimal taxAmount, BigDecimal totalDue, Character shipmentMethod, boolean onlineOrderFlag,
-			Character documentType, char status, Date lastUpdate, boolean active, Set<DocumentInvoice> documentInvoices,
-			Set<SaleDetail> saleDetails) {
+				Merchant merchant, Date orderDate, Date dueDate, Date shipDate, Date deliveryDate, BigDecimal subTotal,
+				BigDecimal taxAmount, BigDecimal totalDue, ShipmentMethod shipmentMethod, boolean onlineOrderFlag,
+				DocumentType documentType, OrderStatus status, Date lastUpdate, boolean active, Set<DocumentInvoice> documentInvoices,
+				Set<SaleDetail> saleDetails) {
 		this.id = id;
 		this.addressByBillToAddressId = addressByBillToAddressId;
 		this.addressByShipToAddressId = addressByShipToAddressId;
@@ -198,12 +205,13 @@ public class Sale implements java.io.Serializable {
 		this.totalDue = totalDue;
 	}
 
+	@Convert(converter = ShipmentMethodConverter.class)
 	@Column(name = "ShipmentMethod", length = 1)
-	public Character getShipmentMethod() {
+	public ShipmentMethod getShipmentMethod() {
 		return this.shipmentMethod;
 	}
 
-	public void setShipmentMethod(Character shipmentMethod) {
+	public void setShipmentMethod(ShipmentMethod shipmentMethod) {
 		this.shipmentMethod = shipmentMethod;
 	}
 
@@ -216,21 +224,23 @@ public class Sale implements java.io.Serializable {
 		this.onlineOrderFlag = onlineOrderFlag;
 	}
 
+	@Convert(converter = DocumentTypeConverter.class)
 	@Column(name = "DocumentType", length = 1)
-	public Character getDocumentType() {
+	public DocumentType getDocumentType() {
 		return this.documentType;
 	}
 
-	public void setDocumentType(Character documentType) {
+	public void setDocumentType(DocumentType documentType) {
 		this.documentType = documentType;
 	}
 
+	@Convert(converter = OrderStatusConverter.class)
 	@Column(name = "Status", nullable = false, length = 1)
-	public char getStatus() {
+	public OrderStatus getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(char status) {
+	public void setStatus(OrderStatus status) {
 		this.status = status;
 	}
 
