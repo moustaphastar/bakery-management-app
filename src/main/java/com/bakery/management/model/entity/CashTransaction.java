@@ -1,5 +1,7 @@
 package com.bakery.management.model.entity;
-// Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
+
+import com.bakery.management.enums.CashTransactionType;
+import com.bakery.management.enums.converters.CashTransactionTypeConverter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,7 +17,7 @@ public class CashTransaction implements java.io.Serializable {
 	private int id;
 	private CashAccount cashAccount;
 	private Date transactionDate;
-	private char transactionType;
+	private CashTransactionType transactionType;
 	private BigDecimal transactionAmount;
 	private String explanation;
 	private Date lastUpdate;
@@ -24,7 +26,7 @@ public class CashTransaction implements java.io.Serializable {
 	public CashTransaction() {
 	}
 
-	public CashTransaction(int id, CashAccount cashAccount, Date transactionDate, char transactionType,
+	public CashTransaction(int id, CashAccount cashAccount, Date transactionDate, CashTransactionType transactionType,
 						   BigDecimal transactionAmount, String explanation, Date lastUpdate, boolean active) {
 		this.id = id;
 		this.cashAccount = cashAccount;
@@ -37,7 +39,6 @@ public class CashTransaction implements java.io.Serializable {
 	}
 
 	@Id
-
 	@Column(name = "Id", unique = true, nullable = false)
 	public int getId() {
 		return this.id;
@@ -67,12 +68,13 @@ public class CashTransaction implements java.io.Serializable {
 		this.transactionDate = transactionDate;
 	}
 
-	@Column(name = "TransactionType", nullable = false, length = 1)
-	public char getTransactionType() {
+	@Convert(converter = CashTransactionTypeConverter.class)
+	@Column(name = "TransactionType", nullable = false, length = 1, columnDefinition = "char(1)")
+	public CashTransactionType getTransactionType() {
 		return this.transactionType;
 	}
 
-	public void setTransactionType(char transactionType) {
+	public void setTransactionType(CashTransactionType transactionType) {
 		this.transactionType = transactionType;
 	}
 
