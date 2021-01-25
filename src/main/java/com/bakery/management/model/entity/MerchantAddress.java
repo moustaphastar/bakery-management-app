@@ -1,6 +1,9 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.AddressType;
+import com.bakery.management.enums.converters.AddressTypeConverter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,27 +14,27 @@ import java.util.Date;
 @Table(name = "MerchantAddress", schema = "dbo", catalog = "onlineaccounting")
 public class MerchantAddress implements java.io.Serializable {
 
-	private int id;
-	private Address address;
-	private Merchant merchant;
-	private String description;
-	private Date lastUpdate;
-	private boolean active;
+    private int id;
+    private Address address;
+    private Merchant merchant;
+    private AddressType description;
+    private Date lastUpdate;
+    private boolean active;
 
-	public MerchantAddress() {
-	}
+    public MerchantAddress() {
+    }
 
-	public MerchantAddress(int id, Address address, Merchant merchant, String description, Date lastUpdate,
-			boolean active) {
-		this.id = id;
-		this.address = address;
-		this.merchant = merchant;
-		this.description = description;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
+    public MerchantAddress(int id, Address address, Merchant merchant, AddressType description, Date lastUpdate,
+                           boolean active) {
+        this.id = id;
+        this.address = address;
+        this.merchant = merchant;
+        this.description = description;
+        this.lastUpdate = lastUpdate;
+        this.active = active;
+    }
 
-	@Id
+    @Id
 
 	@Column(name = "Id", unique = true, nullable = false)
 	public int getId() {
@@ -52,32 +55,33 @@ public class MerchantAddress implements java.io.Serializable {
 		this.address = address;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CompanyId", nullable = false)
-	public Merchant getMerchant() {
-		return this.merchant;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CompanyId", nullable = false)
+    public Merchant getMerchant() {
+        return this.merchant;
+    }
 
-	public void setMerchant(Merchant merchant) {
-		this.merchant = merchant;
-	}
+    public void setMerchant(Merchant merchant) {
+        this.merchant = merchant;
+    }
 
-	@Column(name = "Description", nullable = false)
-	public String getDescription() {
-		return this.description;
-	}
+    @Convert(converter = AddressTypeConverter.class)
+    @Column(name = "Description", nullable = false)
+    public AddressType getDescription() {
+        return this.description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(AddressType description) {
+        this.description = description;
+    }
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LastUpdate", nullable = false, length = 19)
-	public Date getLastUpdate() {
-		return this.lastUpdate;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "LastUpdate", nullable = false, length = 19)
+    public Date getLastUpdate() {
+        return this.lastUpdate;
+    }
 
-	public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
