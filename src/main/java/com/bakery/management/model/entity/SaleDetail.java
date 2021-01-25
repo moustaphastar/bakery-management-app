@@ -1,6 +1,9 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.OrderItemStatus;
+import com.bakery.management.enums.ShipmentPartsOfDay;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -23,9 +26,9 @@ public class SaleDetail implements java.io.Serializable {
 	private BigDecimal lineTotal;
 	private BigDecimal taxAmount;
 	private BigDecimal totalDue;
-	private char shippingDayPart;
+	private ShipmentPartsOfDay shippingDayPart;
 	private Date lastUpdate;
-	private char status;
+	private OrderItemStatus status;
 	private boolean active;
 	private Set<ShipmentLoad> shipmentLoads = new HashSet<>(0);
 
@@ -33,8 +36,8 @@ public class SaleDetail implements java.io.Serializable {
 	}
 
 	public SaleDetail(int id, Product product, Sale sale, int quantity, BigDecimal unitPrice, BigDecimal lineTotal,
-			BigDecimal taxAmount, BigDecimal totalDue, char shippingDayPart, Date lastUpdate, char status,
-			boolean active) {
+					  BigDecimal taxAmount, BigDecimal totalDue, ShipmentPartsOfDay shippingDayPart, Date lastUpdate, OrderItemStatus status,
+					  boolean active) {
 		this.id = id;
 		this.product = product;
 		this.sale = sale;
@@ -50,8 +53,8 @@ public class SaleDetail implements java.io.Serializable {
 	}
 
 	public SaleDetail(int id, Product product, Sale sale, String carrierTrackingNumber, int quantity,
-			BigDecimal unitPrice, BigDecimal lineTotal, BigDecimal taxAmount, BigDecimal totalDue, char shippingDayPart,
-			Date lastUpdate, char status, boolean active, Set<ShipmentLoad> shipmentLoads) {
+					  BigDecimal unitPrice, BigDecimal lineTotal, BigDecimal taxAmount, BigDecimal totalDue, ShipmentPartsOfDay shippingDayPart,
+					  Date lastUpdate, OrderItemStatus status, boolean active, Set<ShipmentLoad> shipmentLoads) {
 		this.id = id;
 		this.product = product;
 		this.sale = sale;
@@ -153,12 +156,13 @@ public class SaleDetail implements java.io.Serializable {
 		this.totalDue = totalDue;
 	}
 
+	@Convert(converter = ShipmentPartsOfDay.class)
 	@Column(name = "ShippingDayPart", nullable = false, length = 1)
-	public char getShippingDayPart() {
+	public ShipmentPartsOfDay getShippingDayPart() {
 		return this.shippingDayPart;
 	}
 
-	public void setShippingDayPart(char shippingDayPart) {
+	public void setShippingDayPart(ShipmentPartsOfDay shippingDayPart) {
 		this.shippingDayPart = shippingDayPart;
 	}
 
@@ -172,12 +176,13 @@ public class SaleDetail implements java.io.Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
+	@Convert(converter = OrderItemStatus.class)
 	@Column(name = "Status", nullable = false, length = 1)
-	public char getStatus() {
+	public OrderItemStatus getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(char status) {
+	public void setStatus(OrderItemStatus status) {
 		this.status = status;
 	}
 

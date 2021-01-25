@@ -1,6 +1,8 @@
 package com.bakery.management.model.entity;
 // Generated 19 Ara 2020 06:35:03 by Hibernate Tools 5.2.12.Final
 
+import com.bakery.management.enums.ShipmentLoadStatus;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -18,7 +20,7 @@ public class ShipmentLoad implements java.io.Serializable {
 	private Shipment shipment;
 	private Date deliveryDate;
 	private int returnedQuantity;
-	private char status;
+	private ShipmentLoadStatus status;
 	private Date lastUpdate;
 	private int active;
 	private Set<DocumentShipment> documentShipments = new HashSet<>(0);
@@ -26,8 +28,8 @@ public class ShipmentLoad implements java.io.Serializable {
 	public ShipmentLoad() {
 	}
 
-	public ShipmentLoad(int id, SaleDetail saleDetail, Shipment shipment, int returnedQuantity, char status,
-			Date lastUpdate, int active) {
+	public ShipmentLoad(int id, SaleDetail saleDetail, Shipment shipment, int returnedQuantity, ShipmentLoadStatus status,
+						Date lastUpdate, int active) {
 		this.id = id;
 		this.saleDetail = saleDetail;
 		this.shipment = shipment;
@@ -38,7 +40,7 @@ public class ShipmentLoad implements java.io.Serializable {
 	}
 
 	public ShipmentLoad(int id, SaleDetail saleDetail, Shipment shipment, Date deliveryDate, int returnedQuantity,
-			char status, Date lastUpdate, int active, Set<DocumentShipment> documentShipments) {
+						ShipmentLoadStatus status, Date lastUpdate, int active, Set<DocumentShipment> documentShipments) {
 		this.id = id;
 		this.saleDetail = saleDetail;
 		this.shipment = shipment;
@@ -100,12 +102,13 @@ public class ShipmentLoad implements java.io.Serializable {
 		this.returnedQuantity = returnedQuantity;
 	}
 
+	@Convert(converter = ShipmentLoadStatus.class)
 	@Column(name = "Status", nullable = false, length = 1)
-	public char getStatus() {
+	public ShipmentLoadStatus getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(char status) {
+	public void setStatus(ShipmentLoadStatus status) {
 		this.status = status;
 	}
 
