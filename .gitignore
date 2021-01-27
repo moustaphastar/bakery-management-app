@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Compiled class file
 *.class
 
@@ -60,4 +59,7 @@ out/
 
 ### VS Code ###
 .vscode/
->>>>>>> Initial commit
+
+### H2 Database ###
+*.db
+*.mv.db
