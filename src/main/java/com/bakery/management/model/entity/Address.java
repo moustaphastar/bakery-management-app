@@ -13,7 +13,7 @@ public class Address implements java.io.Serializable {
 	private District district;
 	private String addressLine1;
 	private String addressLine2;
-	private byte[] spatialLocation;
+	private String spatialLocation;
 	private Date lastUpdate;
 	private boolean active;
 	private Set<MerchantAddress> merchantAddresses = new HashSet<>(0);
@@ -35,7 +35,7 @@ public class Address implements java.io.Serializable {
 		this.active = active;
 	}
 
-	public Address(int id, District district, String addressLine1, String addressLine2, byte[] spatialLocation,
+	public Address(int id, District district, String addressLine1, String addressLine2, String spatialLocation,
 				   Date lastUpdate, boolean active, Set<MerchantAddress> merchantAddresses,
 				   Set<Sale> salesForBillToAddressId, Set<EmployeeAddress> employeeAddresses,
 				   Set<Sale> salesForShipToAddressId, Set<CustomerAddress> customerAddresses) {
@@ -55,7 +55,7 @@ public class Address implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id", unique = true, nullable = false)
+	@Column(name = "Id", unique = true, nullable = false, updatable = false)
 	public int getId() {
 		return this.id;
 	}
@@ -93,11 +93,11 @@ public class Address implements java.io.Serializable {
 	}
 
 	@Column(name = "SpatialLocation")
-	public byte[] getSpatialLocation() {
+	public String getSpatialLocation() {
 		return this.spatialLocation;
 	}
 
-	public void setSpatialLocation(byte[] spatialLocation) {
+	public void setSpatialLocation(String spatialLocation) {
 		this.spatialLocation = spatialLocation;
 	}
 

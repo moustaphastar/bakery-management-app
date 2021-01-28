@@ -5,7 +5,7 @@ import java.util.Map;
 
 // TODO: Only shippable parts needed.
 // TODO: Distinguish merchants from those don't use parts by merchant preferences.
-public enum ShipmentPartsOfDay {
+public enum ShipmentPartOfDay {
     DEFAULT("0"),
     ANY("1"),
     DAWN("2"),
@@ -16,19 +16,19 @@ public enum ShipmentPartsOfDay {
     NIGHT("7");
 
     private final String value;
-    private static final Map<String, ShipmentPartsOfDay> map = new HashMap<>();
+    private static final Map<String, ShipmentPartOfDay> map = new HashMap<>();
 
-    ShipmentPartsOfDay(String value) {
+    ShipmentPartOfDay(String value) {
         this.value = value;
     }
 
     static {
-        for (ShipmentPartsOfDay enumType : ShipmentPartsOfDay.values()) {
+        for (ShipmentPartOfDay enumType : ShipmentPartOfDay.values()) {
             map.put(enumType.value, enumType);
         }
     }
 
-    public static ShipmentPartsOfDay dbMappedValue(String value) {
+    public static ShipmentPartOfDay dbMappedValue(String value) {
         return map.get(value);
     }
 
