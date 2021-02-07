@@ -164,7 +164,7 @@ type CustomerQT {
   merchantId: String
   name: String
   nationalIdNumber: String
-  sale: [SaleQT]
+  order: [SaleQT]
   taxOffice: String
   taxpayerId: String
   type: CustomerTypeQT
@@ -204,7 +204,7 @@ type DocumentInvoiceQT {
   paperPrintedAt: String
   receiver: String
   referenceNumber: ID
-  sale: SaleQT
+  order: SaleQT
   saleId: ID
   sequenceNumber: Int
   serialNumber: String
@@ -326,7 +326,7 @@ type GraphQLQuery {
     includeAccount: Boolean
   ): CashTransactionQT
   cashTransactions(
-    accountId: ID!
+    accountId: Int!
     dateFrom: String
     dateTo: String
     transactionType: CashTransactionType
@@ -393,7 +393,7 @@ type MerchantQT {
   cashAccount: [CashAccountQT]
   commercialTitle: String
   customer: [CustomerQT]
-  documentInvoice: [DocumentInvoiceQT]
+  invoice: [DocumentInvoiceQT]
   documentShipment: [DocumentShipmentQT]
   employee: [EmployeeQT]
   engagedOn: String
@@ -408,7 +408,7 @@ type MerchantQT {
   name: String
   phone: String
   product: [ProductQT]
-  sale: [SaleQT]
+  order: [SaleQT]
   taxOffice: String
   taxpayerId: String
   tradeRegistrationId: String
@@ -475,7 +475,7 @@ type ProductQT {
   productAttribute: [ProductAttributeQT]
   productCategory: ProductCategoryQT
   productCategoryId: Int
-  saleDetail: [SaleDetailQT]
+  orderItem: [SaleDetailQT]
   standartCost: BigDecimal
   taxRate: BigDecimal
   weight: Int
@@ -503,7 +503,7 @@ type SaleDetailQT {
   product: ProductQT
   productId: String
   quantity: Int
-  sale: SaleQT
+  order: SaleQT
   saleId: Int
   shipmentLoad: [ShipmentLoadQT]
   shippingDayPart: ShippingPartsOfDay
@@ -537,7 +537,7 @@ input SaleMT {
   onlineOrderFlag: Boolean
   documentType: DocumentType
   status: SaleStatus
-  saleDetail: [SaleDetailMT]
+  orderItem: [SaleDetailMT]
 }
 
 type SaleQT {
@@ -547,7 +547,7 @@ type SaleQT {
   customer: CustomerQT
   customerId: String
   deliveryDate: String
-  documentInvoice: [DocumentInvoiceQT]
+  invoice: [DocumentInvoiceQT]
   documentType: DocumentType
   dueDate: String
   id: Int
@@ -556,7 +556,7 @@ type SaleQT {
   merchantId: String
   onlineOrderFlag: Boolean
   orderDate: String
-  saleDetail: [SaleDetailQT]
+  orderItem: [SaleDetailQT]
   shipDate: String
   shipmentMethod: ShipmentMethod
   shipToAddress: AddressQT
@@ -584,7 +584,7 @@ type ShipmentLoadQT {
   id: ID
   lastUpdate: String
   returnedQuantity: Int
-  saleDetail: SaleDetailQT
+  orderItem: SaleDetailQT
   saleDetailId: Int
   shipment: ShipmentQT
   shipmentId: Int
