@@ -1,10 +1,11 @@
 package com.bakery.management.graphql.datafetchers;
 
-import com.bakery.management.model.entity.Address;
-import com.bakery.management.model.entity.City;
+import com.bakery.management.domain.Address;
+import com.bakery.management.domain.City;
 import com.bakery.management.repository.AddressRepository;
 import com.bakery.management.repository.CityRepository;
 import graphql.schema.DataFetcher;
+import graphql.schema.DataFetchingFieldSelectionSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,25 +18,32 @@ public class AddressDataFetcher {
     @Autowired
     CityRepository cityRepository;
 
+    // TODO: Implement all DataFetchingSelectionSet rules to prevent PropertyDataFetcher auto run.
     public DataFetcher<Address> fetchAddress() {
-        return dataFetchingEnvironment -> {
-            int id = dataFetchingEnvironment.getArgument("id");
-            var address = addressRepository.findById(id);
-            return address.orElse(null);
+        return environment -> {
+            int id = environment.getArgument("id");
+            DataFetchingFieldSelectionSet selectionSet = environment.getSelectionSet();
+            if (selectionSet.contains("district/*")) {
+                var address = addressRepository.getAddressWithDetails(id);
+                return address.orElse(null);
+            } else {
+                var address = addressRepository.findById(id);
+                return address.orElse(null);
+            }
         };
     }
 
     public DataFetcher<List<City>> fetchCityByCountry() {
-        return dataFetchingEnvironment -> {
-            int countryId = dataFetchingEnvironment.getArgument("countryId");
+        return environment -> {
+            int countryId = environment.getArgument("countryId");
             var cities = cityRepository.getWithCountry(countryId);
             return cities.orElse(null);
         };
     }
 
     public DataFetcher<Address> getCustomerAddress() {
-        return dataFetchingEnvironment -> {
-            String customerId = dataFetchingEnvironment.getArgument("customerId");
+        return environment -> {
+            String customerId = environment.getArgument("customerId");
             var address = addressRepository.getCustomerAddress(customerId);
             return address.orElse(null);
         };
