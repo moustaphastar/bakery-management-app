@@ -21,5 +21,7 @@ jobs:
       - name: Run Super-Linter
         uses: github/super-linter@v3
         env:
+          VALIDATE_ALL_CODE_BASE: false
+          FILTER_REGEX_EXCLUDE: '*.sh'
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
