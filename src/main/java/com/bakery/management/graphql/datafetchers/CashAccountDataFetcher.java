@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Optional;
 
 /***
  * Provides data fetching methods for graphql-java.
@@ -38,7 +39,8 @@ public class CashAccountDataFetcher {
     public DataFetcher<CashAccount> fetchCashAccount() {
         return environment -> {
             int id = environment.getArgument("id");
-            var cashAccount = cashAccountRepository.findById(id);
+            Optional<CashAccount> cashAccount = cashAccountRepository
+                    .findById(id);
             return cashAccount.orElse(null);
         };
     }

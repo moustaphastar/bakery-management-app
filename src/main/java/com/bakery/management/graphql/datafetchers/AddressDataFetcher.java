@@ -51,7 +51,7 @@ public class AddressDataFetcher {
 
                 return address.orElse(null);
             } else {
-                var address = addressRepository.findById(id);
+                Optional<Address> address = addressRepository.findById(id);
                 return address.orElse(null);
             }
         };
@@ -65,7 +65,8 @@ public class AddressDataFetcher {
     public DataFetcher<List<City>> fetchCityByCountry() {
         return environment -> {
             int countryId = environment.getArgument("countryId");
-            var cities = cityRepository.getWithCountry(countryId);
+            Optional<List<City>> cities = cityRepository
+                    .getWithCountry(countryId);
             return cities.orElse(null);
         };
     }
@@ -79,7 +80,8 @@ public class AddressDataFetcher {
     public DataFetcher<Address> getCustomerAddress() {
         return environment -> {
             String customerId = environment.getArgument("customerId");
-            var address = addressRepository.getCustomerAddress(customerId);
+            Optional<Address> address = addressRepository
+                    .getCustomerAddress(customerId);
             return address.orElse(null);
         };
     }

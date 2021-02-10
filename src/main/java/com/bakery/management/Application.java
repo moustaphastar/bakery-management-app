@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SuppressWarnings("UtilityClass")
 @SpringBootApplication()
 @ComponentScan({"com.bakery.management", "com.bakery.management.dao"})
 @EntityScan("com.bakery.management.domain")
@@ -14,11 +13,19 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class Application {
 
     /***
-     * Application entry point, main method.
-     * @param args arguments.
+     * Application arguments.
      */
-    public static void main(final String[] args) {
+    private static String[] args = new String[0];
+
+    /***
+     * Application entry point, main method.
+     */
+    public static void main() {
         SpringApplication.run(Application.class, args);
+    }
+
+    private Application(final String[] arg) {
+        args = arg;
     }
 
 }
