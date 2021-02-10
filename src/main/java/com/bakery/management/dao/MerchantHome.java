@@ -15,54 +15,78 @@ import javax.persistence.PersistenceContext;
  */
 public class MerchantHome {
 
-	private static final Log log = LogFactory.getLog(MerchantHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory.getLog(MerchantHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(Merchant transientInstance) {
-		log.debug("persisting Merchant instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance Merchant entity to persist
+     */
+    public void persist(final Merchant transientInstance) {
+        LOG.debug("persisting Merchant instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(Merchant persistentInstance) {
-		log.debug("removing Merchant instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance Merchant entity to remove
+     */
+    public void remove(final Merchant persistentInstance) {
+        LOG.debug("removing Merchant instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public Merchant merge(Merchant detachedInstance) {
-		log.debug("merging Merchant instance");
-		try {
-			Merchant result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance Merchant entity to merge
+     * @return Merchant
+     */
+    public Merchant merge(final Merchant detachedInstance) {
+        LOG.debug("merging Merchant instance");
+        try {
+            Merchant result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public Merchant findById(String id) {
-		log.debug("getting Merchant instance with id: " + id);
-		try {
-			Merchant instance = entityManager.find(Merchant.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return Merchant
+     */
+    public Merchant findById(final String id) {
+        LOG.debug("getting Merchant instance with id: " + id);
+        try {
+            Merchant instance = entityManager.find(Merchant.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

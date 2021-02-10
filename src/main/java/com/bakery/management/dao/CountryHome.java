@@ -17,54 +17,80 @@ import javax.persistence.PersistenceContext;
 @Repository
 public class CountryHome {
 
-	private static final Log log = LogFactory.getLog(CountryHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(CountryHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(Country transientInstance) {
-		log.debug("persisting Country instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance Country entity to persist
+     */
+    public void persist(final Country transientInstance) {
+        LOG.debug("persisting Country instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(Country persistentInstance) {
-		log.debug("removing Country instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance Country entity to remove
+     */
+    public void remove(final Country persistentInstance) {
+        LOG.debug("removing Country instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public Country merge(Country detachedInstance) {
-		log.debug("merging Country instance");
-		try {
-			Country result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance Country entity to merge
+     * @return Country
+     */
+    public Country merge(final Country detachedInstance) {
+        LOG.debug("merging Country instance");
+        try {
+            Country result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public Country findById(int id) {
-		log.debug("getting Country instance with id: " + id);
-		try {
-			Country instance = entityManager.find(Country.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return Country
+     */
+    public Country findById(final int id) {
+        LOG.debug("getting Country instance with id: " + id);
+        try {
+            Country instance = entityManager
+                    .find(Country.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

@@ -15,53 +15,77 @@ import javax.persistence.PersistenceContext;
  */
 public class DocumentInvoiceHome {
 
-    private static final Log log = LogFactory.getLog(DocumentInvoiceHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory.getLog(DocumentInvoiceHome.class);
 
+    /***
+     * EntityManager field to apply data operations.
+     */
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void persist(Invoice transientInstance) {
-        log.debug("persisting Invoice instance");
+    /***
+     * Persist entity to database.
+     * @param transientInstance Invoice entity to persist
+     */
+    public void persist(final Invoice transientInstance) {
+        LOG.debug("persisting Invoice instance");
         try {
             entityManager.persist(transientInstance);
-            log.debug("persist successful");
+            LOG.debug("persist successful");
         } catch (RuntimeException re) {
-            log.error("persist failed", re);
+            LOG.error("persist failed", re);
             throw re;
         }
     }
 
-    public void remove(Invoice persistentInstance) {
-        log.debug("removing Invoice instance");
+    /***
+     * Remove entity from database.
+     * @param persistentInstance Invoice entity to remove
+     */
+    public void remove(final Invoice persistentInstance) {
+        LOG.debug("removing Invoice instance");
         try {
             entityManager.remove(persistentInstance);
-            log.debug("remove successful");
+            LOG.debug("remove successful");
         } catch (RuntimeException re) {
-            log.error("remove failed", re);
+            LOG.error("remove failed", re);
             throw re;
         }
     }
 
-    public Invoice merge(Invoice detachedInstance) {
-        log.debug("merging Invoice instance");
+    /***
+     * Merge entity from database.
+     * @param detachedInstance Invoice entity to merge
+     * @return Invoice
+     */
+    public Invoice merge(final Invoice detachedInstance) {
+        LOG.debug("merging Invoice instance");
         try {
             Invoice result = entityManager.merge(detachedInstance);
-            log.debug("merge successful");
+            LOG.debug("merge successful");
             return result;
         } catch (RuntimeException re) {
-            log.error("merge failed", re);
+            LOG.error("merge failed", re);
             throw re;
         }
     }
 
-    public Invoice findById(String id) {
-        log.debug("getting Invoice instance with id: " + id);
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return Invoice
+     */
+    public Invoice findById(final String id) {
+        LOG.debug("getting Invoice instance with id: " + id);
         try {
             Invoice instance = entityManager.find(Invoice.class, id);
-            log.debug("get successful");
+            LOG.debug("get successful");
             return instance;
         } catch (RuntimeException re) {
-            log.error("get failed", re);
+            LOG.error("get failed", re);
             throw re;
         }
     }

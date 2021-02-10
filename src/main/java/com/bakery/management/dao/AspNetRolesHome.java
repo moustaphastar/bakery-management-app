@@ -16,54 +16,78 @@ import java.io.Serializable;
  */
 public class AspNetRolesHome {
 
-	private static final Log log = LogFactory.getLog(AspNetRolesHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory.getLog(AspNetRolesHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(AspNetRoles transientInstance) {
-		log.debug("persisting AspNetRoles instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance AspNetRoles entity to persist
+     */
+    public void persist(final AspNetRoles transientInstance) {
+        LOG.debug("persisting AspNetRoles instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(AspNetRoles persistentInstance) {
-		log.debug("removing AspNetRoles instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance AspNetRoles entity to remove
+     */
+    public void remove(final AspNetRoles persistentInstance) {
+        LOG.debug("removing AspNetRoles instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public AspNetRoles merge(AspNetRoles detachedInstance) {
-		log.debug("merging AspNetRoles instance");
-		try {
-			AspNetRoles result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance AspNetRoles entity to merge
+     * @return AspNetRoles
+     */
+    public AspNetRoles merge(final AspNetRoles detachedInstance) {
+        LOG.debug("merging AspNetRoles instance");
+        try {
+            AspNetRoles result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public AspNetRoles findById(Serializable id) {
-		log.debug("getting AspNetRoles instance with id: " + id);
-		try {
-			AspNetRoles instance = entityManager.find(AspNetRoles.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return AspNetRoles
+     */
+    public AspNetRoles findById(final Serializable id) {
+        LOG.debug("getting AspNetRoles instance with id: " + id);
+        try {
+            AspNetRoles instance = entityManager.find(AspNetRoles.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

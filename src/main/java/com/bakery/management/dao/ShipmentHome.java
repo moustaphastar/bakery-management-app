@@ -15,54 +15,78 @@ import javax.persistence.PersistenceContext;
  */
 public class ShipmentHome {
 
-	private static final Log log = LogFactory.getLog(ShipmentHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory.getLog(ShipmentHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(Shipment transientInstance) {
-		log.debug("persisting Shipment instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance Shipment entity to persist
+     */
+    public void persist(final Shipment transientInstance) {
+        LOG.debug("persisting Shipment instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(Shipment persistentInstance) {
-		log.debug("removing Shipment instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance Shipment entity to remove
+     */
+    public void remove(final Shipment persistentInstance) {
+        LOG.debug("removing Shipment instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public Shipment merge(Shipment detachedInstance) {
-		log.debug("merging Shipment instance");
-		try {
-			Shipment result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance Shipment entity to merge
+     * @return Shipment
+     */
+    public Shipment merge(final Shipment detachedInstance) {
+        LOG.debug("merging Shipment instance");
+        try {
+            Shipment result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public Shipment findById(int id) {
-		log.debug("getting Shipment instance with id: " + id);
-		try {
-			Shipment instance = entityManager.find(Shipment.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return Shipment
+     */
+    public Shipment findById(final int id) {
+        LOG.debug("getting Shipment instance with id: " + id);
+        try {
+            Shipment instance = entityManager.find(Shipment.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

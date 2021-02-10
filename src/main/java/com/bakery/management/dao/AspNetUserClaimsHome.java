@@ -15,54 +15,80 @@ import javax.persistence.PersistenceContext;
  */
 public class AspNetUserClaimsHome {
 
-	private static final Log log = LogFactory.getLog(AspNetUserClaimsHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(AspNetUserClaimsHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(AspNetUserClaims transientInstance) {
-		log.debug("persisting AspNetUserClaims instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance AspNetUserClaims entity to persist
+     */
+    public void persist(final AspNetUserClaims transientInstance) {
+        LOG.debug("persisting AspNetUserClaims instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(AspNetUserClaims persistentInstance) {
-		log.debug("removing AspNetUserClaims instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance AspNetUserClaims entity to remove
+     */
+    public void remove(final AspNetUserClaims persistentInstance) {
+        LOG.debug("removing AspNetUserClaims instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public AspNetUserClaims merge(AspNetUserClaims detachedInstance) {
-		log.debug("merging AspNetUserClaims instance");
-		try {
-			AspNetUserClaims result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance AspNetUserClaims entity to merge
+     * @return AspNetUserClaims
+     */
+    public AspNetUserClaims merge(final AspNetUserClaims detachedInstance) {
+        LOG.debug("merging AspNetUserClaims instance");
+        try {
+            AspNetUserClaims result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public AspNetUserClaims findById(int id) {
-		log.debug("getting AspNetUserClaims instance with id: " + id);
-		try {
-			AspNetUserClaims instance = entityManager.find(AspNetUserClaims.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return AspNetUserClaims
+     */
+    public AspNetUserClaims findById(final int id) {
+        LOG.debug("getting AspNetUserClaims instance with id: " + id);
+        try {
+            AspNetUserClaims instance = entityManager
+                    .find(AspNetUserClaims.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

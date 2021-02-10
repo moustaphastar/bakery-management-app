@@ -15,54 +15,80 @@ import javax.persistence.PersistenceContext;
  */
 public class ProductAttributeHome {
 
-	private static final Log log = LogFactory.getLog(ProductAttributeHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(ProductAttributeHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(ProductAttribute transientInstance) {
-		log.debug("persisting ProductAttribute instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance ProductAttribute entity to persist
+     */
+    public void persist(final ProductAttribute transientInstance) {
+        LOG.debug("persisting ProductAttribute instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(ProductAttribute persistentInstance) {
-		log.debug("removing ProductAttribute instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance ProductAttribute entity to remove
+     */
+    public void remove(final ProductAttribute persistentInstance) {
+        LOG.debug("removing ProductAttribute instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public ProductAttribute merge(ProductAttribute detachedInstance) {
-		log.debug("merging ProductAttribute instance");
-		try {
-			ProductAttribute result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance ProductAttribute entity to merge
+     * @return ProductAttribute
+     */
+    public ProductAttribute merge(final ProductAttribute detachedInstance) {
+        LOG.debug("merging ProductAttribute instance");
+        try {
+            ProductAttribute result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public ProductAttribute findById(int id) {
-		log.debug("getting ProductAttribute instance with id: " + id);
-		try {
-			ProductAttribute instance = entityManager.find(ProductAttribute.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return ProductAttribute
+     */
+    public ProductAttribute findById(final int id) {
+        LOG.debug("getting ProductAttribute instance with id: " + id);
+        try {
+            ProductAttribute instance = entityManager
+                    .find(ProductAttribute.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }
