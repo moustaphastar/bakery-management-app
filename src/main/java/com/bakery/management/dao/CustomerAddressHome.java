@@ -17,54 +17,80 @@ import javax.persistence.PersistenceContext;
 @Repository
 public class CustomerAddressHome {
 
-	private static final Log log = LogFactory.getLog(CustomerAddressHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(CustomerAddressHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(CustomerAddress transientInstance) {
-		log.debug("persisting CustomerAddress instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance CustomerAddress entity to persist
+     */
+    public void persist(final CustomerAddress transientInstance) {
+        LOG.debug("persisting CustomerAddress instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(CustomerAddress persistentInstance) {
-		log.debug("removing CustomerAddress instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance CustomerAddress entity to remove
+     */
+    public void remove(final CustomerAddress persistentInstance) {
+        LOG.debug("removing CustomerAddress instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public CustomerAddress merge(CustomerAddress detachedInstance) {
-		log.debug("merging CustomerAddress instance");
-		try {
-			CustomerAddress result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance CustomerAddress entity to merge
+     * @return CustomerAddress
+     */
+    public CustomerAddress merge(final CustomerAddress detachedInstance) {
+        LOG.debug("merging CustomerAddress instance");
+        try {
+            CustomerAddress result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public CustomerAddress findById(int id) {
-		log.debug("getting CustomerAddress instance with id: " + id);
-		try {
-			CustomerAddress instance = entityManager.find(CustomerAddress.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return CustomerAddress
+     */
+    public CustomerAddress findById(final int id) {
+        LOG.debug("getting CustomerAddress instance with id: " + id);
+        try {
+            CustomerAddress instance = entityManager
+                    .find(CustomerAddress.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

@@ -1,10 +1,9 @@
 package com.bakery.management.graphql;
 
+import com.bakery.management.domain.CashTransaction;
+import com.bakery.management.domain.Merchant;
 import com.bakery.management.enums.CashTransactionType;
 import com.bakery.management.helpers.DateHelpers;
-import com.bakery.management.model.entity.Address;
-import com.bakery.management.model.entity.CashTransaction;
-import com.bakery.management.model.entity.Merchant;
 import com.bakery.management.repository.AddressRepository;
 import com.bakery.management.repository.CashAccountRepository;
 import com.bakery.management.repository.CashTransactionRepository;
@@ -14,87 +13,99 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/***
+ * Provides data fetchers for graphql-java.
+ * @since 1.0
+ * @author Moustapha Star
+ */
 @Component
 @Transactional
 public class GraphQLDataFetchers {
 
+    /***
+     * Injection for AddressRepository object.
+     */
     @Autowired
-    AddressRepository addressRepository;
+    private AddressRepository addressRepository;
+
+    /***
+     * Injection for CashAccountRepository object.
+     */
     @Autowired
-    CashAccountRepository cashAccountRepository;
+    private CashAccountRepository cashAccountRepository;
+
+    /***
+     * Injection for CashTransactionRepository object.
+     */
     @Autowired
-    CashTransactionRepository cashTransactionRepository;
+    private CashTransactionRepository cashTransactionRepository;
+
+    /***
+     * Injection for MerchantRepository object.
+     */
     @Autowired
-    MerchantRepository merchantRepository;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private MerchantRepository merchantRepository;
 
     /**
-     * Returns an Address class object
+     * Fetches {@link CashTransaction} data from persistence.
      *
-     * @return Address or null
+     * @return fetched CashTransaction result or null
      */
-    public DataFetcher<Address> AddressFetcher() {
-        return dataFetchingEnvironment -> {
-            int id = dataFetchingEnvironment.getArgument("id");
-            var address = addressRepository.findById(id);
-            return address.orElse(null);
-        };
-    }
-
-    /**
-     * Returns a CashTransaction class object
-     *
-     * @return CashTransaction or null
-     */
-    public DataFetcher<CashTransaction> CashTransactionFetcher() {
-        return dataFetchingEnvironment -> {
-            int id = dataFetchingEnvironment.getArgument("id");
+    public DataFetcher<CashTransaction> cashTransactionFetcher() {
+        return environment -> {
+            int id = environment.getArgument("id");
             var cashAccount = cashTransactionRepository.findById(id);
             return cashAccount.orElse(null);
         };
     }
 
     /**
-     * Returns a list of CashTransaction class object
+     * Fetches {@link CashTransaction} data from persistence.
      *
-     * @return List<CashTransaction> or null
+     * @return fetched CashTransaction result as list or null
      */
-    public DataFetcher<List<CashTransaction>> CashTransactionsFetcher() {
-        return dataFetchingEnvironment -> {
-            String cashAccountId = dataFetchingEnvironment.getArgument("accountId");
-            String dateFrom = dataFetchingEnvironment.getArgument("dateFrom");
-            String dateTo = dataFetchingEnvironment.getArgument("dateTo");
-            String transactionTypeString = dataFetchingEnvironment.getArgument("transactionType");
-            CashTransactionType transactionType = CashTransactionType.valueOf(transactionTypeString);
+    public DataFetcher<List<CashTransaction>> cashTransactionsFetcher() {
+        return environment -> {
+            int cashAccountId = environment.getArgument("accountId");
+            String dateFrom = environment.getArgument("dateFrom");
+            String dateTo = environment.getArgument("dateTo");
+            String transactionTypeString = environment
+                    .getArgument("transactionType");
+            CashTransactionType transactionType = CashTransactionType
+                    .valueOf(transactionTypeString);
 
-            // Validate dates and period than get an ordered map
-            var dateMap = new DateHelpers(
-                    LocalDate.parse(dateFrom), LocalDate.parse(dateTo))
-                    .ValidatePeriod(3)
-                    .GetMap();
+            try {
+                // Validate dates and period than get an ordered map
+                var dateMap = new DateHelpers(
+                        LocalDate.parse(dateFrom), LocalDate.parse(dateTo))
+                        .validatePeriod(3)
+                        .buildMap();
 
-            var transactions = cashTransactionRepository
-                    .getTransactions(Integer.parseInt(cashAccountId),
-                            dateFormat.parse(dateFrom),
-                            dateFormat.parse(dateTo),
-                            transactionType);
+                var transactions = cashTransactionRepository
+                        .getTransactions(cashAccountId,
+                                dateMap.getFromDate(),
+                                dateMap.getToDate(),
+                                transactionType);
 
-            return transactions.orElse(null);
+                return transactions.orElse(null);
+            } catch (DateTimeParseException | NullPointerException exception) {
+                return null;
+            }
         };
     }
 
     /**
-     * Returns a Merchant class object
+     * Fetches {@link CashTransaction} data from persistence.
      *
-     * @return Merchant or null
+     * @return fetched CashTransaction result or null
      */
-    public DataFetcher<Merchant> MerchantFetcher() {
-        return dataFetchingEnvironment -> {
-            String merchantId = dataFetchingEnvironment.getArgument("id");
+    public DataFetcher<Merchant> merchantFetcher() {
+        return environment -> {
+            String merchantId = environment.getArgument("id");
             return merchantRepository
                     .findById(merchantId)
                     .stream()

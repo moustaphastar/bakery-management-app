@@ -15,54 +15,80 @@ import javax.persistence.PersistenceContext;
  */
 public class VehicleDriverCustomerHome {
 
-	private static final Log log = LogFactory.getLog(VehicleDriverCustomerHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(VehicleDriverCustomerHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(DriverCustomer transientInstance) {
-		log.debug("persisting DriverCustomer instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance DriverCustomer entity to persist
+     */
+    public void persist(final DriverCustomer transientInstance) {
+        LOG.debug("persisting DriverCustomer instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(DriverCustomer persistentInstance) {
-		log.debug("removing DriverCustomer instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance DriverCustomer entity to remove
+     */
+    public void remove(final DriverCustomer persistentInstance) {
+        LOG.debug("removing DriverCustomer instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public DriverCustomer merge(DriverCustomer detachedInstance) {
-		log.debug("merging DriverCustomer instance");
-		try {
-			DriverCustomer result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance DriverCustomer entity to merge
+     * @return DriverCustomer
+     */
+    public DriverCustomer merge(final DriverCustomer detachedInstance) {
+        LOG.debug("merging DriverCustomer instance");
+        try {
+            DriverCustomer result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public DriverCustomer findById(int id) {
-		log.debug("getting DriverCustomer instance with id: " + id);
-		try {
-			DriverCustomer instance = entityManager.find(DriverCustomer.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return DriverCustomer
+     */
+    public DriverCustomer findById(final int id) {
+        LOG.debug("getting DriverCustomer instance with id: " + id);
+        try {
+            DriverCustomer instance = entityManager
+                    .find(DriverCustomer.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

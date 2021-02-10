@@ -4,13 +4,27 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+/***
+ * Domain model class to hold cash account data.
+ * @since 1.0
+ * @author Moustapha Star
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -18,46 +32,94 @@ import java.util.UUID;
 @Table(name = "CashAccount", schema = "dbo", catalog = "onlineaccounting")
 public class CashAccount implements java.io.Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id", unique = true, nullable = false)
-	private int id;
+    /***
+     * Id of the entity.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id", unique = true, nullable = false)
+    private int id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MerchantId", nullable = false)
-	private Merchant merchant;
+    /***
+     * Parent {@link Merchant} entity with many to one relation.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MerchantId", nullable = false)
+    private Merchant merchant;
 
-	@Column(name = "MerchantId", nullable = false, updatable = false, insertable = false)
-	private UUID merchantId;
+    /***
+     * Foreign key to parent {@link Merchant} entity Id.
+     */
+    @Column(name = "MerchantId", nullable = false, updatable = false,
+            insertable = false)
+    private UUID merchantId;
 
-	@Column(name = "FiscalYear", nullable = false)
-	private int fiscalYear;
+    /***
+     * Yearly financial period that financial accounting is applied.
+     */
+    @Column(name = "FiscalYear", nullable = false)
+    private int fiscalYear;
 
-	@Column(name = "TotalReceived", nullable = false, precision = 9)
-	private BigDecimal totalReceived;
+    /***
+     * Total cash amount received currently.
+     */
+    @SuppressWarnings("magicnumber")
+    @Column(name = "TotalReceived", nullable = false, precision = 9)
+    private BigDecimal totalReceived;
 
-	@Column(name = "TotalPaid", nullable = false, precision = 9)
-	private BigDecimal totalPaid;
+    /***
+     * Total cash amount paid currently.
+     */
+    @SuppressWarnings("magicnumber")
+    @Column(name = "TotalPaid", nullable = false, precision = 9)
+    private BigDecimal totalPaid;
 
-	@Column(name = "OutstandingBalance", nullable = false, precision = 9)
-	private BigDecimal outstandingBalance;
+    /***
+     * The balance coming from previous financial term or an opening balance.
+     */
+    @SuppressWarnings("magicnumber")
+    @Column(name = "OutstandingBalance", nullable = false, precision = 9)
+    private BigDecimal outstandingBalance;
 
-	@Column(name = "Balance", precision = 11)
-	private BigDecimal balance;
+    /***
+     * Current balance.
+     */
+    @SuppressWarnings("checkstyle:magicnumber")
+    @Column(name = "Balance", precision = 11)
+    private BigDecimal balance;
 
-	@Column(name = "RegularInvoiceLimit", nullable = false, precision = 9)
-	private BigDecimal regularInvoiceLimit;
+    /***
+     * From this amount,it is compulsory to issue an invoice.
+     * Transactions with lower amounts can be processed without invoice
+     * such as point of sale receipts, bills.
+     */
+    @SuppressWarnings("checkstyle:magicnumber")
+    @Column(name = "RegularInvoiceLimit", nullable = false, precision = 9)
+    private BigDecimal regularInvoiceLimit;
 
-	@Column(name = "LastUpdate", nullable = false, length = 19)
-	private OffsetDateTime lastUpdate;
+    /***
+     * Date and time of last update with an offset.
+     */
+    @SuppressWarnings("checkstyle:magicnumber")
+    @Column(name = "LastUpdate", nullable = false, length = 19)
+    private OffsetDateTime lastUpdate;
 
-	@Column(name = "Active", nullable = false)
-	private boolean active;
+    /***
+     * State of existence in persistence.
+     */
+    @Column(name = "Active", nullable = false)
+    private boolean active;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cashAccount")
-	private Set<CashTransaction> cashTransactions = new HashSet<>(0);
+    /***
+     * Set of child {@link CashTransaction} with one to many relation.
+     */
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cashAccount")
+    private Set<CashTransaction> cashTransactions = new HashSet<>(0);
 
-	public CashAccount() {
-	}
+    /***
+     * Class constructor.
+     */
+    public CashAccount() {
+    }
 
 }

@@ -16,54 +16,80 @@ import java.io.Serializable;
  */
 public class DeviceCodesHome {
 
-	private static final Log log = LogFactory.getLog(DeviceCodesHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(DeviceCodesHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(DeviceCodes transientInstance) {
-		log.debug("persisting DeviceCodes instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance DeviceCodes entity to persist
+     */
+    public void persist(final DeviceCodes transientInstance) {
+        LOG.debug("persisting DeviceCodes instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(DeviceCodes persistentInstance) {
-		log.debug("removing DeviceCodes instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance DeviceCodes entity to remove
+     */
+    public void remove(final DeviceCodes persistentInstance) {
+        LOG.debug("removing DeviceCodes instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public DeviceCodes merge(DeviceCodes detachedInstance) {
-		log.debug("merging DeviceCodes instance");
-		try {
-			DeviceCodes result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance DeviceCodes entity to merge
+     * @return DeviceCodes
+     */
+    public DeviceCodes merge(final DeviceCodes detachedInstance) {
+        LOG.debug("merging DeviceCodes instance");
+        try {
+            DeviceCodes result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public DeviceCodes findById(Serializable id) {
-		log.debug("getting DeviceCodes instance with id: " + id);
-		try {
-			DeviceCodes instance = entityManager.find(DeviceCodes.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return DeviceCodes
+     */
+    public DeviceCodes findById(final Serializable id) {
+        LOG.debug("getting DeviceCodes instance with id: " + id);
+        try {
+            DeviceCodes instance = entityManager
+                    .find(DeviceCodes.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

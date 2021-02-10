@@ -16,54 +16,80 @@ import javax.persistence.PersistenceContext;
  */
 public class AspNetUserLoginsHome {
 
-	private static final Log log = LogFactory.getLog(AspNetUserLoginsHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(AspNetUserLoginsHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(AspNetUserLogins transientInstance) {
-		log.debug("persisting AspNetUserLogins instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance AspNetUserLogins entity to persist
+     */
+    public void persist(final AspNetUserLogins transientInstance) {
+        LOG.debug("persisting AspNetUserLogins instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(AspNetUserLogins persistentInstance) {
-		log.debug("removing AspNetUserLogins instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance AspNetUserLogins entity to remove
+     */
+    public void remove(final AspNetUserLogins persistentInstance) {
+        LOG.debug("removing AspNetUserLogins instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public AspNetUserLogins merge(AspNetUserLogins detachedInstance) {
-		log.debug("merging AspNetUserLogins instance");
-		try {
-			AspNetUserLogins result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance AspNetUserLogins entity to merge
+     * @return AspNetUserLogins
+     */
+    public AspNetUserLogins merge(final AspNetUserLogins detachedInstance) {
+        LOG.debug("merging AspNetUserLogins instance");
+        try {
+            AspNetUserLogins result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public AspNetUserLogins findById(AspNetUserLoginsId id) {
-		log.debug("getting AspNetUserLogins instance with id: " + id);
-		try {
-			AspNetUserLogins instance = entityManager.find(AspNetUserLogins.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return AspNetUserLogins
+     */
+    public AspNetUserLogins findById(final AspNetUserLoginsId id) {
+        LOG.debug("getting AspNetUserLogins instance with id: " + id);
+        try {
+            AspNetUserLogins instance = entityManager
+                    .find(AspNetUserLogins.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

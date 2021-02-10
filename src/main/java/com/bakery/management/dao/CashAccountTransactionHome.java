@@ -9,59 +9,86 @@ import javax.persistence.PersistenceContext;
 
 /**
  * Home object for domain model class AccountTransaction.
- * @see CashTransaction
+ *
  * @author Hibernate Tools
+ * @see CashTransaction
  */
 public class CashAccountTransactionHome {
 
-	private static final Log log = LogFactory.getLog(CashAccountTransactionHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(CashAccountTransactionHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(CashTransaction transientInstance) {
-		log.debug("persisting CashAccountTransaction instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance CashTransaction entity to persist
+     */
+    public void persist(final CashTransaction transientInstance) {
+        LOG.debug("persisting CashAccountTransaction instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(CashTransaction persistentInstance) {
-		log.debug("removing CashAccountTransaction instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance CashTransaction entity to remove
+     */
+    public void remove(final CashTransaction persistentInstance) {
+        LOG.debug("removing CashAccountTransaction instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public CashTransaction merge(CashTransaction detachedInstance) {
-		log.debug("merging CashAccountTransaction instance");
-		try {
-			CashTransaction result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance CashTransaction entity to merge
+     * @return CashTransaction
+     */
+    public CashTransaction merge(final CashTransaction detachedInstance) {
+        LOG.debug("merging CashAccountTransaction instance");
+        try {
+            CashTransaction result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public CashTransaction findById(int id) {
-		log.debug("getting CashAccountTransaction instance with id: " + id);
-		try {
-			CashTransaction instance = entityManager.find(CashTransaction.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return CashTransaction
+     */
+    public CashTransaction findById(final int id) {
+        LOG.debug("getting CashAccountTransaction instance with id: " + id);
+        try {
+            CashTransaction instance = entityManager
+                    .find(CashTransaction.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }
