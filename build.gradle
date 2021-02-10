@@ -41,3 +41,8 @@ test {
 		events "passed", "skipped", "failed"
 	}
 }
+
+bootJar{
+	mainClassName = 'com.bakery.management.Application'
+}
+
