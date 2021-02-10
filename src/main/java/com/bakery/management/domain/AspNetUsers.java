@@ -145,9 +145,15 @@ public class AspNetUsers implements java.io.Serializable {
     @JoinTable(name = "AspNetUserRoles", schema = "dbo",
             catalog = "onlineaccounting",
             joinColumns = {
-                    @JoinColumn(name = "UserId", nullable = false, updatable = false)},
+                    @JoinColumn(
+                            name = "UserId",
+                            nullable = false,
+                            updatable = false)},
             inverseJoinColumns = {
-                    @JoinColumn(name = "RoleId", nullable = false, updatable = false)})
+                    @JoinColumn(
+                            name = "RoleId",
+                            nullable = false,
+                            updatable = false)})
     private Set<AspNetRoles> aspNetRoles = new HashSet<>(0);
 
     /***
