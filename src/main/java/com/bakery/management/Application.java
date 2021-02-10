@@ -13,19 +13,16 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class Application {
 
     /***
-     * Application arguments.
+     * Class private constructor.
      */
-    private static String[] args = new String[0];
+    private Application() {
+    }
 
     /***
      * Application entry point, main method.
      */
     public static void main() {
-        SpringApplication.run(Application.class, args);
-    }
-
-    public Application(final String[] arg) {
-        args = arg;
+        SpringApplication.run(Application.class);
     }
 
 }
