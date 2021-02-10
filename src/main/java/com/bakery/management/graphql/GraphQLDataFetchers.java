@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Optional;
 
 /***
  * Provides data fetchers for graphql-java.
@@ -58,7 +59,8 @@ public class GraphQLDataFetchers {
     public DataFetcher<CashTransaction> cashTransactionFetcher() {
         return environment -> {
             int id = environment.getArgument("id");
-            var cashAccount = cashTransactionRepository.findById(id);
+            Optional<CashTransaction> cashAccount = cashTransactionRepository
+                    .findById(id);
             return cashAccount.orElse(null);
         };
     }
@@ -80,16 +82,17 @@ public class GraphQLDataFetchers {
 
             try {
                 // Validate dates and period than get an ordered map
-                var dateMap = new DateHelpers(
+                DateHelpers dateMap = new DateHelpers(
                         LocalDate.parse(dateFrom), LocalDate.parse(dateTo))
                         .validatePeriod(3)
                         .buildMap();
 
-                var transactions = cashTransactionRepository
-                        .getTransactions(cashAccountId,
-                                dateMap.getFromDate(),
-                                dateMap.getToDate(),
-                                transactionType);
+                Optional<List<CashTransaction>> transactions =
+                        cashTransactionRepository
+                                .getTransactions(cashAccountId,
+                                        dateMap.getFromDate(),
+                                        dateMap.getToDate(),
+                                        transactionType);
 
                 return transactions.orElse(null);
             } catch (DateTimeParseException | NullPointerException exception) {
@@ -108,8 +111,6 @@ public class GraphQLDataFetchers {
             String merchantId = environment.getArgument("id");
             return merchantRepository
                     .findById(merchantId)
-                    .stream()
-                    .findFirst()
                     .orElse(null);
         };
     }
