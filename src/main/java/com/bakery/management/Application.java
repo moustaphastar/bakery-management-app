@@ -24,7 +24,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    private Application(final String[] arg) {
+    public Application(final String[] arg) {
         args = arg;
     }
 
