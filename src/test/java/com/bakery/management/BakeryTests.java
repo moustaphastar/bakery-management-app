@@ -19,32 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class BakeryTests {
 
     /***
-     * Injection for AddressDataFetcher class.
+     * Dumb test.
      */
-    @Autowired
-    private AddressDataFetcher addressDataFetcher;
-
     @Test
     void contextLoads() {
-    }
-
-    @Test
-    void testSQLServerConnection() {
-        String connectionString = "jdbc:sqlserver://localhost:1433;"
-                + "databaseName=onlineaccounting;integratedSecurity=true";
-        boolean didConnect = false;
-
-        try (
-                Connection connection = DriverManager
-                        .getConnection(connectionString);
-                Statement statement = connection.createStatement()) {
-
-            didConnect = statement.execute("Select getdate()");
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        }
-
-        assertTrue(didConnect);
+        assertTrue(true);
     }
 
     // todo: Add graphql java implementation unit tests.
