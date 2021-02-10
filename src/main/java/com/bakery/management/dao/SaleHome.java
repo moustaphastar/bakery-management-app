@@ -15,53 +15,77 @@ import javax.persistence.PersistenceContext;
  */
 public class SaleHome {
 
-    private static final Log log = LogFactory.getLog(SaleHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory.getLog(SaleHome.class);
 
+    /***
+     * EntityManager field to apply data operations.
+     */
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void persist(Order transientInstance) {
-        log.debug("persisting Order instance");
+    /***
+     * Persist entity to database.
+     * @param transientInstance Order entity to persist
+     */
+    public void persist(final Order transientInstance) {
+        LOG.debug("persisting Order instance");
         try {
             entityManager.persist(transientInstance);
-            log.debug("persist successful");
+            LOG.debug("persist successful");
         } catch (RuntimeException re) {
-            log.error("persist failed", re);
+            LOG.error("persist failed", re);
             throw re;
         }
     }
 
-    public void remove(Order persistentInstance) {
-        log.debug("removing Order instance");
+    /***
+     * Remove entity from database.
+     * @param persistentInstance Order entity to remove
+     */
+    public void remove(final Order persistentInstance) {
+        LOG.debug("removing Order instance");
         try {
             entityManager.remove(persistentInstance);
-            log.debug("remove successful");
+            LOG.debug("remove successful");
         } catch (RuntimeException re) {
-            log.error("remove failed", re);
+            LOG.error("remove failed", re);
             throw re;
         }
     }
 
-    public Order merge(Order detachedInstance) {
-        log.debug("merging Order instance");
+    /***
+     * Merge entity from database.
+     * @param detachedInstance Order entity to merge
+     * @return Order
+     */
+    public Order merge(final Order detachedInstance) {
+        LOG.debug("merging Order instance");
         try {
             Order result = entityManager.merge(detachedInstance);
-            log.debug("merge successful");
+            LOG.debug("merge successful");
             return result;
         } catch (RuntimeException re) {
-            log.error("merge failed", re);
+            LOG.error("merge failed", re);
             throw re;
         }
     }
 
-    public Order findById(int id) {
-        log.debug("getting Order instance with id: " + id);
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return Order
+     */
+    public Order findById(final int id) {
+        LOG.debug("getting Order instance with id: " + id);
         try {
             Order instance = entityManager.find(Order.class, id);
-            log.debug("get successful");
+            LOG.debug("get successful");
             return instance;
         } catch (RuntimeException re) {
-            log.error("get failed", re);
+            LOG.error("get failed", re);
             throw re;
         }
     }

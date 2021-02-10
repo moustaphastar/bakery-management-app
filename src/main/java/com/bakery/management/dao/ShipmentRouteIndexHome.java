@@ -15,54 +15,80 @@ import javax.persistence.PersistenceContext;
  */
 public class ShipmentRouteIndexHome {
 
-	private static final Log log = LogFactory.getLog(ShipmentRouteIndexHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(ShipmentRouteIndexHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(ShipmentRouteIndex transientInstance) {
-		log.debug("persisting ShipmentRouteIndex instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance ShipmentRouteIndex entity to persist
+     */
+    public void persist(final ShipmentRouteIndex transientInstance) {
+        LOG.debug("persisting ShipmentRouteIndex instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(ShipmentRouteIndex persistentInstance) {
-		log.debug("removing ShipmentRouteIndex instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance ShipmentRouteIndex entity to remove
+     */
+    public void remove(final ShipmentRouteIndex persistentInstance) {
+        LOG.debug("removing ShipmentRouteIndex instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public ShipmentRouteIndex merge(ShipmentRouteIndex detachedInstance) {
-		log.debug("merging ShipmentRouteIndex instance");
-		try {
-			ShipmentRouteIndex result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance ShipmentRouteIndex entity to merge
+     * @return ShipmentRouteIndex
+     */
+    public ShipmentRouteIndex merge(final ShipmentRouteIndex detachedInstance) {
+        LOG.debug("merging ShipmentRouteIndex instance");
+        try {
+            ShipmentRouteIndex result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public ShipmentRouteIndex findById(int id) {
-		log.debug("getting ShipmentRouteIndex instance with id: " + id);
-		try {
-			ShipmentRouteIndex instance = entityManager.find(ShipmentRouteIndex.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return ShipmentRouteIndex
+     */
+    public ShipmentRouteIndex findById(final int id) {
+        LOG.debug("getting ShipmentRouteIndex instance with id: " + id);
+        try {
+            ShipmentRouteIndex instance = entityManager
+                    .find(ShipmentRouteIndex.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }
