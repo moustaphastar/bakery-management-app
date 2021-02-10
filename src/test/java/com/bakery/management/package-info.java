@@ -1,5 +1,5 @@
 /**
- * Provides application entry point and sub packages.
+ * Provides unit tests for the application.
  *
  * @author Moustapha Star
  * @version 1.0
