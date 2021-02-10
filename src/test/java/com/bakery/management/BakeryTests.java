@@ -18,13 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(SpringExtension.class)
 class BakeryTests {
 
-    /***
-     * Dumb test.
-     */
-    @Test
-    void contextLoads() {
-        assertTrue(true);
-    }
+    ///***
+    // * Dumb test.
+    // */
+    //@Test
+    //void contextLoads() {
+    //    assertTrue(true);
+    //}
 
     // todo: Add graphql java implementation unit tests.
 
