@@ -1,4 +1,5 @@
 # Bakery management app
+![Build Status](https://github.com/moustaphastar/bakery-management-app/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=main)
 
 This is a simplified version of a bakery store management web application, built with spring-boot, graphql-java and
 react.
