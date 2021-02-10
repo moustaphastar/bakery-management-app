@@ -1,34 +1,73 @@
 package com.bakery.management.helpers;
 
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.time.Period;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 
+/***
+ * Provides helper methods for date operations.
+ * @since 1.0
+ * @author Moustapha Star
+ */
 public class DateHelpers {
-    private static final LocalDate currentDate = LocalDate.now();
+
+    /***
+     * Current date as LocalDate.
+     */
+    // todo: LocalDateTime or LocalDate?
+    private static final LocalDate CURRENT_DATE = LocalDate.now();
+
+    /***
+     * State of validity of date parameters.
+     * {@see validatePeriod} for validation rules.
+     */
     private static boolean isPeriodValid = false;
-    private final LocalDate dateOne;
-    private final LocalDate dateTwo;
+
+    /***
+     * Holds beginning date.
+     */
+    private final LocalDate dateFrom;
+
+    /***
+     * Holds ending date.
+     */
+    private final LocalDate dateTo;
+
+    /***
+     * Holds beginning and ending dates in order.
+     * First entry key is fromDate and second entry key is toDate.
+     */
     private final Map<String, LocalDate> orderedMap = new HashMap<>(2);
 
-    public DateHelpers(LocalDate dateOne, LocalDate dateTwo) {
-        this.dateOne = dateOne;
-        this.dateTwo = dateTwo;
+    /***
+     * Constructor with two date parameters.
+     * @param dateOne the date that is believed to be earlier
+     * @param dateTwo the date that is believed to be later
+     */
+    public DateHelpers(final LocalDate dateOne, final LocalDate dateTwo) {
+        this.dateFrom = dateOne;
+        this.dateTo = dateTwo;
     }
 
     /**
-     * Checks if class Date members are earlier than current date
-     * and the difference between in months equals to or less than
-     * maxDistanceInMonths parameter.
+     * Checks if given two dates match those three criteria.
+     * First: maximum distance allowed in total months between dates.
+     * Second: maximum distance backwards from now.
+     * Three: dates are before now.
      *
-     * @param maxDistanceInMonths maximum distance in months between dates
+     * @param maxDistanceInMonths maximum distance allowed in total months
      * @return this
      */
-    public DateHelpers ValidatePeriod(int maxDistanceInMonths) {
-        long period = Period.between(dateOne, dateTwo).toTotalMonths();
+    // todo: Add comparison for CURRENT_DATE.
+    public DateHelpers validatePeriod(final int maxDistanceInMonths) {
+        long period = Period.between(dateFrom, dateTo).toTotalMonths();
 
-        if (dateOne.isAfter(currentDate) & dateTwo.isAfter(currentDate) & period >= maxDistanceInMonths) {
+        if (dateFrom.isBefore(CURRENT_DATE)
+                & dateTo.isBefore(CURRENT_DATE)
+                & period <= maxDistanceInMonths) {
             isPeriodValid = true;
         }
 
@@ -36,23 +75,53 @@ public class DateHelpers {
     }
 
     /**
-     * Returns a HashMap containing ordered result if calculated period is valid.
-     * Otherwise returns null. fromDate is the earlier one, toDate is the latter.
-     * If dates are equal then dateOne parameter is accepted the earlier one.
+     * Builds a Map containing ordered result if time period is valid,
+     * otherwise returns null. fromDate is the earlier one. If dates
+     * are equal then fromDate parameter is accepted the earlier one.
      *
-     * @return HashMap<String, Date>
+     * @return this
      */
-    public Map<String, LocalDate> GetMap() {
+    public DateHelpers buildMap() {
         if (isPeriodValid) {
-            if (dateOne.isBefore(dateTwo)) {
-                orderedMap.put("fromDate", dateOne);
-                orderedMap.put("toDate", dateTwo);
+            if (dateFrom.isBefore(dateTo)) {
+                orderedMap.put("fromDate", dateFrom);
+                orderedMap.put("toDate", dateTo);
             } else {
-                orderedMap.put("fromDate", dateTwo);
-                orderedMap.put("toDate", dateOne);
+                orderedMap.put("fromDate", dateTo);
+                orderedMap.put("toDate", dateFrom);
             }
         }
 
-        return orderedMap;
+        return this;
+    }
+
+    /**
+     * Returns the value with fromDate key from {@link #orderedMap}.
+     *
+     * @return beginning date
+     */
+    public OffsetDateTime getFromDate() {
+        if (isPeriodValid) {
+            return orderedMap
+                    .get("fromDate")
+                    .atStartOfDay()
+                    .atOffset(ZoneOffset.UTC);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the value with toDate key from {@link #orderedMap}.
+     *
+     * @return ending date
+     */
+    public OffsetDateTime getToDate() {
+        if (isPeriodValid) {
+            return orderedMap
+                    .get("toDate")
+                    .atStartOfDay()
+                    .atOffset(ZoneOffset.UTC);
+        }
+        return null;
     }
 }

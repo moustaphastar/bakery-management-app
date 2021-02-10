@@ -15,53 +15,78 @@ import javax.persistence.PersistenceContext;
  */
 public class DocumentShipmentHome {
 
-    private static final Log log = LogFactory.getLog(DocumentShipmentHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory
+            .getLog(DocumentShipmentHome.class);
 
+    /***
+     * EntityManager field to apply data operations.
+     */
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void persist(DispatchNote transientInstance) {
-        log.debug("persisting DispatchNote instance");
+    /***
+     * Persist entity to database.
+     * @param transientInstance DispatchNote entity to persist
+     */
+    public void persist(final DispatchNote transientInstance) {
+        LOG.debug("persisting DispatchNote instance");
         try {
             entityManager.persist(transientInstance);
-            log.debug("persist successful");
+            LOG.debug("persist successful");
         } catch (RuntimeException re) {
-            log.error("persist failed", re);
+            LOG.error("persist failed", re);
             throw re;
         }
     }
 
-    public void remove(DispatchNote persistentInstance) {
-        log.debug("removing DispatchNote instance");
+    /***
+     * Remove entity from database.
+     * @param persistentInstance DispatchNote entity to remove
+     */
+    public void remove(final DispatchNote persistentInstance) {
+        LOG.debug("removing DispatchNote instance");
         try {
             entityManager.remove(persistentInstance);
-            log.debug("remove successful");
+            LOG.debug("remove successful");
         } catch (RuntimeException re) {
-            log.error("remove failed", re);
+            LOG.error("remove failed", re);
             throw re;
         }
     }
 
-    public DispatchNote merge(DispatchNote detachedInstance) {
-        log.debug("merging DispatchNote instance");
+    /***
+     * Merge entity from database.
+     * @param detachedInstance DispatchNote entity to merge
+     * @return DispatchNote
+     */
+    public DispatchNote merge(final DispatchNote detachedInstance) {
+        LOG.debug("merging DispatchNote instance");
         try {
             DispatchNote result = entityManager.merge(detachedInstance);
-            log.debug("merge successful");
+            LOG.debug("merge successful");
             return result;
         } catch (RuntimeException re) {
-            log.error("merge failed", re);
+            LOG.error("merge failed", re);
             throw re;
         }
     }
 
-    public DispatchNote findById(int id) {
-        log.debug("getting DispatchNote instance with id: " + id);
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return DispatchNote
+     */
+    public DispatchNote findById(final int id) {
+        LOG.debug("getting DispatchNote instance with id: " + id);
         try {
             DispatchNote instance = entityManager.find(DispatchNote.class, id);
-            log.debug("get successful");
+            LOG.debug("get successful");
             return instance;
         } catch (RuntimeException re) {
-            log.error("get failed", re);
+            LOG.error("get failed", re);
             throw re;
         }
     }

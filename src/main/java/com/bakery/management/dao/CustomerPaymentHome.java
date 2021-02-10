@@ -15,54 +15,79 @@ import javax.persistence.PersistenceContext;
  */
 public class CustomerPaymentHome {
 
-	private static final Log log = LogFactory.getLog(CustomerPaymentHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory.getLog(CustomerPaymentHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(CustomerPayment transientInstance) {
-		log.debug("persisting CustomerPayment instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance CustomerPayment entity to persist
+     */
+    public void persist(final CustomerPayment transientInstance) {
+        LOG.debug("persisting CustomerPayment instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(CustomerPayment persistentInstance) {
-		log.debug("removing CustomerPayment instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance CustomerPayment entity to remove
+     */
+    public void remove(final CustomerPayment persistentInstance) {
+        LOG.debug("removing CustomerPayment instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public CustomerPayment merge(CustomerPayment detachedInstance) {
-		log.debug("merging CustomerPayment instance");
-		try {
-			CustomerPayment result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance CustomerPayment entity to merge
+     * @return CustomerPayment
+     */
+    public CustomerPayment merge(final CustomerPayment detachedInstance) {
+        LOG.debug("merging CustomerPayment instance");
+        try {
+            CustomerPayment result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public CustomerPayment findById(int id) {
-		log.debug("getting CustomerPayment instance with id: " + id);
-		try {
-			CustomerPayment instance = entityManager.find(CustomerPayment.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return CustomerPayment
+     */
+    public CustomerPayment findById(final int id) {
+        LOG.debug("getting CustomerPayment instance with id: " + id);
+        try {
+            CustomerPayment instance = entityManager
+                    .find(CustomerPayment.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

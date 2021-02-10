@@ -15,54 +15,79 @@ import javax.persistence.PersistenceContext;
  */
 public class ProductCategoryHome {
 
-	private static final Log log = LogFactory.getLog(ProductCategoryHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory.getLog(ProductCategoryHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(ProductCategory transientInstance) {
-		log.debug("persisting ProductCategory instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance ProductCategory entity to persist
+     */
+    public void persist(final ProductCategory transientInstance) {
+        LOG.debug("persisting ProductCategory instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(ProductCategory persistentInstance) {
-		log.debug("removing ProductCategory instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance ProductCategory entity to remove
+     */
+    public void remove(final ProductCategory persistentInstance) {
+        LOG.debug("removing ProductCategory instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public ProductCategory merge(ProductCategory detachedInstance) {
-		log.debug("merging ProductCategory instance");
-		try {
-			ProductCategory result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance ProductCategory entity to merge
+     * @return ProductCategory
+     */
+    public ProductCategory merge(final ProductCategory detachedInstance) {
+        LOG.debug("merging ProductCategory instance");
+        try {
+            ProductCategory result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public ProductCategory findById(int id) {
-		log.debug("getting ProductCategory instance with id: " + id);
-		try {
-			ProductCategory instance = entityManager.find(ProductCategory.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return ProductCategory
+     */
+    public ProductCategory findById(final int id) {
+        LOG.debug("getting ProductCategory instance with id: " + id);
+        try {
+            ProductCategory instance = entityManager
+                    .find(ProductCategory.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }

@@ -9,59 +9,84 @@ import javax.persistence.PersistenceContext;
 
 /**
  * Home object for domain model class Account.
- * @see CashAccount
+ *
  * @author Hibernate Tools
+ * @see CashAccount
  */
 public class CashAccountHome {
 
-	private static final Log log = LogFactory.getLog(CashAccountHome.class);
+    /***
+     * Static final field for logging utility.
+     */
+    private static final Log LOG = LogFactory.getLog(CashAccountHome.class);
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    /***
+     * EntityManager field to apply data operations.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
 
-	public void persist(CashAccount transientInstance) {
-		log.debug("persisting CashAccount instance");
-		try {
-			entityManager.persist(transientInstance);
-			log.debug("persist successful");
-		} catch (RuntimeException re) {
-			log.error("persist failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Persist entity to database.
+     * @param transientInstance CashAccount entity to persist
+     */
+    public void persist(final CashAccount transientInstance) {
+        LOG.debug("persisting CashAccount instance");
+        try {
+            entityManager.persist(transientInstance);
+            LOG.debug("persist successful");
+        } catch (RuntimeException re) {
+            LOG.error("persist failed", re);
+            throw re;
+        }
+    }
 
-	public void remove(CashAccount persistentInstance) {
-		log.debug("removing CashAccount instance");
-		try {
-			entityManager.remove(persistentInstance);
-			log.debug("remove successful");
-		} catch (RuntimeException re) {
-			log.error("remove failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Remove entity from database.
+     * @param persistentInstance CashAccount entity to remove
+     */
+    public void remove(final CashAccount persistentInstance) {
+        LOG.debug("removing CashAccount instance");
+        try {
+            entityManager.remove(persistentInstance);
+            LOG.debug("remove successful");
+        } catch (RuntimeException re) {
+            LOG.error("remove failed", re);
+            throw re;
+        }
+    }
 
-	public CashAccount merge(CashAccount detachedInstance) {
-		log.debug("merging CashAccount instance");
-		try {
-			CashAccount result = entityManager.merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Merge entity from database.
+     * @param detachedInstance CashAccount entity to merge
+     * @return CashAccount
+     */
+    public CashAccount merge(final CashAccount detachedInstance) {
+        LOG.debug("merging CashAccount instance");
+        try {
+            CashAccount result = entityManager.merge(detachedInstance);
+            LOG.debug("merge successful");
+            return result;
+        } catch (RuntimeException re) {
+            LOG.error("merge failed", re);
+            throw re;
+        }
+    }
 
-	public CashAccount findById(int id) {
-		log.debug("getting CashAccount instance with id: " + id);
-		try {
-			CashAccount instance = entityManager.find(CashAccount.class, id);
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
+    /***
+     * Finds an entity from database.
+     * @param id Id of the entity to find from database
+     * @return CashAccount
+     */
+    public CashAccount findById(final int id) {
+        LOG.debug("getting CashAccount instance with id: " + id);
+        try {
+            CashAccount instance = entityManager.find(CashAccount.class, id);
+            LOG.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            LOG.error("get failed", re);
+            throw re;
+        }
+    }
 }
