@@ -26,12 +26,12 @@ react. The project is not completed yet. Please feel free to submit any issue or
 # Installing and running
 
 - Clone the project `git clone https://github.com/moustaphastar/bakery-management-app.git` or download the code.
-- Open the project with an IDE and build the project. If you want to use command line run `gradle install` to install
+- Open the project with an IDE and build the project. If you want to use command line, run `gradle install` to install
   dependencies than `gradle build` to build the project.
 
 # React application
 
-- It has not beet added yet.
+- It has not been added yet.
 
 # TODO
 
