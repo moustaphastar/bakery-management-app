@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
@@ -81,21 +80,18 @@ public class GraphQLDataFetchers {
                     .valueOf(transactionTypeString);
 
             try {
-                // Validate dates and period than get an ordered map
-                DateHelpers dateMap = new DateHelpers(
-                        LocalDate.parse(dateFrom), LocalDate.parse(dateTo))
-                        .validatePeriod(3)
-                        .buildMap();
+                DateHelpers dateMap = new DateHelpers(dateFrom, dateTo);
 
                 Optional<List<CashTransaction>> transactions =
                         cashTransactionRepository
                                 .getTransactions(cashAccountId,
-                                        dateMap.getFromDate(),
-                                        dateMap.getToDate(),
+                                        dateMap.getEarlierDate(),
+                                        dateMap.getLaterDate(),
                                         transactionType);
 
                 return transactions.orElse(null);
-            } catch (DateTimeParseException | NullPointerException exception) {
+            } catch (DateTimeParseException | NullPointerException
+                    | IllegalArgumentException exception) {
                 return null;
             }
         };
