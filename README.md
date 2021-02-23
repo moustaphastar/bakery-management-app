@@ -27,12 +27,23 @@ react. The project is not completed yet. Please feel free to submit any issue or
 # Installing and running
 
 - Clone the project `git clone https://github.com/moustaphastar/bakery-management-app.git` or download the code.
-- Open the project with an IDE and build the project. If you want to use command line run `gradle install` to install
-  dependencies than `gradle build` to build the project.
+- Open the project with an IDE and build the project. A run/debug configuration might be needed by the IDE, than set up
+  the configuration by following the IDE documentation. If want to use command line, execute `gradle build`
+  or `gradlew build` to build the project. That might take a long time for the first run. To start and run the
+  application execute `gradle bootRun` or `gradlew bootRun`.
+
+# OpenAPI and the swagger ui
+
+- When the application is started, it tries to open the default browser and the default swagger ui as "localhost:
+  8080/swagger-ui.html"
+
+- You can try sample graphql queries but be careful to provide valid json payload.
+
+- Alternatively you can use GraphQL Playground or GraphiQl applications
 
 # React application
 
-- It has not beet added yet.
+- It has not been added yet. I will add it soon.
 
 # TODO
 
