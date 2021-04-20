@@ -1,6 +1,6 @@
 package com.bakery.management.graphql.datafetchers;
 
-import com.bakery.management.model.entity.CashAccount;
+import com.bakery.management.domain.CashAccount;
 import com.bakery.management.repository.CashAccountRepository;
 import com.bakery.management.repository.CashTransactionRepository;
 import graphql.schema.DataFetcher;

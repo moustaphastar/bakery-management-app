@@ -1,6 +1,6 @@
 package com.bakery.management.repository;
 
-import com.bakery.management.model.entity.Address;
+import com.bakery.management.domain.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

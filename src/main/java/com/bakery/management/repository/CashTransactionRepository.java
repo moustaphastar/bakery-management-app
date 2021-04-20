@@ -1,7 +1,7 @@
 package com.bakery.management.repository;
 
+import com.bakery.management.domain.CashTransaction;
 import com.bakery.management.enums.CashTransactionType;
-import com.bakery.management.model.entity.CashTransaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

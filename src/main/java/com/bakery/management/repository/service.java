@@ -1,12 +1,9 @@
 package com.bakery.management.repository;
 
-import com.bakery.management.model.dao.AddressHome;
-import com.bakery.management.model.dao.CountryHome;
-import com.bakery.management.model.entity.Address;
-import com.bakery.management.model.entity.Country;
+import com.bakery.management.dao.AddressHome;
+import com.bakery.management.dao.CountryHome;
+import com.bakery.management.domain.Address;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Set;
 
 public class service {
     @Autowired

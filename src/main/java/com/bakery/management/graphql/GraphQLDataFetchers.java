@@ -1,10 +1,10 @@
 package com.bakery.management.graphql;
 
+import com.bakery.management.domain.Address;
+import com.bakery.management.domain.CashTransaction;
+import com.bakery.management.domain.Merchant;
 import com.bakery.management.enums.CashTransactionType;
 import com.bakery.management.helpers.DateHelpers;
-import com.bakery.management.model.entity.Address;
-import com.bakery.management.model.entity.CashTransaction;
-import com.bakery.management.model.entity.Merchant;
 import com.bakery.management.repository.AddressRepository;
 import com.bakery.management.repository.CashAccountRepository;
 import com.bakery.management.repository.CashTransactionRepository;

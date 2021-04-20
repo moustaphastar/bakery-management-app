@@ -1,7 +1,7 @@
 package com.bakery.management.graphql.datafetchers;
 
-import com.bakery.management.model.entity.Address;
-import com.bakery.management.model.entity.City;
+import com.bakery.management.domain.Address;
+import com.bakery.management.domain.City;
 import com.bakery.management.repository.AddressRepository;
 import com.bakery.management.repository.CityRepository;
 import graphql.schema.DataFetcher;
