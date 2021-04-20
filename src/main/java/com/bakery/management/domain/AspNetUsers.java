@@ -31,41 +31,6 @@ public class AspNetUsers implements java.io.Serializable {
     public AspNetUsers() {
     }
 
-    public AspNetUsers(UUID id, boolean emailConfirmed, boolean phoneNumberConfirmed, boolean twoFactorEnabled,
-                       boolean lockoutEnabled, int accessFailedCount) {
-        this.id = id;
-        this.emailConfirmed = emailConfirmed;
-        this.phoneNumberConfirmed = phoneNumberConfirmed;
-        this.twoFactorEnabled = twoFactorEnabled;
-        this.lockoutEnabled = lockoutEnabled;
-        this.accessFailedCount = accessFailedCount;
-    }
-
-    public AspNetUsers(UUID id, String userName, String normalizedUserName, String email,
-                       String normalizedEmail, boolean emailConfirmed, String passwordHash, String securityStamp,
-                       String concurrencyStamp, String phoneNumber, boolean phoneNumberConfirmed,
-                       boolean twoFactorEnabled, String lockoutEnd, boolean lockoutEnabled, int accessFailedCount,
-                       Set<AspNetUserLogins> aspNetUserLogins, Set<AspNetUserClaims> aspNetUserClaims, Set<AspNetRoles> aspNetRoles) {
-        this.id = id;
-        this.userName = userName;
-        this.normalizedUserName = normalizedUserName;
-        this.email = email;
-        this.normalizedEmail = normalizedEmail;
-        this.emailConfirmed = emailConfirmed;
-		this.passwordHash = passwordHash;
-		this.securityStamp = securityStamp;
-		this.concurrencyStamp = concurrencyStamp;
-		this.phoneNumber = phoneNumber;
-		this.phoneNumberConfirmed = phoneNumberConfirmed;
-		this.twoFactorEnabled = twoFactorEnabled;
-		this.lockoutEnd = lockoutEnd;
-		this.lockoutEnabled = lockoutEnabled;
-		this.accessFailedCount = accessFailedCount;
-		this.aspNetUserLogins = aspNetUserLogins;
-		this.aspNetUserClaims = aspNetUserClaims;
-        this.aspNetRoles = aspNetRoles;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "Id", unique = true, nullable = false)

@@ -14,18 +14,6 @@ public class AspNetUserClaims implements java.io.Serializable {
 	public AspNetUserClaims() {
 	}
 
-	public AspNetUserClaims(int id, AspNetUsers aspNetUsers) {
-		this.id = id;
-		this.aspNetUsers = aspNetUsers;
-	}
-
-	public AspNetUserClaims(int id, AspNetUsers aspNetUsers, String claimType, String claimValue) {
-		this.id = id;
-		this.aspNetUsers = aspNetUsers;
-		this.claimType = claimType;
-		this.claimValue = claimValue;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

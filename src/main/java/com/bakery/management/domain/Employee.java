@@ -40,52 +40,6 @@ public class Employee implements java.io.Serializable {
 	public Employee() {
 	}
 
-	public Employee(UUID id, Job job, Merchant merchant, String ssn, String firstName,
-					String lastName, String nationalIdNumber, Date birthDate, Date hireDate, Date insertedAt,
-					boolean active) {
-		this.id = id;
-		this.job = job;
-		this.merchant = merchant;
-		this.ssn = ssn;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.nationalIdNumber = nationalIdNumber;
-		this.birthDate = birthDate;
-		this.hireDate = hireDate;
-		this.insertedAt = insertedAt;
-		this.active = active;
-	}
-
-	public Employee(UUID id, Job job, Merchant merchant, String ssn, String firstName,
-					String middleName, String lastName, String nationalIdNumber, Date birthDate, Gender gender,
-					MaritalStatus maritalStatus, String phone, Date hireDate, Date resignDate, Byte vacationDaysLeft,
-					Byte sickHoursLeave, String aspUserId, Date insertedAt, Date lastUpdate, boolean active,
-					Set<EmployeeAddress> employeeAddresses, Set<EmployeeLeave> employeeLeaves, Set<VehicleDriver> vehicleDrivers) {
-		this.id = id;
-		this.job = job;
-		this.merchant = merchant;
-		this.ssn = ssn;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.nationalIdNumber = nationalIdNumber;
-		this.birthDate = birthDate;
-		this.gender = gender;
-		this.maritalStatus = maritalStatus;
-		this.phone = phone;
-		this.hireDate = hireDate;
-		this.resignDate = resignDate;
-		this.vacationDaysLeft = vacationDaysLeft;
-		this.sickHoursLeave = sickHoursLeave;
-		this.aspUserId = aspUserId;
-		this.insertedAt = insertedAt;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.employeeAddresses = employeeAddresses;
-		this.employeeLeaves = employeeLeaves;
-		this.vehicleDrivers = vehicleDrivers;
-	}
-
 	@Id
 	@GeneratedValue
 	@Column(name = "Id", unique = true, nullable = false, length = 36)

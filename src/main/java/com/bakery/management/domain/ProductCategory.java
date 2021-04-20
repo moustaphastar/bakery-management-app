@@ -19,23 +19,6 @@ public class ProductCategory implements java.io.Serializable {
 	public ProductCategory() {
 	}
 
-	public ProductCategory(int id, String name, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.name = name;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
-	public ProductCategory(int id, MerchantType merchantType, String name, Date lastUpdate, boolean active,
-			Set<Product> products) {
-		this.id = id;
-		this.merchantType = merchantType;
-		this.name = name;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.products = products;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

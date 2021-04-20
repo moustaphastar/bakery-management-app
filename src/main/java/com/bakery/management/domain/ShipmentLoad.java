@@ -24,17 +24,6 @@ public class ShipmentLoad implements java.io.Serializable {
 	public ShipmentLoad() {
 	}
 
-	public ShipmentLoad(int id, SaleDetail saleDetail, Shipment shipment, int returnedQuantity, ShipmentLoadStatus status,
-						Date lastUpdate, int active) {
-		this.id = id;
-		this.saleDetail = saleDetail;
-		this.shipment = shipment;
-		this.returnedQuantity = returnedQuantity;
-		this.status = status;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
 	public ShipmentLoad(int id, SaleDetail saleDetail, Shipment shipment, Date deliveryDate, int returnedQuantity,
 						ShipmentLoadStatus status, Date lastUpdate, int active, Set<DocumentShipment> documentShipments) {
 		this.id = id;

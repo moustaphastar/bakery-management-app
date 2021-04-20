@@ -23,27 +23,6 @@ public class CustomerAddress implements java.io.Serializable {
     public CustomerAddress() {
     }
 
-    public CustomerAddress(int id, Address address, Customer customer, AddressType description, Date lastUpdate,
-                           boolean active) {
-        this.id = id;
-        this.address = address;
-        this.customer = customer;
-        this.description = description;
-        this.lastUpdate = lastUpdate;
-        this.active = active;
-    }
-
-    public CustomerAddress(int id, Address address, Customer customer, AddressType description, Date lastUpdate,
-                           boolean active, Set<ShipmentRouteIndex> shipmentRouteIndexes) {
-        this.id = id;
-        this.address = address;
-        this.customer = customer;
-        this.description = description;
-        this.lastUpdate = lastUpdate;
-        this.active = active;
-        this.shipmentRouteIndexes = shipmentRouteIndexes;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

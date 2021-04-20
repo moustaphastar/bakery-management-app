@@ -12,11 +12,6 @@ public class AspNetUserLoginsId implements java.io.Serializable {
 	public AspNetUserLoginsId() {
 	}
 
-	public AspNetUserLoginsId(String loginProvider, String providerKey) {
-		this.loginProvider = loginProvider;
-		this.providerKey = providerKey;
-	}
-
 	@Column(name = "LoginProvider", nullable = false)
 	public String getLoginProvider() {
 		return this.loginProvider;

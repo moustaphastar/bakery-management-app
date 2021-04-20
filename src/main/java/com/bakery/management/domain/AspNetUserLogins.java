@@ -13,17 +13,6 @@ public class AspNetUserLogins implements java.io.Serializable {
 	public AspNetUserLogins() {
 	}
 
-	public AspNetUserLogins(AspNetUserLoginsId id, AspNetUsers aspNetUsers) {
-		this.id = id;
-		this.aspNetUsers = aspNetUsers;
-	}
-
-	public AspNetUserLogins(AspNetUserLoginsId id, AspNetUsers aspNetUsers, String providerDisplayName) {
-		this.id = id;
-		this.aspNetUsers = aspNetUsers;
-		this.providerDisplayName = providerDisplayName;
-	}
-
 	@EmbeddedId
 	@AttributeOverrides({
 			@AttributeOverride(name = "loginProvider", column = @Column(name = "LoginProvider", nullable = false)),

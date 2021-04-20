@@ -27,35 +27,6 @@ public class CashAccount implements java.io.Serializable {
 	public CashAccount() {
 	}
 
-	public CashAccount(int id, Merchant merchant, int fiscalYear, BigDecimal totalReceived, BigDecimal totalPaid,
-					   BigDecimal outstandingBalance, BigDecimal regularInvoiceLimit, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.merchant = merchant;
-		this.fiscalYear = fiscalYear;
-		this.totalReceived = totalReceived;
-		this.totalPaid = totalPaid;
-		this.outstandingBalance = outstandingBalance;
-		this.regularInvoiceLimit = regularInvoiceLimit;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
-	public CashAccount(int id, Merchant merchant, int fiscalYear, BigDecimal totalReceived, BigDecimal totalPaid,
-					   BigDecimal outstandingBalance, BigDecimal balance, BigDecimal regularInvoiceLimit, Date lastUpdate,
-					   boolean active, Set<CashTransaction> cashTransactions) {
-		this.id = id;
-		this.merchant = merchant;
-		this.fiscalYear = fiscalYear;
-		this.totalReceived = totalReceived;
-		this.totalPaid = totalPaid;
-		this.outstandingBalance = outstandingBalance;
-		this.balance = balance;
-		this.regularInvoiceLimit = regularInvoiceLimit;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.cashTransactions = cashTransactions;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

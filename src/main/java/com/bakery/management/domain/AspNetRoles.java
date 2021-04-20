@@ -19,20 +19,6 @@ public class AspNetRoles implements java.io.Serializable {
 	public AspNetRoles() {
 	}
 
-	public AspNetRoles(UUID id) {
-		this.id = id;
-	}
-
-	public AspNetRoles(UUID id, String name, String normalizedName, String concurrencyStamp,
-					   Set<AspNetRoleClaims> aspNetRoleClaims, Set<AspNetUsers> aspNetUsers) {
-		this.id = id;
-		this.name = name;
-		this.normalizedName = normalizedName;
-		this.concurrencyStamp = concurrencyStamp;
-		this.aspNetRoleClaims = aspNetRoleClaims;
-		this.aspNetUsers = aspNetUsers;
-	}
-
 	@Id
 	@GeneratedValue
 	@Column(name = "Id", unique = true, nullable = false)

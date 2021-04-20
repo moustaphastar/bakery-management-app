@@ -19,24 +19,6 @@ public class ProductProperty implements java.io.Serializable {
 	public ProductProperty() {
 	}
 
-	public ProductProperty(int id, MerchantType merchantType, String name, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.merchantType = merchantType;
-		this.name = name;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
-	public ProductProperty(int id, MerchantType merchantType, String name, Date lastUpdate, boolean active,
-			Set<ProductAttribute> productAttributes) {
-		this.id = id;
-		this.merchantType = merchantType;
-		this.name = name;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.productAttributes = productAttributes;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

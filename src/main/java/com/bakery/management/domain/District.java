@@ -16,19 +16,6 @@ public class District implements java.io.Serializable {
 	public District() {
 	}
 
-	public District(int id, City city, String name) {
-		this.id = id;
-		this.city = city;
-		this.name = name;
-	}
-
-	public District(int id, City city, String name, Set<Address> addresses) {
-		this.id = id;
-		this.city = city;
-		this.name = name;
-		this.addresses = addresses;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

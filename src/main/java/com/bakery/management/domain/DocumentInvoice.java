@@ -35,44 +35,6 @@ public class DocumentInvoice implements java.io.Serializable {
 	public DocumentInvoice() {
 	}
 
-	public DocumentInvoice(String id, Sale sale, String referenceNumber, boolean isPaperPrinted, Date insertedAt,
-						   boolean active) {
-		this.id = id;
-		this.sale = sale;
-		this.referenceNumber = referenceNumber;
-		this.isPaperPrinted = isPaperPrinted;
-		this.insertedAt = insertedAt;
-		this.active = active;
-	}
-
-	public DocumentInvoice(String id, Merchant merchant, Sale sale, String customerId, String referenceNumber,
-						   String serialNumber, Integer sequenceNumber, Date issueDate, BigDecimal subTotal,
-						   BigDecimal taxAmount, BigDecimal totalDue, String deliveryPersonId, String receiver, Date deliveredAt,
-						   String note, boolean isPaperPrinted, Date paperPrintedAt, Date insertedAt, Boolean isCancelled,
-						   boolean active, Set<DocumentShipment> documentShipments) {
-		this.id = id;
-		this.merchant = merchant;
-		this.sale = sale;
-		this.customerId = customerId;
-		this.referenceNumber = referenceNumber;
-		this.serialNumber = serialNumber;
-		this.sequenceNumber = sequenceNumber;
-		this.issueDate = issueDate;
-		this.subTotal = subTotal;
-		this.taxAmount = taxAmount;
-		this.totalDue = totalDue;
-		this.deliveryPersonId = deliveryPersonId;
-		this.receiver = receiver;
-		this.deliveredAt = deliveredAt;
-		this.note = note;
-		this.isPaperPrinted = isPaperPrinted;
-		this.paperPrintedAt = paperPrintedAt;
-		this.insertedAt = insertedAt;
-		this.isCancelled = isCancelled;
-		this.active = active;
-		this.documentShipments = documentShipments;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false, length = 36)

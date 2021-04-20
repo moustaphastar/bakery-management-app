@@ -16,14 +16,6 @@ public class ProductAttribute implements java.io.Serializable {
 	public ProductAttribute() {
 	}
 
-	public ProductAttribute(int id, Product product, ProductProperty productProperty, Date insertedAt, boolean active) {
-		this.id = id;
-		this.product = product;
-		this.productProperty = productProperty;
-		this.insertedAt = insertedAt;
-		this.active = active;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

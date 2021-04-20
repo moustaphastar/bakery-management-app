@@ -31,42 +31,6 @@ public class SaleDetail implements java.io.Serializable {
     public SaleDetail() {
     }
 
-    public SaleDetail(int id, Product product, Sale sale, int quantity, BigDecimal unitPrice, BigDecimal lineTotal,
-                      BigDecimal taxAmount, BigDecimal totalDue, ShipmentPartOfDay shipmentPartOfDay, Date lastUpdate, OrderItemStatus status,
-                      boolean active) {
-        this.id = id;
-        this.product = product;
-        this.sale = sale;
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
-        this.lineTotal = lineTotal;
-        this.taxAmount = taxAmount;
-        this.totalDue = totalDue;
-        this.shipmentPartOfDay = shipmentPartOfDay;
-        this.lastUpdate = lastUpdate;
-        this.status = status;
-        this.active = active;
-    }
-
-	public SaleDetail(int id, Product product, Sale sale, String carrierTrackingNumber, int quantity,
-                      BigDecimal unitPrice, BigDecimal lineTotal, BigDecimal taxAmount, BigDecimal totalDue, ShipmentPartOfDay shipmentPartOfDay,
-                      Date lastUpdate, OrderItemStatus status, boolean active, Set<ShipmentLoad> shipmentLoads) {
-        this.id = id;
-        this.product = product;
-        this.sale = sale;
-        this.carrierTrackingNumber = carrierTrackingNumber;
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
-        this.lineTotal = lineTotal;
-        this.taxAmount = taxAmount;
-        this.totalDue = totalDue;
-        this.shipmentPartOfDay = shipmentPartOfDay;
-        this.lastUpdate = lastUpdate;
-        this.status = status;
-        this.active = active;
-        this.shipmentLoads = shipmentLoads;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

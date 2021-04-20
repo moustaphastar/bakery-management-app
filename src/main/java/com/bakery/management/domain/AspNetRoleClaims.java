@@ -14,18 +14,6 @@ public class AspNetRoleClaims implements java.io.Serializable {
 	public AspNetRoleClaims() {
 	}
 
-	public AspNetRoleClaims(int id, AspNetRoles aspNetRoles) {
-		this.id = id;
-		this.aspNetRoles = aspNetRoles;
-	}
-
-	public AspNetRoleClaims(int id, AspNetRoles aspNetRoles, String claimType, String claimValue) {
-		this.id = id;
-		this.aspNetRoles = aspNetRoles;
-		this.claimType = claimType;
-		this.claimValue = claimValue;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

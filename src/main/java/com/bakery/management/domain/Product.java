@@ -32,48 +32,6 @@ public class Product implements java.io.Serializable {
 	public Product() {
 	}
 
-    public Product(String id, Merchant merchant, ProductCategory productCategory, String name, int weight,
-                   BigDecimal standardCost, BigDecimal listPrice, BigDecimal taxRate, boolean onSale, String imageUrl,
-                   Date insertedAt, Date lastUpdate, boolean active) {
-        this.id = id;
-        this.merchant = merchant;
-        this.productCategory = productCategory;
-        this.name = name;
-        this.weight = weight;
-        this.standardCost = standardCost;
-        this.listPrice = listPrice;
-        this.taxRate = taxRate;
-        this.onSale = onSale;
-        this.imageUrl = imageUrl;
-        this.insertedAt = insertedAt;
-        this.lastUpdate = lastUpdate;
-        this.active = active;
-    }
-
-    public Product(String id, Merchant merchant, ProductCategory productCategory, String name,
-                   String description, int weight, BigDecimal standardCost, BigDecimal listPrice, BigDecimal taxRate,
-                   boolean onSale, String imageUrl, Date insertedAt, Date lastUpdate, Date discontinuedOn,
-                   boolean active, Set<ProductAttribute> productAttributes, Set<SaleDetail> saleDetails, Set<CustomerDiscount> customerDiscounts) {
-        this.id = id;
-        this.merchant = merchant;
-        this.productCategory = productCategory;
-        this.name = name;
-        this.description = description;
-        this.weight = weight;
-        this.standardCost = standardCost;
-        this.listPrice = listPrice;
-        this.taxRate = taxRate;
-        this.onSale = onSale;
-        this.imageUrl = imageUrl;
-        this.insertedAt = insertedAt;
-        this.lastUpdate = lastUpdate;
-        this.discontinuedOn = discontinuedOn;
-        this.active = active;
-        this.productAttributes = productAttributes;
-        this.saleDetails = saleDetails;
-		this.customerDiscounts = customerDiscounts;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false, length = 36)

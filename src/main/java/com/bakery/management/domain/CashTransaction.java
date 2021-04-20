@@ -22,18 +22,6 @@ public class CashTransaction implements java.io.Serializable {
 	public CashTransaction() {
 	}
 
-	public CashTransaction(int id, CashAccount cashAccount, Date transactionDate, CashTransactionType transactionType,
-						   BigDecimal transactionAmount, String explanation, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.cashAccount = cashAccount;
-		this.transactionDate = transactionDate;
-		this.transactionType = transactionType;
-		this.transactionAmount = transactionAmount;
-		this.explanation = explanation;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id", unique = true, nullable = false)

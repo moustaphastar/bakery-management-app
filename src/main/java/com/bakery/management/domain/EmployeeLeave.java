@@ -17,23 +17,6 @@ public class EmployeeLeave implements java.io.Serializable {
     public EmployeeLeave() {
     }
 
-    public EmployeeLeave(int id, Employee employee, Date leaveFrom, Date insertedAt, boolean active) {
-        this.id = id;
-        this.employee = employee;
-        this.leaveFrom = leaveFrom;
-        this.insertedAt = insertedAt;
-        this.active = active;
-    }
-
-    public EmployeeLeave(int id, Employee employee, Date leaveFrom, Date leaveTo, Date insertedAt, boolean active) {
-        this.id = id;
-        this.employee = employee;
-        this.leaveFrom = leaveFrom;
-        this.leaveTo = leaveTo;
-        this.insertedAt = insertedAt;
-        this.active = active;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

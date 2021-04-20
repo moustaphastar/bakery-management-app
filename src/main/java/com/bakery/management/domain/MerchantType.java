@@ -20,24 +20,6 @@ public class MerchantType implements java.io.Serializable {
 	public MerchantType() {
 	}
 
-	public MerchantType(int id, String name, Date insertedAt, boolean active) {
-		this.id = id;
-		this.name = name;
-		this.insertedAt = insertedAt;
-		this.active = active;
-	}
-
-	public MerchantType(int id, String name, Date insertedAt, boolean active, Set<ProductCategory> productCategories,
-			Set<Merchant> merchants, Set<ProductProperty> productProperties) {
-		this.id = id;
-		this.name = name;
-		this.insertedAt = insertedAt;
-		this.active = active;
-		this.productCategories = productCategories;
-		this.merchants = merchants;
-		this.productProperties = productProperties;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

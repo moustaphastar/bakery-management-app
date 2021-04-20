@@ -25,30 +25,6 @@ public class CustomerDebit implements java.io.Serializable {
 	public CustomerDebit() {
 	}
 
-	public CustomerDebit(int id, Customer customer, Date dueDate, BigDecimal totalDue, DebitStatus status, boolean active,
-						 Date lastUpdate) {
-		this.id = id;
-		this.customer = customer;
-		this.dueDate = dueDate;
-		this.totalDue = totalDue;
-		this.status = status;
-		this.active = active;
-		this.lastUpdate = lastUpdate;
-	}
-
-	public CustomerDebit(int id, Customer customer, String saleId, Date dueDate, BigDecimal totalDue, DebitStatus status,
-						 boolean active, Date lastUpdate, Set<CustomerPayment> customerPayments) {
-		this.id = id;
-		this.customer = customer;
-		this.saleId = saleId;
-		this.dueDate = dueDate;
-		this.totalDue = totalDue;
-		this.status = status;
-		this.active = active;
-		this.lastUpdate = lastUpdate;
-		this.customerPayments = customerPayments;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id", unique = true, nullable = false)

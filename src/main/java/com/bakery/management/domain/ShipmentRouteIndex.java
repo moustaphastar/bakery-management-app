@@ -17,16 +17,6 @@ public class ShipmentRouteIndex implements java.io.Serializable {
 	public ShipmentRouteIndex() {
 	}
 
-	public ShipmentRouteIndex(int id, CustomerAddress customerAddress, ShipmentRoute shipmentRoute, short indexInRoute,
-			Date lastUpdate, boolean active) {
-		this.id = id;
-		this.customerAddress = customerAddress;
-		this.shipmentRoute = shipmentRoute;
-		this.indexInRoute = indexInRoute;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

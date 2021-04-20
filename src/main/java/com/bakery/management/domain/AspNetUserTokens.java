@@ -11,10 +11,6 @@ public class AspNetUserTokens implements java.io.Serializable {
 	public AspNetUserTokens() {
 	}
 
-	public AspNetUserTokens(AspNetUserTokensId id) {
-		this.id = id;
-	}
-
 	@EmbeddedId
 	@AttributeOverrides({ @AttributeOverride(name = "userId", column = @Column(name = "UserId", nullable = false)),
 			@AttributeOverride(name = "loginProvider", column = @Column(name = "LoginProvider", nullable = false)),

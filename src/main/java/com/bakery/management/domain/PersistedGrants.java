@@ -22,30 +22,6 @@ public class PersistedGrants implements java.io.Serializable {
     public PersistedGrants() {
     }
 
-    public PersistedGrants(UUID key, String type, String clientId, Date creationTime,
-                           String data) {
-        this.key = key;
-        this.type = type;
-        this.clientId = clientId;
-        this.creationTime = creationTime;
-        this.data = data;
-    }
-
-    public PersistedGrants(UUID key, String type, String subjectId, String sessionId,
-                           String clientId, String description, Date creationTime, Date expiration, Date consumedTime,
-                           String data) {
-        this.key = key;
-        this.type = type;
-        this.subjectId = subjectId;
-        this.sessionId = sessionId;
-        this.clientId = clientId;
-        this.description = description;
-        this.creationTime = creationTime;
-        this.expiration = expiration;
-		this.consumedTime = consumedTime;
-        this.data = data;
-    }
-
     @Id
     @GeneratedValue
     @Column(name = "Key", unique = true, nullable = false)

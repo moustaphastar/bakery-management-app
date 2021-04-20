@@ -17,25 +17,6 @@ public class VehicleDriverCustomer implements java.io.Serializable {
 	public VehicleDriverCustomer() {
 	}
 
-	public VehicleDriverCustomer(int id, Customer customer, VehicleDriver vehicleDriver, Date validFrom,
-			boolean active) {
-		this.id = id;
-		this.customer = customer;
-		this.vehicleDriver = vehicleDriver;
-		this.validFrom = validFrom;
-		this.active = active;
-	}
-
-	public VehicleDriverCustomer(int id, Customer customer, VehicleDriver vehicleDriver, Date validFrom, Date validTo,
-			boolean active) {
-		this.id = id;
-		this.customer = customer;
-		this.vehicleDriver = vehicleDriver;
-		this.validFrom = validFrom;
-		this.validTo = validTo;
-		this.active = active;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id", unique = true, nullable = false)

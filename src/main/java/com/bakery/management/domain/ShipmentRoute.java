@@ -21,26 +21,6 @@ public class ShipmentRoute implements java.io.Serializable {
 	public ShipmentRoute() {
 	}
 
-	public ShipmentRoute(int id, String name, Date insertedAt, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.name = name;
-		this.insertedAt = insertedAt;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
-	public ShipmentRoute(int id, VehicleDriver vehicleDriver, String name, Date insertedAt, Date lastUpdate,
-			boolean active, Set<Shipment> shipments, Set<ShipmentRouteIndex> shipmentRouteIndexes) {
-		this.id = id;
-		this.vehicleDriver = vehicleDriver;
-		this.name = name;
-		this.insertedAt = insertedAt;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.shipments = shipments;
-		this.shipmentRouteIndexes = shipmentRouteIndexes;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

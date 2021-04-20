@@ -19,23 +19,6 @@ public class Job implements java.io.Serializable {
 	public Job() {
 	}
 
-	public Job(int id, Merchant merchant, String title, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.merchant = merchant;
-		this.title = title;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
-	public Job(int id, Merchant merchant, String title, Date lastUpdate, boolean active, Set<Employee> employees) {
-		this.id = id;
-		this.merchant = merchant;
-		this.title = title;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.employees = employees;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

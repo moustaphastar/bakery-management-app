@@ -18,21 +18,6 @@ public class CustomerType implements java.io.Serializable {
 	public CustomerType() {
 	}
 
-	public CustomerType(int id, String name, Date insertedAt, boolean active) {
-		this.id = id;
-		this.name = name;
-		this.insertedAt = insertedAt;
-		this.active = active;
-	}
-
-	public CustomerType(int id, String name, Date insertedAt, boolean active, Set<Customer> customers) {
-		this.id = id;
-		this.name = name;
-		this.insertedAt = insertedAt;
-		this.active = active;
-		this.customers = customers;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

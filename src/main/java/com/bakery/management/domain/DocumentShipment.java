@@ -33,41 +33,6 @@ public class DocumentShipment implements java.io.Serializable {
 	public DocumentShipment() {
 	}
 
-	public DocumentShipment(int id, Date issueDate, boolean isPaperPrinted, Date insertedAt) {
-		this.id = id;
-		this.issueDate = issueDate;
-		this.isPaperPrinted = isPaperPrinted;
-		this.insertedAt = insertedAt;
-	}
-
-	public DocumentShipment(int id, DocumentInvoice documentInvoice, Merchant merchant, ShipmentLoad shipmentLoad,
-							String customerId, String referenceNumber, String serialNumber, Integer sequenceNumber,
-							Date issueDate, BigDecimal subTotal, BigDecimal taxAmount, BigDecimal totalDue, String deliveryPersonId,
-							String receiver, Date deliveredAt, String note, boolean isPaperPrinted, Date paperPrintedAt,
-							Date insertedAt, Boolean isCancelled, Boolean active) {
-		this.id = id;
-		this.documentInvoice = documentInvoice;
-		this.merchant = merchant;
-		this.shipmentLoad = shipmentLoad;
-		this.customerId = customerId;
-		this.referenceNumber = referenceNumber;
-		this.serialNumber = serialNumber;
-		this.sequenceNumber = sequenceNumber;
-		this.issueDate = issueDate;
-		this.subTotal = subTotal;
-		this.taxAmount = taxAmount;
-		this.totalDue = totalDue;
-		this.deliveryPersonId = deliveryPersonId;
-		this.receiver = receiver;
-		this.deliveredAt = deliveredAt;
-		this.note = note;
-		this.isPaperPrinted = isPaperPrinted;
-		this.paperPrintedAt = paperPrintedAt;
-		this.insertedAt = insertedAt;
-		this.isCancelled = isCancelled;
-		this.active = active;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

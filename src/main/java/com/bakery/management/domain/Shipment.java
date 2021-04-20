@@ -27,32 +27,6 @@ public class Shipment implements java.io.Serializable {
 	public Shipment() {
 	}
 
-	public Shipment(int id, VehicleDriver vehicleDriver, Date date, ShipmentStatus status, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.vehicleDriver = vehicleDriver;
-		this.date = date;
-		this.status = status;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
-	public Shipment(int id, ShipmentRoute shipmentRoute, VehicleDriver vehicleDriver, Date date, Date timeStart,
-					Date timeEnd, Integer odometerStart, Integer odometerEnd, ShipmentStatus status, Date lastUpdate, boolean active,
-					Set<ShipmentLoad> shipmentLoads) {
-		this.id = id;
-		this.shipmentRoute = shipmentRoute;
-		this.vehicleDriver = vehicleDriver;
-		this.date = date;
-		this.timeStart = timeStart;
-		this.timeEnd = timeEnd;
-		this.odometerStart = odometerStart;
-		this.odometerEnd = odometerEnd;
-		this.status = status;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.shipmentLoads = shipmentLoads;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

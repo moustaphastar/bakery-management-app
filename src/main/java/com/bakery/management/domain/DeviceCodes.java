@@ -20,29 +20,6 @@ public class DeviceCodes implements java.io.Serializable {
 	public DeviceCodes() {
 	}
 
-	public DeviceCodes(String userCode, String deviceCode, String clientId, Date creationTime,
-					   Date expiration, String data) {
-		this.userCode = userCode;
-		this.deviceCode = deviceCode;
-		this.clientId = clientId;
-		this.creationTime = creationTime;
-		this.expiration = expiration;
-		this.data = data;
-	}
-
-	public DeviceCodes(String userCode, String deviceCode, String subjectId, String sessionId,
-					   String clientId, String description, Date creationTime, Date expiration, String data) {
-		this.userCode = userCode;
-		this.deviceCode = deviceCode;
-		this.subjectId = subjectId;
-		this.sessionId = sessionId;
-		this.clientId = clientId;
-		this.description = description;
-		this.creationTime = creationTime;
-		this.expiration = expiration;
-		this.data = data;
-	}
-
     @Id
     @GeneratedValue
     @Column(name = "UserCode", unique = true, nullable = false)

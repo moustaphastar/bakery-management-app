@@ -20,16 +20,6 @@ public class MerchantAddress implements java.io.Serializable {
     public MerchantAddress() {
     }
 
-    public MerchantAddress(int id, Address address, Merchant merchant, AddressType description, Date lastUpdate,
-                           boolean active) {
-        this.id = id;
-        this.address = address;
-        this.merchant = merchant;
-        this.description = description;
-        this.lastUpdate = lastUpdate;
-        this.active = active;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

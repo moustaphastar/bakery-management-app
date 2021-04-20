@@ -25,31 +25,6 @@ public class Vehicle implements java.io.Serializable {
     public Vehicle() {
     }
 
-    public Vehicle(int id, Merchant merchant, String plateNumber, Date assessmentDate, boolean outOfOrderFlag,
-                   Date lastUpdate, boolean active) {
-        this.id = id;
-        this.merchant = merchant;
-        this.plateNumber = plateNumber;
-        this.assessmentDate = assessmentDate;
-        this.outOfOrderFlag = outOfOrderFlag;
-        this.lastUpdate = lastUpdate;
-        this.active = active;
-    }
-
-    public Vehicle(int id, Merchant merchant, String plateNumber, Date assessmentDate, Date assuranceRenewalDate,
-                   boolean outOfOrderFlag, VehicleServiceType serviceType, Date lastUpdate, boolean active, Set<VehicleDriver> vehicleDrivers) {
-        this.id = id;
-        this.merchant = merchant;
-        this.plateNumber = plateNumber;
-        this.assessmentDate = assessmentDate;
-        this.assuranceRenewalDate = assuranceRenewalDate;
-        this.outOfOrderFlag = outOfOrderFlag;
-        this.serviceType = serviceType;
-        this.lastUpdate = lastUpdate;
-        this.active = active;
-        this.vehicleDrivers = vehicleDrivers;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

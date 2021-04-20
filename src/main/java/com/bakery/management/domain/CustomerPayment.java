@@ -24,19 +24,6 @@ public class CustomerPayment implements java.io.Serializable {
 	public CustomerPayment() {
 	}
 
-	public CustomerPayment(int id, Customer customer, CustomerDebit customerDebit, BigDecimal amountPaid,
-						   Date paymentDate, PaymentType paymentType, PaymentStatus approvalStatus, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.customer = customer;
-		this.customerDebit = customerDebit;
-		this.amountPaid = amountPaid;
-		this.paymentDate = paymentDate;
-		this.paymentType = paymentType;
-		this.approvalStatus = approvalStatus;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id", unique = true, nullable = false)

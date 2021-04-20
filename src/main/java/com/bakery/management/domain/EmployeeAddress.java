@@ -20,16 +20,6 @@ public class EmployeeAddress implements java.io.Serializable {
     public EmployeeAddress() {
     }
 
-    public EmployeeAddress(int id, Address address, Employee employee, AddressType description, Date lastUpdate,
-                           boolean active) {
-        this.id = id;
-        this.address = address;
-        this.employee = employee;
-        this.description = description;
-        this.lastUpdate = lastUpdate;
-        this.active = active;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)

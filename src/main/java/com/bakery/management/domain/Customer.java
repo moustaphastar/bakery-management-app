@@ -67,7 +67,7 @@ public class Customer implements java.io.Serializable {
                     BigDecimal debtTotal, BigDecimal debtLimit, byte debtLimitExceedCount, byte maturityDaysTotal,
                     byte maturityDaysLimit, byte maturityOverdueCount, String liaisonPerson, String liaisonPhone,
                     String aspNetUserId, boolean active, Date engagedOn, Date lastUpdate, Set<CustomerDebit> customerDebits,
-                    Set<CustomerPayment> customerPayments, Set<CustomerDiscount> customerDiscounts, Set<Sale> sales, Set<VehicleDriverCustomer> vehicleDriverCustomers, Set customerAddresses) {
+                    Set<CustomerPayment> customerPayments, Set<CustomerDiscount> customerDiscounts, Set<Sale> sales, Set<VehicleDriverCustomer> vehicleDriverCustomers, Set<CustomerAddress> customerAddresses) {
         this.id = id;
         this.customerType = customerType;
         this.merchant = merchant;

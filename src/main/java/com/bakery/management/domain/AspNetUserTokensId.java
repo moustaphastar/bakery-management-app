@@ -14,19 +14,6 @@ public class AspNetUserTokensId implements java.io.Serializable {
 	public AspNetUserTokensId() {
 	}
 
-	public AspNetUserTokensId(String userId, String loginProvider, String name) {
-		this.userId = userId;
-		this.loginProvider = loginProvider;
-		this.name = name;
-	}
-
-	public AspNetUserTokensId(String userId, String loginProvider, String name, String value) {
-		this.userId = userId;
-		this.loginProvider = loginProvider;
-		this.name = name;
-		this.value = value;
-	}
-
 	@Column(name = "UserId", nullable = false)
 	public String getUserId() {
 		return this.userId;

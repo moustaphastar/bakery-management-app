@@ -38,48 +38,6 @@ public class Sale implements java.io.Serializable {
 	public Sale() {
 	}
 
-	public Sale(int id, Customer customer, Merchant merchant, Date orderDate, Date dueDate, BigDecimal subTotal,
-				BigDecimal taxAmount, boolean onlineOrderFlag, OrderStatus status, Date lastUpdate, boolean active) {
-		this.id = id;
-		this.customer = customer;
-		this.merchant = merchant;
-		this.orderDate = orderDate;
-		this.dueDate = dueDate;
-		this.subTotal = subTotal;
-		this.taxAmount = taxAmount;
-		this.onlineOrderFlag = onlineOrderFlag;
-		this.status = status;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-	}
-
-	public Sale(int id, Address addressByBillToAddressId, Address addressByShipToAddressId, Customer customer,
-				Merchant merchant, Date orderDate, Date dueDate, Date shipDate, Date deliveryDate, BigDecimal subTotal,
-				BigDecimal taxAmount, BigDecimal totalDue, ShipmentMethod shipmentMethod, boolean onlineOrderFlag,
-				DocumentType documentType, OrderStatus status, Date lastUpdate, boolean active, Set<DocumentInvoice> documentInvoices,
-				Set<SaleDetail> saleDetails) {
-		this.id = id;
-		this.addressByBillToAddressId = addressByBillToAddressId;
-		this.addressByShipToAddressId = addressByShipToAddressId;
-		this.customer = customer;
-		this.merchant = merchant;
-		this.orderDate = orderDate;
-		this.dueDate = dueDate;
-		this.shipDate = shipDate;
-		this.deliveryDate = deliveryDate;
-		this.subTotal = subTotal;
-		this.taxAmount = taxAmount;
-		this.totalDue = totalDue;
-		this.shipmentMethod = shipmentMethod;
-		this.onlineOrderFlag = onlineOrderFlag;
-		this.documentType = documentType;
-		this.status = status;
-		this.lastUpdate = lastUpdate;
-		this.active = active;
-		this.documentInvoices = documentInvoices;
-		this.saleDetails = saleDetails;
-	}
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id", unique = true, nullable = false)

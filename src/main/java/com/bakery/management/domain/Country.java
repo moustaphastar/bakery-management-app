@@ -18,21 +18,6 @@ public class Country implements java.io.Serializable {
 	public Country() {
 	}
 
-	public Country(int id, String iso2, String name) {
-		this.id = id;
-		this.iso2 = iso2;
-		this.name = name;
-	}
-
-	public Country(int id, String currency, String iso2, String iso3, String name, Set<City> cities) {
-		this.id = id;
-		this.currency = currency;
-		this.iso2 = iso2;
-		this.iso3 = iso3;
-		this.name = name;
-		this.cities = cities;
-	}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false)
