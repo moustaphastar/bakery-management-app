@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "City", schema = "dbo", catalog = "bakery")
+@Table(name = "City", schema = "public", catalog = "bakery")
 public class City implements java.io.Serializable {
 
 	private int id;

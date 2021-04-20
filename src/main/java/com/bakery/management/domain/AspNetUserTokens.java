@@ -3,7 +3,7 @@ package com.bakery.management.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "AspNetUserTokens", schema = "dbo", catalog = "bakery")
+@Table(name = "AspNetUserTokens", schema = "public", catalog = "bakery")
 public class AspNetUserTokens implements java.io.Serializable {
 
 	private AspNetUserTokensId id;

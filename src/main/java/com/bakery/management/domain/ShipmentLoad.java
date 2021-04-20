@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "ShipmentLoad", schema = "dbo", catalog = "bakery")
+@Table(name = "ShipmentLoad", schema = "public", catalog = "bakery")
 public class ShipmentLoad implements java.io.Serializable {
 
 	private int id;

@@ -3,7 +3,7 @@ package com.bakery.management.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "AspNetUserLogins", schema = "dbo", catalog = "bakery")
+@Table(name = "AspNetUserLogins", schema = "public", catalog = "bakery")
 public class AspNetUserLogins implements java.io.Serializable {
 
 	private AspNetUserLoginsId id;

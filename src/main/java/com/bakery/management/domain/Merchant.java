@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Merchant", schema = "dbo", catalog = "bakery")
+@Table(name = "Merchant", schema = "public", catalog = "bakery")
 public class Merchant implements java.io.Serializable {
 
 	private UUID id;

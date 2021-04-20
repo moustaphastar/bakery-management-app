@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "ShipmentRouteIndex", schema = "dbo", catalog = "bakery")
+@Table(name = "ShipmentRouteIndex", schema = "public", catalog = "bakery")
 public class ShipmentRouteIndex implements java.io.Serializable {
 
 	private int id;

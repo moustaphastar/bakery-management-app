@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Sale", schema = "dbo", catalog = "bakery")
+@Table(name = "Sale", schema = "public", catalog = "bakery")
 public class Sale implements java.io.Serializable {
 
 	private int id;

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "EmployeeAddress", schema = "dbo", catalog = "bakery")
+@Table(name = "EmployeeAddress", schema = "public", catalog = "bakery")
 public class EmployeeAddress implements java.io.Serializable {
 
     private int id;

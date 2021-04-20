@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "PersistedGrants", schema = "dbo", catalog = "bakery")
+@Table(name = "PersistedGrants", schema = "public", catalog = "bakery")
 public class PersistedGrants implements java.io.Serializable {
 
     private UUID key;
