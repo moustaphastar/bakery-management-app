@@ -9,6 +9,7 @@ import java.util.Set;
 public class Country implements java.io.Serializable {
 
 	private int id;
+	private String currency;
 	private String iso2;
 	private String iso3;
 	private String name;
@@ -23,8 +24,9 @@ public class Country implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Country(int id, String iso2, String iso3, String name, Set<City> cities) {
+	public Country(int id, String currency, String iso2, String iso3, String name, Set<City> cities) {
 		this.id = id;
+		this.currency = currency;
 		this.iso2 = iso2;
 		this.iso3 = iso3;
 		this.name = name;
@@ -40,6 +42,15 @@ public class Country implements java.io.Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Column(name = "Currency", length = 3)
+	public String getCurrency() {
+		return this.currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	@Column(name = "ISO2", nullable = false, length = 2)
