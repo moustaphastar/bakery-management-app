@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "CustomerAddress", schema = "public", catalog = "bakery")
+@Table(name = "CustomerAddress", schema = "public")
 public class CustomerAddress implements java.io.Serializable {
 
     private int id;

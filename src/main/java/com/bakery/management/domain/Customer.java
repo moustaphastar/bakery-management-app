@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Customer", schema = "public", catalog = "bakery")
+@Table(name = "Customer", schema = "public")
 public class Customer implements java.io.Serializable {
 
     private UUID id;

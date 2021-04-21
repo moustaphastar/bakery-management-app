@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "EmployeeLeave", schema = "public", catalog = "bakery")
+@Table(name = "EmployeeLeave", schema = "public")
 public class EmployeeLeave implements java.io.Serializable {
 
     private int id;

@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "MerchantType", schema = "public", catalog = "bakery")
+@Table(name = "MerchantType", schema = "public")
 public class MerchantType implements java.io.Serializable {
 
 	private int id;

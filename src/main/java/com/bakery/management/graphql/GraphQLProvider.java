@@ -55,6 +55,7 @@ public class GraphQLProvider {
                         .dataFetcher("cashTransaction", graphQLDataFetchers.CashTransactionFetcher())
                         .dataFetcher("cashTransactions", graphQLDataFetchers.CashTransactionsFetcher())
                         .dataFetcher("merchant", graphQLDataFetchers.MerchantFetcher())
+                        .dataFetcher("countries", addressDataFetcher.getCountries())
                         .dataFetcher("cities", addressDataFetcher.fetchCityByCountry())
                         .dataFetcher("customerAddress", addressDataFetcher.getCustomerAddress())
                 )

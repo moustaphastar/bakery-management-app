@@ -1,29 +1,22 @@
 # Bakery management app
 
-This is a simplified version of a bakery store management web application, built with spring-boot, graphql-java and
-react.
+A sample web application to keep track of products, customers, orders etc.
+You can also try an online payment integration (api credentials needed).
+Server side is built with spring-boot and qraphql-java, frontend is built
+with enlight react admin template and database as H2 embedded.
 
-# Includes
+### Requirements
+- JDK 1.8
+- Gradle 7.0
+- Graphql-java 12.0
+- H2 1.4.x
+- Node.js
 
-- Microsoft JDBC driver 8.2.2.jre11
-- graphql-java 12.0
-
-# Requirements
-
-- JDK 1.8 or higher to run the application
-- Node.js to run the react application
-- Microsoft Sql Server
-- Gradle
-
-# Installing Microsoft JDBC Driver
-
-- Download preferred JDBC driver
-  from [Microsft's official download page](https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver15)
-  .
-- Configure the classpath and connection string according to
-  this [MSDN page](https://docs.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver15).
-
-# Installing
+### Installing
 
 - Clone the project `git clone https://github.com/moustaphastar/bakery-management-app.git` or download the code.
-- Open the project with your IDE and 
+- For the first time change the `spring.datasource.url` in the application.properties file as
+`spring.datasource.url=jdbc:h2:file:./bakery;TRACE_LEVEL_FILE=4;\
+  INIT=RUNSCRIPT FROM 'src/main/resources/h2data.sql';`. This will create and seed the H2 database.
+  Remove the `RUNSCRIPT FROM 'src/main/resources/h2data.sql';` part from the file after the first run.
+- Run `gradlew bootRun` 

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "DeviceCodes", schema = "public", catalog = "bakery", uniqueConstraints = @UniqueConstraint(columnNames = "DeviceCode"))
+@Table(name = "DeviceCodes", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "DeviceCode"))
 public class DeviceCodes implements java.io.Serializable {
 
 	private String userCode;

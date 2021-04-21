@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "DocumentInvoice", schema = "public", catalog = "bakery")
+@Table(name = "DocumentInvoice", schema = "public")
 public class DocumentInvoice implements java.io.Serializable {
 
 	private String id;

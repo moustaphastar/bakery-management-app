@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "CustomerDiscount", schema = "public", catalog = "bakery")
+@Table(name = "CustomerDiscount", schema = "public")
 public class CustomerDiscount implements java.io.Serializable {
 
 	private int id;

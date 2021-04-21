@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "AspNetRoles", schema = "public", catalog = "bakery", uniqueConstraints = @UniqueConstraint(columnNames = "NormalizedName"))
+@Table(name = "AspNetRoles", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "NormalizedName"))
 public class AspNetRoles implements java.io.Serializable {
 
 	private UUID id;
@@ -67,7 +67,7 @@ public class AspNetRoles implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "AspNetUserRoles", schema = "public", catalog = "bakery", joinColumns = {
+	@JoinTable(name = "AspNetUserRoles", schema = "public", joinColumns = {
 			@JoinColumn(name = "RoleId", nullable = false, updatable = false)}, inverseJoinColumns = {
 			@JoinColumn(name = "UserId", nullable = false, updatable = false)})
 	public Set<AspNetUsers> getAspNetUsers() {
