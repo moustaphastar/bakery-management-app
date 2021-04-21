@@ -4,14 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +18,7 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "MerchantType", schema = "dbo", catalog = "onlineaccounting")
+@Table(name = "MerchantType", schema = "public")
 public class MerchantType implements java.io.Serializable {
 
     /***

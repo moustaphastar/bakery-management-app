@@ -19,7 +19,7 @@ import java.time.OffsetDateTime;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "PersistedGrants", schema = "dbo", catalog = "onlineaccounting")
+@Table(name = "PersistedGrants", schema = "public")
 public class PersistedGrants implements java.io.Serializable {
 
     /***

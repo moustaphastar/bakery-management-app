@@ -4,15 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -25,7 +17,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "ProductAttribute", schema = "dbo", catalog = "onlineaccounting")
+@Table(name = "ProductAttribute", schema = "public")
 public class ProductAttribute implements java.io.Serializable {
 
     /***
