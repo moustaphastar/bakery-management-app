@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.UUID;
 
 /***
  * Domain model class to hold claim data for related {@link AspNetRoles}.
@@ -46,7 +47,7 @@ public class AspNetRoleClaims implements java.io.Serializable {
      */
     @Column(name = "RoleId", nullable = false, updatable = false,
             insertable = false)
-    private int roleId;
+    private UUID roleId;
 
     /***
      * Claim type name to be associated with an {@link AspNetRoles}.
