@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -45,9 +45,10 @@ public class Application {
      * @param appVersion version number of the application
      * @return OpenAPI object
      */
+    // todo: appVersion placeholder produces warning in application.properties
     @Bean
     public OpenAPI customOpenAPI(
-            @Value("${application-description}") final String appDescription,
+            @Value("${spring.application.name}") final String appDescription,
             @Value("${application-version}") final String appVersion) {
         return new OpenAPI()
                 .info(new Info()
