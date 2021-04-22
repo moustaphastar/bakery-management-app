@@ -59,7 +59,7 @@ public class Customer implements java.io.Serializable {
      */
     @Column(name = "MerchantId", nullable = false, updatable = false,
             insertable = false)
-    private Merchant merchantId;
+    private UUID merchantId;
 
     /***
      * Name of the tax office.
