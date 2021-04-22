@@ -22,7 +22,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "DeviceCodes", schema = "dbo", catalog = "onlineaccounting",
+@Table(name = "DeviceCodes", schema = "public",
         uniqueConstraints = @UniqueConstraint(columnNames = "DeviceCode"))
 public class DeviceCodes implements java.io.Serializable {
 

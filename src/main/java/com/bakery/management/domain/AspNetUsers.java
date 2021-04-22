@@ -28,7 +28,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "AspNetUsers", schema = "dbo", catalog = "onlineaccounting",
+@Table(name = "AspNetUsers", schema = "public",
         uniqueConstraints =
         @UniqueConstraint(columnNames = "NormalizedUserName"))
 public class AspNetUsers implements java.io.Serializable {
@@ -142,8 +142,7 @@ public class AspNetUsers implements java.io.Serializable {
      * Set of child {@link AspNetRoles} with many to many relation.
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "AspNetUserRoles", schema = "dbo",
-            catalog = "onlineaccounting",
+    @JoinTable(name = "AspNetUserRoles",
             joinColumns = {
                     @JoinColumn(
                             name = "UserId",

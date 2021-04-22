@@ -24,8 +24,7 @@ import java.time.OffsetDateTime;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "ShipmentRouteIndex", schema = "dbo",
-        catalog = "onlineaccounting")
+@Table(name = "ShipmentRouteIndex", schema = "public")
 public class ShipmentRouteIndex implements java.io.Serializable {
 
     /***

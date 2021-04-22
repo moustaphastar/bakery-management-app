@@ -25,8 +25,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "VehicleDriverCustomer", schema = "dbo",
-        catalog = "onlineaccounting")
+@Table(name = "VehicleDriverCustomer", schema = "public")
 public class DriverCustomer implements java.io.Serializable {
 
     /***
