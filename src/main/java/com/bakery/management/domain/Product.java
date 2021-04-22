@@ -51,7 +51,7 @@ public class Product implements java.io.Serializable {
      */
     @Column(name = "MerchantId", nullable = false, updatable = false,
             insertable = false)
-    private int merchantId;
+    private UUID merchantId;
 
     /***
      * Parent {@link ProductCategory} entity with many to one relation.
