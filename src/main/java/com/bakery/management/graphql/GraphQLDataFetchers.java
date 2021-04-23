@@ -9,7 +9,6 @@ import com.bakery.management.repository.CashAccountRepository;
 import com.bakery.management.repository.CashTransactionRepository;
 import com.bakery.management.repository.MerchantRepository;
 import graphql.schema.DataFetcher;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,26 +28,35 @@ public class GraphQLDataFetchers {
     /***
      * Injection for AddressRepository object.
      */
-    @Autowired
-    private AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
 
     /***
      * Injection for CashAccountRepository object.
      */
-    @Autowired
-    private CashAccountRepository cashAccountRepository;
+    private final CashAccountRepository cashAccountRepository;
 
     /***
      * Injection for CashTransactionRepository object.
      */
-    @Autowired
-    private CashTransactionRepository cashTransactionRepository;
+    private final CashTransactionRepository cashTransactionRepository;
 
     /***
      * Injection for MerchantRepository object.
      */
-    @Autowired
-    private MerchantRepository merchantRepository;
+    private final MerchantRepository merchantRepository;
+
+    /**
+     * Class constructor
+     */
+    public GraphQLDataFetchers(final AddressRepository addressRepo,
+                               final CashAccountRepository cashAccountRepo,
+                               final CashTransactionRepository transactionRepo,
+                               final MerchantRepository merchantRepo){
+        this.addressRepository = addressRepo;
+        this.cashAccountRepository = cashAccountRepo;
+        this.cashTransactionRepository = transactionRepo;
+        this.merchantRepository = merchantRepo;
+    }
 
     /**
      * Fetches {@link CashTransaction} data from persistence.
