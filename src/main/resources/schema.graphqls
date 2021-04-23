@@ -3,7 +3,10 @@ schema {
   mutation: GraphQLMutation
 }
 
+scalar BigDecimal
+
 directive @defer on FIELD
+
 type AddressQT {
   active: Boolean
   addressLine1: String
@@ -14,7 +17,6 @@ type AddressQT {
   lastUpdate: String
 }
 
-scalar BigDecimal
 
 input CashAccountMT {
   merchantId: ID!
@@ -155,8 +157,8 @@ type CustomerQT {
   iban: String
   id: String
   lastUpdate: String
-  liasonPerson: String
-  liasonPhone: String
+  liaisonPerson: String
+  liaisonPhone: String
   maturityDaysLimit: Int
   maturityDaysTotal: Int
   maturityOverdueCount: Int
@@ -244,9 +246,9 @@ enum DocumentType {
   UNDOCUMENTED
   BILL
   INVOICE
-  INVOICEDNOTE
-  EINVOICE
-  EARCHIVE
+  INVOICED_NOTE
+  E_INVOICE
+  E_ARCHIVE
 }
 
 type EmployeeAddressQT {
@@ -265,14 +267,14 @@ type EmployeeLeaveQT {
   employeeId: String
   id: ID
   insertedAt: String
-  laeveFrom: String
+  leaveFrom: String
   leaveTo: String
 }
 
 type EmployeeQT {
   active: Boolean
   aspUserId: String
-  bitrhDate: String
+  birthDate: String
   employeeAddress: [EmployeeAddressQT]
   employeeLeave: [EmployeeLeaveQT]
   firstName: String
@@ -401,8 +403,8 @@ type MerchantQT {
   id: String
   job: [JobQT]
   lastUpdate: String
-  liasonPerson: String
-  liasonPhone: String
+  liaisonPerson: String
+  liaisonPhone: String
   merchantAddress: [MerchantAddressQT]
   mersisId: String
   name: String
@@ -476,7 +478,7 @@ type ProductQT {
   productCategory: ProductCategoryQT
   productCategoryId: Int
   orderItem: [SaleDetailQT]
-  standartCost: BigDecimal
+  standardCost: BigDecimal
   taxRate: BigDecimal
   weight: Int
 }
@@ -693,7 +695,7 @@ type VehicleDriverQT {
 
 type VehicleQT {
   active: Boolean
-  assesmentDate: String
+  assessmentDate: String
   assuranceRenewalDate: String
   id: ID
   lastUpdate: String
