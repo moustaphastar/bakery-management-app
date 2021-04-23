@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -57,6 +58,12 @@ public class AspNetRoles implements java.io.Serializable {
      */
     @Column(name = "ConcurrencyStamp")
     private String concurrencyStamp;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(name = "InsertDate", nullable = false)
+    private OffsetDateTime insertedDate;
 
     /***
      * Set of child {@link AspNetRoleClaims} with one to many relation.

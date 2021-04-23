@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /***
  * Domain model class to hold user data.
@@ -26,7 +27,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @Entity
 @Table(name = "CustomerType", schema = "public")
-public class CustomerType implements java.io.Serializable {
+public class CustomerCategory implements java.io.Serializable {
 
     /***
      * Id of the entity.
@@ -43,10 +44,30 @@ public class CustomerType implements java.io.Serializable {
     private String name;
 
     /***
-     * Date and time of first persisting with an offset.
+     * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertedAt", nullable = false, length = 19)
-    private OffsetDateTime insertedAt;
+    @Column(name = "InsertDate", nullable = false)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "InsertedBy", nullable = false)
+    private UUID insertedBy;
+
+    /***
+     * Date and time of last update with an offset.
+     */
+    @Column(name = "LastUpdate", nullable = false)
+    private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "LastUpdatedBy", nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
@@ -63,7 +84,7 @@ public class CustomerType implements java.io.Serializable {
     /***
      * Class constructor.
      */
-    public CustomerType() {
+    public CustomerCategory() {
     }
 
 }

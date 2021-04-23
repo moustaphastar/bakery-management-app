@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /***
@@ -61,6 +62,32 @@ public class AspNetRoleClaims implements java.io.Serializable {
      */
     @Column(name = "ClaimValue")
     private String claimValue;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(name = "InsertDate", nullable = false)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "InsertedBy", nullable = false)
+    private UUID insertedBy;
+
+    /***
+     * Date and time of last update with an offset.
+     */
+    @Column(name = "LastUpdate", nullable = false)
+    private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "LastUpdatedBy", nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * Class constructor.

@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /***
@@ -58,6 +59,12 @@ public class AspNetUserLogins implements java.io.Serializable {
     // todo: Enhance Javadoc. What is a provider?
     @Column(name = "ProviderDisplayName")
     private String providerDisplayName;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(name = "InsertDate", nullable = false)
+    private OffsetDateTime insertedDate;
 
     /***
      * Class constructor.

@@ -123,10 +123,30 @@ public class OrderItem implements java.io.Serializable {
     private ShipmentPartsOfDay shippingDayPart;
 
     /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(name = "InsertDate", nullable = false)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "InsertedBy", nullable = false)
+    private UUID insertedBy;
+
+    /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false, length = 19)
+    @Column(name = "LastUpdate", nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "LastUpdatedBy", nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of order item from {@link OrderItemStatus}

@@ -1,6 +1,6 @@
 package com.bakery.management.dao;
 
-import com.bakery.management.domain.MerchantType;
+import com.bakery.management.domain.MerchantCategory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -8,10 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Home object for domain model class MerchantType.
+ * Home object for domain model class MerchantCategory.
  *
  * @author Hibernate Tools
- * @see MerchantType
+ * @see MerchantCategory
  */
 public class MerchantTypeHome {
 
@@ -28,10 +28,10 @@ public class MerchantTypeHome {
 
     /***
      * Persist entity to database.
-     * @param transientInstance MerchantType entity to persist
+     * @param transientInstance MerchantCategory entity to persist
      */
-    public void persist(final MerchantType transientInstance) {
-        LOG.debug("persisting MerchantType instance");
+    public void persist(final MerchantCategory transientInstance) {
+        LOG.debug("persisting MerchantCategory instance");
         try {
             entityManager.persist(transientInstance);
             LOG.debug("persist successful");
@@ -43,10 +43,10 @@ public class MerchantTypeHome {
 
     /***
      * Remove entity from database.
-     * @param persistentInstance MerchantType entity to remove
+     * @param persistentInstance MerchantCategory entity to remove
      */
-    public void remove(final MerchantType persistentInstance) {
-        LOG.debug("removing MerchantType instance");
+    public void remove(final MerchantCategory persistentInstance) {
+        LOG.debug("removing MerchantCategory instance");
         try {
             entityManager.remove(persistentInstance);
             LOG.debug("remove successful");
@@ -58,13 +58,13 @@ public class MerchantTypeHome {
 
     /***
      * Merge entity from database.
-     * @param detachedInstance MerchantType entity to merge
-     * @return MerchantType
+     * @param detachedInstance MerchantCategory entity to merge
+     * @return MerchantCategory
      */
-    public MerchantType merge(final MerchantType detachedInstance) {
-        LOG.debug("merging MerchantType instance");
+    public MerchantCategory merge(final MerchantCategory detachedInstance) {
+        LOG.debug("merging MerchantCategory instance");
         try {
-            MerchantType result = entityManager.merge(detachedInstance);
+            MerchantCategory result = entityManager.merge(detachedInstance);
             LOG.debug("merge successful");
             return result;
         } catch (RuntimeException re) {
@@ -76,12 +76,12 @@ public class MerchantTypeHome {
     /***
      * Finds an entity from database.
      * @param id Id of the entity to find from database
-     * @return MerchantType
+     * @return MerchantCategory
      */
-    public MerchantType findById(final int id) {
-        LOG.debug("getting MerchantType instance with id: " + id);
+    public MerchantCategory findById(final int id) {
+        LOG.debug("getting MerchantCategory instance with id: " + id);
         try {
-            MerchantType instance = entityManager.find(MerchantType.class, id);
+            MerchantCategory instance = entityManager.find(MerchantCategory.class, id);
             LOG.debug("get successful");
             return instance;
         } catch (RuntimeException re) {

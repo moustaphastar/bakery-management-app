@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /***
  * Domain model class to hold address data.
@@ -25,7 +26,9 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"merchantAddresses",
+        "customerAddresses", "employeeAddresses",
+        "salesForBillToAddressId", "salesForShipToAddressId"})
 @Entity
 @Table(name = "Address", schema = "public")
 public class Address implements java.io.Serializable {
@@ -66,14 +69,35 @@ public class Address implements java.io.Serializable {
     /***
      * Latitude and Longitude.
      */
+    // todo: Convert to PostGIS compatible data type.
     @Column(name = "SpatialLocation")
     private byte[] spatialLocation;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(name = "InsertDate", nullable = false)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "InsertedBy", nullable = false)
+    private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
     @Column(name = "LastUpdate", nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "LastUpdatedBy", nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.

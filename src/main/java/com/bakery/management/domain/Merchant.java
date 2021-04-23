@@ -40,11 +40,11 @@ public class Merchant implements java.io.Serializable {
     private UUID id;
 
     /***
-     * Parent {@link MerchantType} entity with many to one relation.
+     * Parent {@link MerchantCategory} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TypeId", nullable = false)
-    private MerchantType merchantType;
+    @JoinColumn(name = "CategoryId", nullable = false)
+    private MerchantCategory merchantCategory;
 
     /***
      * Short descriptive name of the merchant.
@@ -120,10 +120,30 @@ public class Merchant implements java.io.Serializable {
     private LocalDate engagedOn;
 
     /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(name = "InsertDate", nullable = false)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "InsertedBy", nullable = false)
+    private UUID insertedBy;
+
+    /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false, length = 23)
+    @Column(name = "LastUpdate", nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "LastUpdatedBy", nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
