@@ -6,7 +6,6 @@ import com.bakery.management.repository.AddressRepository;
 import com.bakery.management.repository.CityRepository;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingFieldSelectionSet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,14 +21,18 @@ public class AddressDataFetcher {
     /***
      * Injection for AddressRepository object.
      */
-    @Autowired
-    private AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
 
     /***
      * Injection for CityRepository object.
      */
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
+
+    public AddressDataFetcher(final AddressRepository addressRepo,
+                              final CityRepository cityRepo) {
+        this.addressRepository = addressRepo;
+        this.cityRepository = cityRepo;
+    }
 
     /***
      * Fetches the {@link Address} entity with given id from database.
