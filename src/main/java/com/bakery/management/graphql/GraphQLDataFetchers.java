@@ -55,7 +55,7 @@ public class GraphQLDataFetchers {
     public GraphQLDataFetchers(final AddressRepository addressRepo,
                                final CashAccountRepository cashAccountRepo,
                                final CashTransactionRepository transactionRepo,
-                               final MerchantRepository merchantRepo){
+                               final MerchantRepository merchantRepo) {
         this.addressRepository = addressRepo;
         this.cashAccountRepository = cashAccountRepo;
         this.cashTransactionRepository = transactionRepo;
