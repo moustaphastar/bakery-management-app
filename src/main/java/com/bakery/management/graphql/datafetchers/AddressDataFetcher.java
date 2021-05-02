@@ -2,8 +2,10 @@ package com.bakery.management.graphql.datafetchers;
 
 import com.bakery.management.domain.Address;
 import com.bakery.management.domain.City;
+import com.bakery.management.domain.Country;
 import com.bakery.management.repository.AddressRepository;
 import com.bakery.management.repository.CityRepository;
+import com.bakery.management.repository.CountryRepository;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingFieldSelectionSet;
 import org.springframework.stereotype.Component;
@@ -29,14 +31,21 @@ public class AddressDataFetcher {
     private final CityRepository cityRepository;
 
     /***
+     * Injection for CountryRepository object.
+     */
+    private final CountryRepository countryRepository;
+
+    /***
      * Class constructor.
      * @param addressRepo Address repository
      * @param cityRepo City repository
      */
     public AddressDataFetcher(final AddressRepository addressRepo,
-                              final CityRepository cityRepo) {
+                              final CityRepository cityRepo,
+                              final CountryRepository countryRepo) {
         this.addressRepository = addressRepo;
         this.cityRepository = cityRepo;
+        this.countryRepository = countryRepo;
     }
 
     /***
@@ -91,6 +100,13 @@ public class AddressDataFetcher {
             Optional<Address> address = addressRepository
                     .getCustomerAddress(customerId);
             return address.orElse(null);
+        };
+    }
+
+    public DataFetcher<List<Country>> fetchCountries() {
+        return environment -> {
+            return countryRepository
+                    .findAll();
         };
     }
 }
