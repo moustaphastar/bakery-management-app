@@ -39,6 +39,7 @@ public class AddressDataFetcher {
      * Class constructor.
      * @param addressRepo Address repository
      * @param cityRepo City repository
+     * @param countryRepo Country repository
      */
     public AddressDataFetcher(final AddressRepository addressRepo,
                               final CityRepository cityRepo,
