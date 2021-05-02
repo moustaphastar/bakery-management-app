@@ -46,7 +46,11 @@ public class GraphQLDataFetchers {
     private final MerchantRepository merchantRepository;
 
     /**
-     * Class constructor
+     * Class constructor.
+     * @param addressRepo Address repository
+     * @param cashAccountRepo Cash account repository
+     * @param merchantRepo Merchant repository
+     * @param transactionRepo Transaction repository
      */
     public GraphQLDataFetchers(final AddressRepository addressRepo,
                                final CashAccountRepository cashAccountRepo,

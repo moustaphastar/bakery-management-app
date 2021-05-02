@@ -81,7 +81,8 @@ public class MerchantTypeHome {
     public MerchantCategory findById(final int id) {
         LOG.debug("getting MerchantCategory instance with id: " + id);
         try {
-            MerchantCategory instance = entityManager.find(MerchantCategory.class, id);
+            MerchantCategory instance = entityManager
+                    .find(MerchantCategory.class, id);
             LOG.debug("get successful");
             return instance;
         } catch (RuntimeException re) {
