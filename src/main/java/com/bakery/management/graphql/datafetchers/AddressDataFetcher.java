@@ -28,6 +28,11 @@ public class AddressDataFetcher {
      */
     private final CityRepository cityRepository;
 
+    /***
+     * Class constructor.
+     * @param addressRepo Address repository
+     * @param cityRepo City repository
+     */
     public AddressDataFetcher(final AddressRepository addressRepo,
                               final CityRepository cityRepo) {
         this.addressRepository = addressRepo;
