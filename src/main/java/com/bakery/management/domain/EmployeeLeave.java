@@ -25,7 +25,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "EmployeeLeave", schema = "public")
+@Table(schema = "public")
 public class EmployeeLeave implements java.io.Serializable {
 
     /***
@@ -33,65 +33,65 @@ public class EmployeeLeave implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link Employee} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "EmployeeId", nullable = false)
+    @JoinColumn(name = "employeeId", nullable = false)
     private Employee employee;
 
     /***
      * Foreign key to parent {@link Employee} entity Id.
      */
-    @Column(name = "EmployeeId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID employeeId;
 
     /***
      * Beginning date of leave.
      */
-    @Column(name = "LaeveFrom", nullable = false, length = 19)
+    @Column(nullable = false, length = 19)
     private OffsetDateTime leaveFrom;
 
     /***
      * Ending date of leave.
      */
-    @Column(name = "LeaveTo", length = 19)
+    @Column(length = 19)
     private OffsetDateTime leaveTo;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

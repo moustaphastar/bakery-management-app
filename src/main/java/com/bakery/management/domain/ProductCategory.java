@@ -28,7 +28,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "ProductCategory", schema = "public")
+@Table(schema = "public")
 public class ProductCategory implements java.io.Serializable {
 
     /***
@@ -36,52 +36,59 @@ public class ProductCategory implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link MerchantCategory} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MerchantTypeId")
+    @JoinColumn(name = "MerchantCategoryId")
     private MerchantCategory merchantCategory;
+
+    /***
+     * Foreign key to parent {@link MerchantCategory} entity Id.
+     */
+    @Column(nullable = false, updatable = false,
+            insertable = false)
+    private int merchantCategoryId;
 
     /***
      * Name of category.
      */
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

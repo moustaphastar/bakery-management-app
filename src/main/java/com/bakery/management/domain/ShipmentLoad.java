@@ -31,7 +31,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "ShipmentLoad", schema = "public")
+@Table(schema = "public")
 public class ShipmentLoad implements java.io.Serializable {
 
     /***
@@ -46,16 +46,14 @@ public class ShipmentLoad implements java.io.Serializable {
      * Parent {@link OrderItem} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SaleDetailId", nullable = false)
-    // todo: OrderItem's Id field will be changed to UUID.
+    @JoinColumn(name = "orderItemId", nullable = false)
     private OrderItem orderItem;
 
     /***
      * Foreign key to parent {@link OrderItem} entity Id.
      */
-    @Column(name = "SaleDetailId", nullable = false, updatable = false,
-            insertable = false)
-    private int orderItemId;
+    @Column(nullable = false, updatable = false, insertable = false)
+    private long orderItemId;
 
     /***
      * Parent {@link Shipment} entity with many to one relation.

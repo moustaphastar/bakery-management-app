@@ -28,7 +28,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "VehicleDriver", schema = "public")
+@Table(schema = "public")
 public class Driver implements java.io.Serializable {
 
     /***
@@ -36,20 +36,20 @@ public class Driver implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link Employee} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "EmployeeId", nullable = false)
+    @JoinColumn(name = "employeeId", nullable = false)
     private Employee employee;
 
     /***
      * Foreign key to parent {@link Employee} entity Id.
      */
-    @Column(name = "EmployeeId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID employeeId;
 
@@ -57,58 +57,58 @@ public class Driver implements java.io.Serializable {
      * Parent {@link Vehicle} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "VehicleId", nullable = false)
+    @JoinColumn(name = "vehicleId", nullable = false)
     private Vehicle vehicle;
 
     /***
      * Foreign key to parent {@link Vehicle} entity Id.
      */
-    @Column(name = "VehicleId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int vehicleId;
 
     /***
      * Beginning date of validity.
      */
-    @Column(name = "ValidFrom", nullable = false, length = 19)
+    @Column(nullable = false, length = 19)
     private OffsetDateTime validFrom;
 
     /***
      * Ending date of validity.
      */
-    @Column(name = "ValidTo", length = 19)
+    @Column(length = 19)
     private OffsetDateTime validTo;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***
@@ -116,12 +116,6 @@ public class Driver implements java.io.Serializable {
      */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver")
     private Set<DriverCustomer> driverCustomers = new HashSet<>(0);
-
-    /***
-     * Set of child {@link ShipmentRoute} with one to many relation.
-     */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "driver")
-    private Set<ShipmentRoute> shipmentRoutes = new HashSet<>(0);
 
     /***
      * Set of child {@link Shipment} with one to many relation.

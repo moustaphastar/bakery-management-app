@@ -21,13 +21,13 @@ public class AspNetUserLoginsId implements java.io.Serializable {
     /***
      * Name of login provider.
      */
-    @Column(name = "LoginProvider", nullable = false)
+    @Column(nullable = false)
     private String loginProvider;
 
     /***
      * A key to identify login provider.
      */
-    @Column(name = "ProviderKey", nullable = false)
+    @Column(nullable = false)
     private String providerKey;
 
     /***

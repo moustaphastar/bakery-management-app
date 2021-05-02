@@ -26,7 +26,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "MerchantCategory", schema = "public")
+@Table(schema = "public")
 public class MerchantCategory implements java.io.Serializable {
 
     /***
@@ -34,63 +34,63 @@ public class MerchantCategory implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Merchant type definition.
      */
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***
      * Set of child {@link ProductCategory} with one to many relation.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "merchantType")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "merchantCategory")
     private Set<ProductCategory> productCategories = new HashSet<>(0);
 
     /***
      * Set of child {@link Merchant} with one to many relation.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "merchantType")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "merchantCategory")
     private Set<Merchant> merchants = new HashSet<>(0);
 
     /***
      * Set of child {@link ProductProperty} with one to many relation.
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "merchantType")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "merchantCategory")
     private Set<ProductProperty> productProperties = new HashSet<>(0);
 
     /***

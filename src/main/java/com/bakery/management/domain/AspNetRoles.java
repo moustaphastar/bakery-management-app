@@ -29,7 +29,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "AspNetRoles", schema = "public",
+@Table(schema = "public",
         uniqueConstraints = @UniqueConstraint(columnNames = "NormalizedName"))
 public class AspNetRoles implements java.io.Serializable {
 
@@ -38,7 +38,7 @@ public class AspNetRoles implements java.io.Serializable {
      */
     @Id
     @GeneratedValue
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private UUID id;
 
     /***
@@ -50,7 +50,7 @@ public class AspNetRoles implements java.io.Serializable {
     /***
      * Name of the role, all letters in uppercase.
      */
-    @Column(name = "NormalizedName", unique = true)
+    @Column(unique = true)
     private String normalizedName;
 
     /***
@@ -62,7 +62,7 @@ public class AspNetRoles implements java.io.Serializable {
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***

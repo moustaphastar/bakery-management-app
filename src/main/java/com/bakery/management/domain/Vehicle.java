@@ -32,7 +32,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "Vehicle", schema = "public")
+@Table(schema = "public")
 public class Vehicle implements java.io.Serializable {
 
     /***
@@ -40,7 +40,7 @@ public class Vehicle implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
@@ -53,32 +53,32 @@ public class Vehicle implements java.io.Serializable {
     /***
      * Foreign key to parent {@link Merchant} entity Id.
      */
-    @Column(name = "MerchantId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID merchantId;
 
     /***
      * Vehicle's plate number.
      */
-    @Column(name = "PlateNumber", nullable = false, length = 15)
+    @Column(nullable = false, length = 15)
     private String plateNumber;
 
     /***
      * Date the vehicle is possessed.
      */
-    @Column(name = "AssesmentDate", nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     private LocalDate assessmentDate;
 
     /***
      * Date the assurance ends and needs to be renewed.
      */
-    @Column(name = "AssuranceRenewalDate", length = 10)
+    @Column(length = 10)
     private LocalDate assuranceRenewalDate;
 
     /***
      * State of vehicle servicing ability.
      */
-    @Column(name = "OutOfOrderFlag", nullable = false)
+    @Column(nullable = false)
     private boolean outOfOrderFlag;
 
     /***
@@ -87,39 +87,39 @@ public class Vehicle implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = VehicleServiceTypeConverter.class)
-    @Column(name = "ServiceType", length = 1)
+    @Column(length = 1)
     private VehicleServiceType serviceType;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

@@ -21,26 +21,26 @@ public class AspNetUserTokensId implements java.io.Serializable {
     /***
      * Id of user.
      */
-    @Column(name = "UserId", nullable = false)
+    @Column(nullable = false)
     private String userId;
 
     /***
      * Provider name.
      */
     // todo: Enhance Javadoc. What is this related with?
-    @Column(name = "LoginProvider", nullable = false)
+    @Column(nullable = false)
     private String loginProvider;
 
     /***
      * Token name.
      */
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     /***
      * Token value.
      */
-    @Column(name = "Value")
+    @Column(nullable = false)
     private String value;
 
     /***

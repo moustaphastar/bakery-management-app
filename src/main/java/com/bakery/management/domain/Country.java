@@ -26,7 +26,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode(exclude = {"cities"})
 @Entity
-@Table(name = "Country", schema = "public")
+@Table(schema = "public")
 public class Country implements java.io.Serializable {
 
     /***
@@ -34,51 +34,51 @@ public class Country implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * ISO 3166-1 alpha-2 codes.
      */
-    @Column(name = "ISO2", nullable = false, length = 2)
+    @Column(nullable = false, length = 2)
     private String iso2;
 
     /***
      * ISO 3166-1 alpha-3 codes.
      */
-    @Column(name = "ISO3", length = 3)
+    @Column(length = 3)
     private String iso3;
 
     /***
      * Name of country.
      */
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***

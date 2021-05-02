@@ -25,7 +25,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "AspNetUserLogins", schema = "public")
+@Table(schema = "public")
 public class AspNetUserLogins implements java.io.Serializable {
 
     /***
@@ -34,22 +34,22 @@ public class AspNetUserLogins implements java.io.Serializable {
     @EmbeddedId
     @AttributeOverrides({
             @AttributeOverride(name = "loginProvider",
-                    column = @Column(name = "LoginProvider", nullable = false)),
+                    column = @Column(nullable = false)),
             @AttributeOverride(name = "providerKey",
-                    column = @Column(name = "ProviderKey", nullable = false))})
+                    column = @Column(nullable = false))})
     private AspNetUserLoginsId id;
 
     /***
      * Parent {@link AspNetUsers} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserId", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private AspNetUsers aspNetUsers;
 
     /***
      * Foreign key to parent {@link AspNetUsers} entity Id.
      */
-    @Column(name = "UserId", nullable = false, insertable = false,
+    @Column(nullable = false, insertable = false,
             updatable = false)
     private UUID userId;
 
@@ -57,13 +57,13 @@ public class AspNetUserLogins implements java.io.Serializable {
      * Display name for provider.
      */
     // todo: Enhance Javadoc. What is a provider?
-    @Column(name = "ProviderDisplayName")
+    @Column(nullable = false)
     private String providerDisplayName;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***

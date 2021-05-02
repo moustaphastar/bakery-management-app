@@ -29,7 +29,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "CashTransaction", schema = "public")
+@Table(schema = "public")
 public class CashTransaction implements java.io.Serializable {
 
     /***
@@ -37,27 +37,27 @@ public class CashTransaction implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link CashAccount} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CashAccountId", nullable = false)
+    @JoinColumn(name = "cashAccountId", nullable = false)
     private CashAccount cashAccount;
 
     /***
      * Foreign key to parent {@link CashAccount} entity Id.
      */
-    @Column(name = "CashAccountId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int cashAccountId;
 
     /***
      * Date and time with offset the transaction is processed.
      */
-    @Column(name = "TransactionDate", nullable = false, length = 19)
+    @Column(nullable = false, length = 19)
     private OffsetDateTime transactionDate;
 
     /***
@@ -66,14 +66,14 @@ public class CashTransaction implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = CashTransactionTypeConverter.class)
-    @Column(name = "TransactionType", nullable = false, length = 1,
+    @Column(nullable = false, length = 1,
             columnDefinition = "char(1)")
     private CashTransactionType transactionType;
 
     /***
      * Total amount including tax amount.
      */
-    @Column(name = "TransactionAmount", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal transactionAmount;
 
     /***
@@ -81,39 +81,39 @@ public class CashTransaction implements java.io.Serializable {
      * Unique identification numbers of the corresponding payment document
      * should be included.
      */
-    @Column(name = "Explanation", nullable = false)
+    @Column(nullable = false)
     private String explanation;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

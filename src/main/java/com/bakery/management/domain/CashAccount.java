@@ -29,7 +29,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "CashAccount", schema = "public")
+@Table(schema = "public")
 public class CashAccount implements java.io.Serializable {
 
     /***
@@ -37,55 +37,55 @@ public class CashAccount implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link Merchant} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MerchantId", nullable = false)
+    @JoinColumn(name = "merchantId", nullable = false)
     private Merchant merchant;
 
     /***
      * Foreign key to parent {@link Merchant} entity Id.
      */
-    @Column(name = "MerchantId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID merchantId;
 
     /***
      * Yearly financial period that financial accounting is applied.
      */
-    @Column(name = "FiscalYear", nullable = false)
+    @Column(nullable = false)
     private int fiscalYear;
 
     /***
      * Total cash amount received currently.
      */
     @SuppressWarnings("magicnumber")
-    @Column(name = "TotalReceived", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal totalReceived;
 
     /***
      * Total cash amount paid currently.
      */
     @SuppressWarnings("magicnumber")
-    @Column(name = "TotalPaid", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal totalPaid;
 
     /***
      * The balance coming from previous financial term or an opening balance.
      */
     @SuppressWarnings("magicnumber")
-    @Column(name = "OutstandingBalance", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal outstandingBalance;
 
     /***
      * Current balance.
      */
     @SuppressWarnings("checkstyle:magicnumber")
-    @Column(name = "Balance", precision = 11)
+    @Column(precision = 11)
     private BigDecimal balance;
 
     /***
@@ -94,39 +94,39 @@ public class CashAccount implements java.io.Serializable {
      * such as point of sale receipts, bills.
      */
     @SuppressWarnings("checkstyle:magicnumber")
-    @Column(name = "RegularInvoiceLimit", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal regularInvoiceLimit;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

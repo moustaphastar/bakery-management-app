@@ -22,7 +22,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,7 +36,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "Sale", schema = "public")
+@Table(schema = "public")
 public class Order implements java.io.Serializable {
 
     /***
@@ -45,8 +44,8 @@ public class Order implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
-    private int id;
+    @Column(unique = true, nullable = false)
+    private long id;
 
     /***
      * Parent {@link Address} entity with many to one relation.
@@ -58,7 +57,7 @@ public class Order implements java.io.Serializable {
     /***
      * Foreign key to parent {@link Address} entity Id.
      */
-    @Column(name = "BillToAddressId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int billToAddressId;
 
@@ -72,7 +71,7 @@ public class Order implements java.io.Serializable {
     /***
      * Foreign key to parent {@link Address} entity Id.
      */
-    @Column(name = "ShipToAddressId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int shipToAddressId;
 
@@ -80,13 +79,13 @@ public class Order implements java.io.Serializable {
      * Parent {@link Customer} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerId", nullable = false)
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
     /***
      * Foreign key to parent {@link Customer} entity Id.
      */
-    @Column(name = "CustomerId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID customerId;
 
@@ -94,59 +93,59 @@ public class Order implements java.io.Serializable {
      * Parent {@link Merchant} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MerchantId", nullable = false)
+    @JoinColumn(name = "merchantId", nullable = false)
     private Merchant merchant;
 
     /***
      * Foreign key to parent {@link Merchant} entity Id.
      */
-    @Column(name = "MerchantId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID merchantId;
 
     /***
      * Date and time with offset the order placed.
      */
-    @Column(name = "OrderDate", nullable = false, length = 19)
+    @Column(nullable = false, length = 19)
     private OffsetDateTime orderDate;
 
     /***
      * Expected date of delivery.
      */
-    @Column(name = "DueDate", nullable = false, length = 10)
-    private LocalDate dueDate;
+    @Column(nullable = false, length = 10)
+    private OffsetDateTime dueDate;
 
     /***
      * Date and time with offset the order shipped.
      */
-    @Column(name = "ShipDate", length = 19)
-    private LocalDate shipDate;
+    @Column(length = 19)
+    private OffsetDateTime shipDate;
 
     /***
      * Date and time with offset the order dropped to target.
      */
-    @Column(name = "DeliveryDate", length = 19)
+    @Column(length = 19)
     private OffsetDateTime deliveryDate;
 
     /***
      * Calculated total amount excluding tax.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "SubTotal", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal subTotal;
 
     /***
      * Calculated tax amount.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "TaxAmount", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal taxAmount;
 
     /***
      * Calculated total amount including tax.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "TotalDue", precision = 10)
+    @Column(precision = 10)
     private BigDecimal totalDue;
 
     /***
@@ -155,14 +154,14 @@ public class Order implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = ShipmentMethodConverter.class)
-    @Column(name = "ShipmentMethod", length = 1)
+    @Column(length = 1)
     private ShipmentMethod shipmentMethod;
 
     /***
      * Indication of the order is received online or not.
      * True if online, false if face to face.
      */
-    @Column(name = "OnlineOrderFlag", nullable = false)
+    @Column(nullable = false)
     private boolean onlineOrderFlag;
 
     /***
@@ -171,7 +170,7 @@ public class Order implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = DocumentTypeConverter.class)
-    @Column(name = "DocumentType", length = 1)
+    @Column(length = 1)
     private DocumentType documentType;
 
     /***
@@ -180,39 +179,39 @@ public class Order implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = OrderStatusConverter.class)
-    @Column(name = "Status", nullable = false, length = 1)
+    @Column(nullable = false, length = 1)
     private OrderStatus status;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

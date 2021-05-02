@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "AspNetUserTokens", schema = "public")
+@Table(schema = "public")
 public class AspNetUserTokens implements java.io.Serializable {
 
     /***
@@ -29,12 +29,12 @@ public class AspNetUserTokens implements java.io.Serializable {
     @EmbeddedId
     @AttributeOverrides({
             @AttributeOverride(name = "userId",
-                    column = @Column(name = "UserId", nullable = false)),
+                    column = @Column(nullable = false)),
             @AttributeOverride(name = "loginProvider",
                     column = @Column(name = "LoginProvider",
                             nullable = false)),
             @AttributeOverride(name = "name",
-                    column = @Column(name = "Name", nullable = false)),
+                    column = @Column(nullable = false)),
             @AttributeOverride(name = "value",
                     column = @Column(name = "Value"))})
     private AspNetUserTokensId id;

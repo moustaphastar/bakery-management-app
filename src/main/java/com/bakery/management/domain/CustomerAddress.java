@@ -15,11 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.OffsetDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 /***
@@ -31,7 +28,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "CustomerAddress", schema = "public")
+@Table(schema = "public")
 public class CustomerAddress implements java.io.Serializable {
 
     /***
@@ -39,20 +36,20 @@ public class CustomerAddress implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link Address} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "AddressId", nullable = false)
+    @JoinColumn(name = "addressId", nullable = false)
     private Address address;
 
     /***
      * Foreign key to parent {@link Address} entity Id.
      */
-    @Column(name = "AddressId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int addressId;
 
@@ -60,13 +57,13 @@ public class CustomerAddress implements java.io.Serializable {
      * Parent {@link Customer} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerId", nullable = false)
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
     /***
      * Foreign key to parent {@link Customer} entity Id.
      */
-    @Column(name = "CustomerId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID customerId;
 
@@ -77,46 +74,40 @@ public class CustomerAddress implements java.io.Serializable {
      */
     // todo: Enhance Javadoc. Add converter info. Apply doc to all enum fields.
     @Convert(converter = AddressTypeConverter.class)
-    @Column(name = "Description", nullable = false, length = 1)
+    @Column(nullable = false, length = 1)
     private AddressType description;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
-
-    /***
-     * Set of child {@link ShipmentRouteIndex} with one to many relation.
-     */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customerAddress")
-    private Set<ShipmentRouteIndex> shipmentRouteIndexes = new HashSet<>(0);
 
     /***
      * Class constructor.

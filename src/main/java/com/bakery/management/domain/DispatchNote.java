@@ -26,7 +26,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "DispatchNote", schema = "public")
+@Table(schema = "public")
 public class DispatchNote implements java.io.Serializable {
 
     /***
@@ -34,7 +34,7 @@ public class DispatchNote implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     // todo: Refactor to long or UUID.
     private int id;
 
@@ -48,7 +48,7 @@ public class DispatchNote implements java.io.Serializable {
     /***
      * Foreign key to parent {@link Invoice} entity Id.
      */
-    @Column(name = "InvoiceId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID invoiceId;
 
@@ -62,7 +62,7 @@ public class DispatchNote implements java.io.Serializable {
     /***
      * Foreign key to parent {@link Merchant} entity Id.
      */
-    @Column(name = "MerchantId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID merchantId;
 
@@ -77,7 +77,7 @@ public class DispatchNote implements java.io.Serializable {
     /***
      * Foreign key to parent {@link Customer} entity Id.
      */
-    @Column(name = "CustomerId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     // todo : Map to Customer entity?
     private UUID customerId;
@@ -86,19 +86,19 @@ public class DispatchNote implements java.io.Serializable {
      * Document reference number.
      */
     // todo: Generate reference number producer method.
-    @Column(name = "ReferenceNumber")
+    @Column(nullable = false)
     private String referenceNumber;
 
     /***
      * Legal serial number. Unique in a year.
      */
-    @Column(name = "SerialNumber")
+    @Column(nullable = false)
     private String serialNumber;
 
     /***
      * Legal sequence number. Unique in a serial group.
      */
-    @Column(name = "SequenceNumber")
+    @Column(nullable = false)
     private Integer sequenceNumber;
 
     /***
@@ -107,54 +107,54 @@ public class DispatchNote implements java.io.Serializable {
      * @see #isPaperPrinted
      * @see #isPaperPrinted()
      */
-    @Column(name = "IssueDate", nullable = false, length = 19)
+    @Column(nullable = false, length = 19)
     private OffsetDateTime issueDate;
 
     /***
      * Calculated total amount excluding tax.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "SubTotal", precision = 9)
+    @Column(precision = 9)
     private BigDecimal subTotal;
 
     /***
      * Calculated tax amount.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "TaxAmount", precision = 9)
+    @Column(precision = 9)
     private BigDecimal taxAmount;
 
     /***
      * Calculated total amount including tax.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "TotalDue", precision = 9)
+    @Column(precision = 9)
     private BigDecimal totalDue;
 
     /***
      * Firstname and lastname of the person who delivered the document.
      */
-    @Column(name = "DeliveryPersonId", length = 36)
+    @Column(length = 36)
     // todo: Map to Employee or Shipment entity?
     private String deliveryPersonId;
 
     /***
-     * Firstname and lastname of the person who received the document.
+     * First and last name of the authorized person who received the document.
      */
-    @Column(name = "Receiver")
+    @Column(nullable = false)
     private String receiver;
 
     /***
      * Date and time of delivery with offset.
      * @see Shipment
      */
-    @Column(name = "DeliveredAt", length = 19)
+    @Column(length = 19)
     private OffsetDateTime deliveredAt;
 
     /***
      * Additional notes on document.
      */
-    @Column(name = "Note")
+    @Column(nullable = true)
     private String note;
 
     /***
@@ -164,40 +164,40 @@ public class DispatchNote implements java.io.Serializable {
      * since they are whole together and have the same serial
      * and sequence number.
      */
-    @Column(name = "IsPaperPrinted", nullable = false)
+    @Column(nullable = false)
     private boolean isPaperPrinted;
 
     /***
      * Date and time of paper printing with offset.
      * @see #isPaperPrinted
      */
-    @Column(name = "PaperPrintedAt", length = 19)
+    @Column(length = 19)
     private OffsetDateTime paperPrintedAt;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
@@ -205,13 +205,13 @@ public class DispatchNote implements java.io.Serializable {
      * The document is {@link #active} but neither the document
      * nor its serial and sequence number can not be used in accounting.
      */
-    @Column(name = "IsCancelled")
+    @Column(nullable = false)
     private Boolean isCancelled;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active")
+    @Column(nullable = false)
     private Boolean active;
 
     /***

@@ -33,7 +33,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "Employee", schema = "public")
+@Table(schema = "public")
 public class Employee implements java.io.Serializable {
 
     /***
@@ -41,20 +41,20 @@ public class Employee implements java.io.Serializable {
      */
     @Id
     @GeneratedValue
-    @Column(name = "Id", unique = true, nullable = false, length = 36)
+    @Column(unique = true, nullable = false, length = 36)
     private UUID id;
 
     /***
      * Parent {@link Job} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "JobId", nullable = false)
+    @JoinColumn(name = "jobId", nullable = false)
     private Job job;
 
     /***
      * Foreign key to parent {@link Job} entity Id.
      */
-    @Column(name = "JobId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int jobId;
 
@@ -62,50 +62,50 @@ public class Employee implements java.io.Serializable {
      * Parent {@link Merchant} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MerchantId", nullable = false)
+    @JoinColumn(name = "merchantId", nullable = false)
     private Merchant merchant;
 
     /***
      * Foreign key to parent {@link Merchant} entity Id.
      */
-    @Column(name = "MerchantId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID merchantId;
 
     /***
      * Social security number.
      */
-    @Column(name = "SSN", nullable = false)
+    @Column(nullable = false)
     private String ssn;
 
     /***
      * First name.
      */
-    @Column(name = "FirstName", nullable = false)
+    @Column(nullable = false)
     private String firstName;
 
     /***
      * Middle name.
      */
-    @Column(name = "MiddleName")
+    @Column(nullable = false)
     private String middleName;
 
     /***
      * Last name.
      */
-    @Column(name = "LastName", nullable = false)
+    @Column(nullable = false)
     private String lastName;
 
     /***
      * Governmental identity number.
      */
-    @Column(name = "NationalIdNumber", nullable = false, length = 11)
+    @Column(nullable = false, length = 11)
     private String nationalIdNumber;
 
     /***
      * Date of birth.
      */
-    @Column(name = "BitrhDate", nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     private LocalDate birthDate;
 
     /***
@@ -114,7 +114,7 @@ public class Employee implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = GenderConverter.class)
-    @Column(name = "Gender", length = 1)
+    @Column(length = 1)
     private Gender gender;
 
     /***
@@ -123,83 +123,83 @@ public class Employee implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = MaritalStatusConverter.class)
-    @Column(name = "MaritalStatus", length = 1)
+    @Column(length = 1)
     private MaritalStatus maritalStatus;
 
     /***
      * Phone number.
      */
-    @Column(name = "Phone", length = 10)
+    @Column(length = 10)
     private String phone;
 
     /***
      * Date of hire.
      */
-    @Column(name = "HireDate", nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     // todo: Convert all LocalDate fields to OffsetDateTime?
     private LocalDate hireDate;
 
     /***
      * Date of resign.
      */
-    @Column(name = "ResignDate", length = 10)
+    @Column(length = 10)
     private LocalDate resignDate;
 
     /***
      * Days count available for vacation.
      */
     // todo: Inverse? Otherwise we have to keep max vacation day number.
-    @Column(name = "VacationDaysLeft")
+    @Column(nullable = false)
     private Byte vacationDaysLeft;
 
     /***
      * Days off count due to illness.
      */
-    @Column(name = "SickHoursLeave")
+    @Column(nullable = false)
     private Byte sickHoursLeave;
 
     /***
      * User id if available.
      */
-    @Column(name = "AspUserId")
+    @Column(nullable = false)
     private String aspUserId;
 
     /***
      * Date and time of first persisting with an offset.
      */
-    @Column(name = "InsertedAt", nullable = false, length = 19)
+    @Column(nullable = false, length = 19)
     private OffsetDateTime insertedAt;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

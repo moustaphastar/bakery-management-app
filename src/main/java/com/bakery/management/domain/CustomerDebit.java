@@ -33,7 +33,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "CustomerDebit", schema = "public")
+@Table(schema = "public")
 public class CustomerDebit implements java.io.Serializable {
 
     /***
@@ -41,41 +41,46 @@ public class CustomerDebit implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link Customer} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerId", nullable = false)
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
     /***
      * Foreign key to parent {@link Customer} entity Id.
      */
-    @Column(name = "CustomerId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID customerId;
 
     /***
+     * Parent {@link Order} entity with many to one relation.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId", nullable = false)
+    private Order order;
+
+    /***
      * Foreign key to parent {@link Order} entity Id.
      */
-    // todo: Add many to one relation for order too.
-    @Column(name = "SaleId") // todo: Is this mapped to Order entity?
-    private UUID saleId;
+    @Column(nullable = false)
+    private UUID oderId;
 
     /***
      * Expected payment date.
      */
-    @Column(name = "DueDate", nullable = false, length = 10)
+    @Column(nullable = false, length = 10)
     private LocalDate dueDate;
 
     /***
      * Calculated total amount including tax.
      */
-    // todo: Define decimal point indicator and precision.
-    @Column(name = "TotalDue", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal totalDue;
 
     /***
@@ -84,39 +89,39 @@ public class CustomerDebit implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = DebitStatusConverter.class)
-    @Column(name = "Status", nullable = false, length = 1)
+    @Column(nullable = false, length = 1)
     private DebitStatus status;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***

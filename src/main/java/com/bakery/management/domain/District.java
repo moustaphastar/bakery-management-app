@@ -26,60 +26,60 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode(exclude = {"addresses"})
 @Entity
-@Table(name = "District", schema = "public")
+@Table(schema = "public")
 public class District implements java.io.Serializable {
 
     /***
      * Id of the entity.
      */
     @Id
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link City} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CityId", nullable = false)
+    @JoinColumn(name = "cityId", nullable = false)
     private City city;
 
     /***
      * Foreign key to parent {@link City} entity Id.
      */
-    @Column(name = "CityId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int cityId;
 
     /***
      * Name of district.
      */
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     /***
      * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertDate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime insertedDate;
 
     /***
      * Application user id who committed the insert.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "InsertedBy", nullable = false)
+    @Column(nullable = false)
     private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
     /***
      * Application user id who committed the last update.
      * Corresponds to an authorized employee id.
      */
-    @Column(name = "LastUpdatedBy", nullable = false)
+    @Column(nullable = false)
     private UUID lastUpdatedBy;
 
     /***
