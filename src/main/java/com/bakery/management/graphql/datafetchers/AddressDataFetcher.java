@@ -104,6 +104,10 @@ public class AddressDataFetcher {
         };
     }
 
+    /***
+     * Fetches {@link Country} data from database.
+     * @return fetched Country result or null
+     */
     public DataFetcher<List<Country>> fetchCountries() {
         return environment -> {
             return countryRepository
