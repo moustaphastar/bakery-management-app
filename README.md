@@ -34,7 +34,7 @@ react. The project is not completed yet. Please feel free to submit any issue or
 ### OpenAPI and the swagger ui
 
 - When started in development environment, the application opens the default browser
-  and navigetes to default swagger ui which is `localhost:8080/swagger-ui.html`. 
+  and navigates to default swagger ui which is `localhost:8080/swagger-ui.html`. 
   In a production environment, just append `swagger-ui.html` to the url.
   You can the live example [here](https://ehesap.herokuapp.com/swagger-ui.html).
   
@@ -69,7 +69,8 @@ react. The project is not completed yet. Please feel free to submit any issue or
   ````
 
 - Alternatively, GraphQL Playground or Postman applications can be used:
-  ![Sample request with Postman](https://github.com/moustaphastar/bakery-management-app/blob/postgresqlport/images/sample_req_with_postman.png)
+  ![Sample request with Postman](https://github.com/moustaphastar/bakery-management-app/blob/postgresqlport/images/sample_req_with_postman.png)   ![Sample request with Postman](https://github.com/moustaphastar/bakery-management-app/blob/postgresqlport/images/graphql_playground_sample.png)
+
 
 ### React application
 
