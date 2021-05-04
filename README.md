@@ -45,7 +45,7 @@ react. The project is not completed yet. Please feel free to submit any issue or
   ```
   Sample response;
   
-  ````json
+  ````json5
   {
     "data": {
       "countries": [
