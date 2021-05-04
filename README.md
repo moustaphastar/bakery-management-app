@@ -31,25 +31,57 @@ react. The project is not completed yet. Please feel free to submit any issue or
   or `gradlew build` to build the project. That might take a long time for the first run. To start and run the
   application execute `gradle bootRun` or `gradlew bootRun`.
 
-# OpenAPI and the swagger ui
+### OpenAPI and the swagger ui
 
-- When the application is started, it tries to open the default browser and the default swagger ui as "localhost:
-  8080/swagger-ui.html"
+- When started in development environment, the application opens the default browser
+  and navigetes to default swagger ui which is `localhost:8080/swagger-ui.html`. 
+  In a production environment, just append `swagger-ui.html` to the url.
+  You can the live example [here](https://ehesap.herokuapp.com/swagger-ui.html).
+  
 
-- You can try sample graphql queries but be careful to provide valid json payload.
+- Sample request with swagger ui to fetch country data from the database:
+  ```json
+  {"query":"{countries{id iso2 iso3 name}}"}
+  ```
+  Sample response;
+  
+  ````json
+  {
+    "data": {
+      "countries": [
+        // Omitted for brevity
+        {
+          "id": 21,
+          "iso2": "BY",
+          "iso3": "BLR",
+          "name": "Belarus"
+        },
+        {
+          "id": 22,
+          "iso2": "BE",
+          "iso3": "BEL",
+          "name": "Belgium"
+        }
+        // Omitted for brevity
+      ]
+    }
+  }
+  ````
 
-- Alternatively you can use GraphQL Playground or GraphiQl applications
+- Alternatively, GraphQL Playground or Postman applications can be used:
+  ![Sample request with Postman](https://github.com/moustaphastar/bakery-management-app/blob/postgresqlport/images/sample_req_with_postman.png)
 
-# React application
+### React application
 
 - It has not been added yet. I will add it soon.
 
-# TODO
+### TODO
 
 - Improve README file
-- Complete repositories
-- Add buniness layer
-- Complete graphql data fetchers
-- Update schema file
+- Implement missing repositories
+- Implement business logic
+- Implement missing data fetchers for graphql
+- Update graphql schema file
+- Integrate a payment API
 - Add react application.
 - Add unit tests
