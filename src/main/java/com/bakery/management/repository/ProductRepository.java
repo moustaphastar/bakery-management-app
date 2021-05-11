@@ -1,7 +1,7 @@
 package com.bakery.management.repository;
 
 import com.bakery.management.domain.Address;
-import com.bakery.management.domain.Merchant;
+import com.bakery.management.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,23 +11,23 @@ import java.util.Optional;
 import java.util.UUID;
 
 /***
- * Provides a custom repository interface for {@link Merchant}.
+ * Provides a custom repository interface for {@link Address}.
  * @since 1.0
  * @author Moustapha Star
  */
 @Repository
-public interface MerchantRepository extends JpaRepository<Merchant, UUID> {
+public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     /***
-     * Fetches {@link Merchant} data by id from persistence.
+     * Fetches {@link Address} data by id from persistence.
      * Uses a finder query.
      * @param id address id
-     * @return an Optional container for Merchant entity.
+     * @return an Optional container for Address entity.
      */
     @Query("select a from Address as a "
             + "join District as d on d.id = a.district.id "
             + "where a.id = :id")
-    Optional<Merchant> findById(@Param("id") UUID id);
+    Optional<Address> findById(@Param("id") int id);
 
     /***
      * Fetches {@link Address} data by id from persistence.
@@ -45,14 +45,14 @@ public interface MerchantRepository extends JpaRepository<Merchant, UUID> {
 
     /***
      * Fetches {@link Address} data by id from persistence.
-     * Uses a finder query including related {@see Merchant} data.
-     * @param customerId {@link Merchant} id
-     * @return an Optional container for Merchant entity.
+     * Uses a finder query including related {@see Customer} data.
+     * @param customerId {@link com.bakery.management.domain.Customer} id
+     * @return an Optional container for Address entity.
      */
-    @Query("select m from Merchant as m "
-            + "join MerchantAddress as ma "
-            + "on m.merchantAddresses. = m.id "
+    @Query("select a from Address as a "
+            + "join CustomerAddress as c "
+            + "on c.address.id = a.id "
             + "where c.customer.id = :customerId")
-    Optional<Address> getWithRelatedObject(
-            @Param("customerId") UUID customerId);
+    Optional<Address> getCustomerAddress(
+            @Param("customerId") String customerId);
 }
