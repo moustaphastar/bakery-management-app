@@ -15,7 +15,8 @@ import java.util.Optional;
  * @author Moustapha Star
  */
 @Repository
-public interface ShipmentLoadRepository extends JpaRepository<ShipmentLoad, Integer> {
+public interface ShipmentLoadRepository
+        extends JpaRepository<ShipmentLoad, Integer> {
 
     /***
      * Fetches {@link Address} data by id from persistence.

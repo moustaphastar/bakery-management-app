@@ -42,17 +42,4 @@ public interface MerchantRepository extends JpaRepository<Merchant, UUID> {
             + "join Country as o on o.Id = c.CountryId "
             + "where a.Id = :id", nativeQuery = true)
     Optional<Address> getAddressWithDetails(@Param("id") int id);
-
-    /***
-     * Fetches {@link Address} data by id from persistence.
-     * Uses a finder query including related {@see Merchant} data.
-     * @param customerId {@link Merchant} id
-     * @return an Optional container for Merchant entity.
-     */
-    @Query("select m from Merchant as m "
-            + "join MerchantAddress as ma "
-            + "on m.merchantAddresses. = m.id "
-            + "where c.customer.id = :customerId")
-    Optional<Address> getWithRelatedObject(
-            @Param("customerId") UUID customerId);
 }

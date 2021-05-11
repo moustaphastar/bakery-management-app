@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /***
  * Provides data fetchers for graphql-java.
@@ -118,7 +119,7 @@ public class GraphQLDataFetchers {
         return environment -> {
             String merchantId = environment.getArgument("id");
             return merchantRepository
-                    .findById(merchantId)
+                    .findById(UUID.fromString(merchantId))
                     .orElse(null);
         };
     }
