@@ -1,21 +1,16 @@
 # Bakery management app
 
-This is a simplified version of a bakery store management web application, built with spring-boot, graphql-java and
+A bakery store management web application, built with spring-boot, graphql-java and
 react. The project is not completed yet. Please feel free to submit any issue or any idea you have.
 
-# Includes
+### Requirements
 
-- Microsoft JDBC driver 8.2.2.jre11
-- graphql-java 12.0
-
-# Requirements
-
-- JDK 1.8 or higher to run the application
-- Node.js to run the react application
+- JDK 1.8 
+- Node.js
 - Microsoft Sql Server
 - Gradle
 
-# Installing Microsoft JDBC Driver
+### Installing Microsoft JDBC Driver
 
 - Download preferred JDBC driver
   from [Microsoft's official download page](https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver15)
@@ -23,7 +18,7 @@ react. The project is not completed yet. Please feel free to submit any issue or
 - Configure the classpath and connection string according to
   this [MSDN page](https://docs.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver15).
 
-# Installing and running
+### Installing & Running
 
 - Clone the project `git clone https://github.com/moustaphastar/bakery-management-app.git` or download the code.
 - Open the project with an IDE and build the project. A run/debug configuration might be needed by the IDE, than set up
