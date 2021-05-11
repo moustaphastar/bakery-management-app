@@ -14,9 +14,12 @@ type AddressQT {
   district: DistrictQT
   districtId: Int
   id: Int
+  insertedBy: String
+  insertedDate: String
   lastUpdate: String
+  lastUpdatedBy: String
+  spatialLocation: String
 }
-
 
 input CashAccountMT {
   merchantId: ID!
@@ -30,7 +33,10 @@ type CashAccountQT {
   cashTransaction: [CashTransactionQT]
   fiscalYear: Int
   id: Int
+  insertedBy: String
+  insertedDate: String
   lastUpdate: String
+  lastUpdatedBy: String
   merchant: MerchantQT
   merchantId: String
   outstandingBalance: BigDecimal
@@ -53,7 +59,10 @@ type CashTransactionQT {
   cashAccountId: Int
   explanation: String
   id: Int
+  insertedBy: String
+  insertedDate: String
   lastUpdate: String
+  lastUpdatedBy: String
   transactionAmount: BigDecimal
   transactionDate: String
   transactionType: CashTransactionType
@@ -70,6 +79,10 @@ type CityQT {
   countryId: Int
   districts: [DistrictQT]
   id: Int
+  insertedBy: String
+  insertedDate: String
+  lastUpdate: String
+  lastUpdatedBy: String
   name: String
 }
 
