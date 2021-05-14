@@ -89,8 +89,12 @@ type CityQT {
 type CountryQT {
   city: [CityQT]
   id: Int
+  insertedBy: String
+  insertedDate: String
   iso2: String
   iso3: String
+  lastUpdate: String
+  lastUpdatedBy: String
   name: String
 }
 
@@ -101,7 +105,10 @@ type CustomerAddressQT {
   customerId: String
   description: String
   id: Int
+  insertedBy: String
+  insertedDate: String
   lastUpdate: String
+  lastUpdatedBy: String
 }
 
 type CustomerDebitQT {
@@ -200,6 +207,13 @@ type DistrictQT {
   cityId: Int
   id: Int
   name: String
+  subDistrictName: String
+  neighborhoodName: String
+  postalCode: String
+  insertedBy: String
+  insertedDate: String
+  lastUpdate: String
+  lastUpdatedBy: String
 }
 
 type DocumentInvoiceQT {
@@ -416,11 +430,11 @@ type MerchantQT {
   id: String
   job: [JobQT]
   lastUpdate: String
+  legalName: String
   liaisonPerson: String
   liaisonPhone: String
   merchantAddress: [MerchantAddressQT]
   mersisId: String
-  name: String
   phone: String
   product: [ProductQT]
   order: [SaleQT]
