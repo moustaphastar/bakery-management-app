@@ -7,6 +7,8 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,6 +35,7 @@ public class District implements java.io.Serializable {
      * Id of the entity.
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private int id;
 
@@ -55,6 +58,24 @@ public class District implements java.io.Serializable {
      */
     @Column(nullable = false)
     private String name;
+
+    /***
+     * Name of sub district, township.
+     */
+    @Column(nullable = false)
+    private String subDistrictName;
+
+    /***
+     * Name of neighborhood or village.
+     */
+    @Column(nullable = false)
+    private String neighborhoodName;
+
+    /***
+     * Postal code.
+     */
+    @Column(nullable = false)
+    private String postalCode;
 
     /***
      * Date and time of insertion with an offset.
