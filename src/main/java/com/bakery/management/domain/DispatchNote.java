@@ -3,6 +3,8 @@ package com.bakery.management.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -178,6 +180,7 @@ public class DispatchNote implements java.io.Serializable {
      * Date and time of insertion with an offset.
      */
     @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
     private OffsetDateTime insertedDate;
 
     /***
