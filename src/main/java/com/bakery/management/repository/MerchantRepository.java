@@ -21,12 +21,12 @@ public interface MerchantRepository extends JpaRepository<Merchant, UUID> {
     /***
      * Fetches {@link Merchant} data by id from persistence.
      * Uses a finder query.
-     * @param id address id
+     * @param id merchant id
      * @return an Optional container for Merchant entity.
      */
-    @Query("select a from Address as a "
-            + "join District as d on d.id = a.district.id "
-            + "where a.id = :id")
+    @Query("select m from Merchant as m "
+            + "join MerchantCategory as mc on mc.id = m.merchantCategory.id "
+            + "where m.id = :id")
     Optional<Merchant> findById(@Param("id") UUID id);
 
     /***
