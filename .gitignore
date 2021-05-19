@@ -61,4 +61,3 @@ out/
 ### VS Code ###
 .vscode/
 >>>>>>> Initial commit
-/src/main/resources/application-dev.properties
