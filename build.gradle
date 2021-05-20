@@ -28,8 +28,6 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.20'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.0'
 	implementation 'org.postgresql:postgresql'
-	implementation 'org.apache.cayenne:cayenne-server:4.1'
-	implementation 'org.apache.cayenne.modeler:cayenne-modeler-win-ext:4.1'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
