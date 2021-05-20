@@ -41,7 +41,7 @@ public class Application {
     }
 
     /***
-     * Builds and OpeAPI as bean.
+     * Builds an OpenAPI as Spring Bean.
      * @param appDescription description of the application
      * @param appVersion version number of the application
      * @return OpenAPI object
@@ -73,7 +73,7 @@ public class Application {
     }
 
     /***
-     * Opens the default browser and loads the given url.
+     * Opens the default browser and navigates to the given url.
      * @param url url to open
      */
     @SuppressWarnings("SpellCheckingInspection")
