@@ -3,6 +3,8 @@ package com.bakery.management.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +29,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "Merchant", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class Merchant implements java.io.Serializable {
 
     /***
@@ -36,99 +37,115 @@ public class Merchant implements java.io.Serializable {
      */
     @Id
     @GeneratedValue
-    @Column(name = "Id", unique = true, nullable = false, length = 36)
+    @Column(unique = true, nullable = false, length = 36)
     private UUID id;
 
     /***
-     * Parent {@link MerchantType} entity with many to one relation.
+     * Parent {@link MerchantCategory} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TypeId", nullable = false)
-    private MerchantType merchantType;
+    @JoinColumn(name = "merchantCategoryId", nullable = false)
+    private MerchantCategory merchantCategory;
 
     /***
-     * Short descriptive name of the merchant.
+     * Foreign key to parent {@link MerchantCategory} entity Id.
      */
-    @Column(name = "Name", nullable = false)
-    private String name;
+    @Column(nullable = false, updatable = false,
+            insertable = false)
+    private int merchantCategoryId;
 
     /***
-     * Legal name of the merchant that should be used on documents.
+     * Merchant's legal (business) name that should be used on legal documents.
      */
-    @Column(name = "CommercialTitle", nullable = false)
-    private String commercialTitle;
+    @Column(nullable = false)
+    private String legalName;
 
     /***
-     * Governmental registration number for trading.
+     * Merchant's legal registry identification number for trading.
      */
-    @Column(name = "TradeRegistrationId")
-    private String tradeRegistrationId;
+    @Column(nullable = false)
+    private String commercialRegisterNumber;
 
     /***
      * Governmental registration number for trading.
      */
     // todo: What is the difference between a mersis and trade registry id?
-    @Column(name = "MersisId")
-    private String mersisId;
+    @Column(nullable = true)
+    private String centralRegistrationSystemId;
 
     /***
      * Name of the tax office.
      */
-    @Column(name = "TaxOffice")
+    @Column(nullable = false)
     private String taxOffice;
 
     /***
      * Governmental taxpayer Id.
      */
-    @Column(name = "TaxpayerId")
+    @Column(nullable = false)
     private String taxpayerId;
 
     /***
      * International bank account number.
      */
-    @Column(name = "IBAN")
+    @Column(nullable = false)
     private String iban;
 
     /***
      * Contact person first and last name.
      */
-    @Column(name = "LiasonPerson")
-    private String liaisonPerson;
+    @Column(nullable = false)
+    private String contactPersonName;
 
     /***
      * Contact person's phone number.
      */
-    @Column(name = "LiasonPhone")
-    private String liaisonPhone;
+    @Column(nullable = false)
+    private String contactPersonPhone;
 
     /***
      * Phone number.
      */
-    @Column(name = "Phone")
+    @Column(nullable = false)
     private String phone;
 
     /***
      * Web site address.
      */
-    @Column(name = "Web")
+    @Column()
     private String web;
 
     /***
-     * Registration date of merchant.
+     * Date and time of insertion with an offset.
      */
-    @Column(name = "EngagedOn", nullable = false, length = 10)
-    private LocalDate engagedOn;
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false, length = 23)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

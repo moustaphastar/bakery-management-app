@@ -3,6 +3,8 @@ package com.bakery.management.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -28,7 +31,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "AspNetRoles", schema = "dbo", catalog = "onlineaccounting",
+@Table(schema = "public",
         uniqueConstraints = @UniqueConstraint(columnNames = "NormalizedName"))
 public class AspNetRoles implements java.io.Serializable {
 
@@ -37,7 +40,7 @@ public class AspNetRoles implements java.io.Serializable {
      */
     @Id
     @GeneratedValue
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private UUID id;
 
     /***
@@ -49,7 +52,7 @@ public class AspNetRoles implements java.io.Serializable {
     /***
      * Name of the role, all letters in uppercase.
      */
-    @Column(name = "NormalizedName", unique = true)
+    @Column(unique = true)
     private String normalizedName;
 
     /***
@@ -57,6 +60,13 @@ public class AspNetRoles implements java.io.Serializable {
      */
     @Column(name = "ConcurrencyStamp")
     private String concurrencyStamp;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
 
     /***
      * Set of child {@link AspNetRoleClaims} with one to many relation.
@@ -68,8 +78,7 @@ public class AspNetRoles implements java.io.Serializable {
      * Set of child {@link AspNetUsers} with many to many relation.
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "AspNetUserRoles", schema = "dbo",
-            catalog = "onlineaccounting",
+    @JoinTable(name = "AspNetUserRoles",
             joinColumns = {@JoinColumn(name = "RoleId",
                     nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "UserId",

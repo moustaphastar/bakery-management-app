@@ -3,6 +3,8 @@ package com.bakery.management.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +30,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "DocumentInvoice", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class Invoice implements java.io.Serializable {
 
     /***
@@ -36,20 +38,20 @@ public class Invoice implements java.io.Serializable {
      */
     @Id
     @GeneratedValue
-    @Column(name = "Id", unique = true, nullable = false, length = 36)
+    @Column(unique = true, nullable = false, length = 36)
     private UUID id;
 
     /***
      * Parent {@link Merchant} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MerchantId", nullable = false)
+    @JoinColumn(name = "merchantId", nullable = false)
     private Merchant merchant;
 
     /***
      * Foreign key to parent {@link Merchant} entity Id.
      */
-    @Column(name = "MerchantId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID merchantId;
 
@@ -57,39 +59,39 @@ public class Invoice implements java.io.Serializable {
      * Parent {@link Order} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SaleId", nullable = false)
+    @JoinColumn(name = "orderId", nullable = false)
     private Order order;
 
     /***
      * Foreign key to parent {@link Order} entity Id.
      */
-    @Column(name = "SaleId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int saleId;
 
     /***
      * Foreign key to parent {@link Customer} entity Id.
      */
-    @Column(name = "CustomerId", length = 36)
+    @Column(length = 36)
     // todo: Is this mapped to Customer entity?
     private String customerId;
 
     /***
      * Document reference number.
      */
-    @Column(name = "ReferenceNumber", nullable = false)
+    @Column(nullable = false)
     private String referenceNumber;
 
     /***
      * Legal serial number. Unique in a year.
      */
-    @Column(name = "SerialNumber")
+    @Column(nullable = false)
     private String serialNumber;
 
     /***
      * Legal sequence number. Unique in a serial group.
      */
-    @Column(name = "SequenceNumber")
+    @Column(nullable = false)
     private Integer sequenceNumber;
 
     /***
@@ -100,54 +102,54 @@ public class Invoice implements java.io.Serializable {
      * @see #isPaperPrinted()
      * @see ShipmentLoad for delivery date
      */
-    @Column(name = "IssueDate", length = 19)
+    @Column(length = 19)
     private OffsetDateTime issueDate;
 
     /***
      * Calculated total amount excluding tax.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "SubTotal", precision = 9)
+    @Column(precision = 9)
     private BigDecimal subTotal;
 
     /***
      * Calculated tax amount.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "TaxAmount", precision = 9)
+    @Column(precision = 9)
     private BigDecimal taxAmount;
 
     /***
      * Calculated total amount including tax.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "TotalDue", precision = 9)
+    @Column(precision = 9)
     private BigDecimal totalDue;
 
     /***
      * Firstname and lastname of the person who delivered the document.
      */
-    @Column(name = "DeliveryPersonId", length = 36)
+    @Column(length = 36)
     // todo: Shipment model class holds the driver employee id.
     private String deliveryPersonId;
 
     /***
-     * Firstname and lastname of the person who received the document.
+     * First and last name of the authorized person who received the document.
      */
-    @Column(name = "Receiver")
+    @Column(nullable = false)
     private String receiver;
 
     /***
      * Date and time of delivery with offset.
      * @see Shipment
      */
-    @Column(name = "DeliveredAt", length = 19)
+    @Column(length = 19)
     private OffsetDateTime deliveredAt;
 
     /***
      * Additional notes on document.
      */
-    @Column(name = "Note")
+    @Column(nullable = true)
     private String note;
 
     /***
@@ -157,7 +159,7 @@ public class Invoice implements java.io.Serializable {
      * since they are whole together and have the same serial
      * and sequence number.
      */
-    @Column(name = "IsPaperPrinted", nullable = false)
+    @Column(nullable = false)
     // todo: Refactor to use DocumentType enum.
     private boolean isPaperPrinted;
 
@@ -165,29 +167,50 @@ public class Invoice implements java.io.Serializable {
      * Date and time of paper printing with offset.
      * @see #isPaperPrinted
      */
-    @Column(name = "PaperPrintedAt", length = 19)
+    @Column(length = 19)
     // todo: Consider with isPaperPrinted field.
     private OffsetDateTime paperPrintedAt;
 
     /***
-     * Date and time of first persisting with an offset.
+     * Date and time of insertion with an offset.
      */
-    @Column(name = "InsertedAt", nullable = false, length = 19)
-    private OffsetDateTime insertedAt;
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID insertedBy;
+
+    /***
+     * Date and time of last update with an offset.
+     */
+    @Column(nullable = false)
+    private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of document usability in financial accounting.
      * The document is {@link #active} but neither the document
      * nor its serial and sequence number can not be used in accounting.
      */
-    @Column(name = "IsCancelled")
+    @Column(nullable = false)
     // todo: Implement a DocumentStatus enum.
     private Boolean isCancelled;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

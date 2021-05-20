@@ -1,13 +1,13 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.1'
+	id 'org.springframework.boot' version '2.4.4'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 	id 'checkstyle'
+	id "org.sonarqube" version "3.2.0"
 }
 
 group = 'com.bakery'
 version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '11'
 
 compileJava {
 	sourceCompatibility = '1.8'
@@ -16,21 +16,20 @@ compileJava {
 
 repositories {
 	mavenCentral()
-	jcenter()
 }
 
 dependencies {
-	implementation 'com.microsoft.sqlserver:mssql-jdbc:8.2.2.jre11'
 	implementation 'com.graphql-java:graphql-java:12.0'
 	implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0'
 	implementation 'com.google.guava:guava:26.0-jre'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.projectlombok:lombok:1.18.16'
+    implementation 'org.projectlombok:lombok:1.18.20'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.5.0'
+	implementation 'org.postgresql:postgresql'
 
-	annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
@@ -44,6 +43,55 @@ test {
 }
 
 bootJar{
-	mainClassName = 'com.bakery.management.Application'
+	mainClassName('com.bakery.management.Application')
+}
+
+sonarqube {
+	properties {
+		System.setProperty('sonar.host.url', 'http://localhost:9000')
+	}
+}
+
+processResources {
+	//exclude('static/index.html')
+	exclude('data/*')
+}
+
+task checkNode(type: Exec) {
+	commandLine 'cmd', '/c', 'node -v'
+	commandLine 'cmd', '/c', 'node -v'
+	//store the output instead of printing to the console:
+	standardOutput = new ByteArrayOutputStream()
+
+	//extension method stopTomcat.output() can be used to obtain the output:
+	ext.output = {
+		return standardOutput.toString()
+	}
+
+	//System.out.println(standardOutput.toString())
+}
+
+// todo: Build a task to install node if it's not already installed.
+//npmInstall.onlyIf(new Spec<Task>() {
+//	boolean isSatisfiedBy(Task task) {
+//		return isProductionEnvironment();
+//	}
+//});
+
+// Task to install node application dependencies.
+task npmInstall(type: Exec) {
+	workingDir 'src/main/webapp'
+	commandLine 'npm', 'install'
+}
+
+
+gradle.buildFinished {
+	// todo: Copy build directory to resources/static folder.
+//	copy {
+//		from 'build/libs/GradleJarProject.jar'
+//		into "target/classes/static"
+//	}
+	System.out.println("Build finished code run!")
+	System.out.println(checkNode.output())
 }
 

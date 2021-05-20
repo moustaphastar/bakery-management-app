@@ -17,6 +17,7 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @SuppressWarnings("hideutilityclassconstructor")
 @SpringBootApplication()
@@ -25,11 +26,11 @@ import java.net.URISyntaxException;
 @EnableJpaRepositories("com.bakery.management.repository")
 public class Application {
 
-//    /***
-//     * Class private constructor.
-//     */
-//    private Application() {
-//    }
+    /**
+     * Holds the active Spring profiles data.
+     */
+    @Value("${spring.profiles.active}")
+    private List<String> environment;
 
     /***
      * Application entry point, main method.
@@ -40,14 +41,15 @@ public class Application {
     }
 
     /***
-     * Builds and OpeAPI as bean.
+     * Builds an OpenAPI as Spring Bean.
      * @param appDescription description of the application
      * @param appVersion version number of the application
      * @return OpenAPI object
      */
+    // todo: appVersion placeholder produces warning in application.properties
     @Bean
     public OpenAPI customOpenAPI(
-            @Value("${application-description}") final String appDescription,
+            @Value("${spring.application.name}") final String appDescription,
             @Value("${application-version}") final String appVersion) {
         return new OpenAPI()
                 .info(new Info()
@@ -65,16 +67,13 @@ public class Application {
      */
     @EventListener({ApplicationReadyEvent.class})
     public void applicationReadyEvent() {
-        browse("http://localhost:8080/swagger-ui.html");
-
-        // That will return error response because the graphql endpoint
-        // accepts POST requests with valid json body. So, that is just
-        // an example to start a browser.
-        //browse("http://localhost:8080/graphql");
+        if (environment.get(0).equals("dev")) {
+            browse("http://localhost:8080/swagger-ui.html");
+        }
     }
 
     /***
-     * Opens the default browser and loads the given url.
+     * Opens the default browser and navigates to the given url.
      * @param url url to open
      */
     @SuppressWarnings("SpellCheckingInspection")

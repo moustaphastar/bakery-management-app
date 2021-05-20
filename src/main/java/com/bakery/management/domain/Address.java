@@ -3,6 +3,8 @@ package com.bakery.management.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /***
  * Domain model class to hold address data.
@@ -25,9 +28,11 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"merchantAddresses",
+        "customerAddresses", "employeeAddresses",
+        "salesForBillToAddressId", "salesForShipToAddressId"})
 @Entity
-@Table(name = "Address", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class Address implements java.io.Serializable {
 
     /***
@@ -35,50 +40,72 @@ public class Address implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link District} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "DistrictId", nullable = false)
+    @JoinColumn(name = "districtId", nullable = false)
     private District district;
 
     /***
      * Foreign key to parent {@link District} entity Id.
      */
-    @Column(name = "DistrictId", updatable = false, insertable = false)
+    @Column(updatable = false, insertable = false)
     private int districtId;
 
     /***
      * Line to hold street level information.
      */
-    @Column(name = "AddressLine1", nullable = false)
+    @Column(nullable = false)
     private String addressLine1;
 
     /***
      * Line to hold building and door numbers.
      */
-    @Column(name = "AddressLine2", nullable = false)
+    @Column(nullable = false)
     private String addressLine2;
 
     /***
      * Latitude and Longitude.
      */
+    // todo: Convert to PostGIS compatible data type.
     @Column(name = "SpatialLocation")
     private byte[] spatialLocation;
 
     /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID insertedBy;
+
+    /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

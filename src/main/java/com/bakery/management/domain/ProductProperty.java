@@ -3,6 +3,8 @@ package com.bakery.management.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /***
  * Domain model class to hold user data.
@@ -27,7 +30,7 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "ProductProperty", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class ProductProperty implements java.io.Serializable {
 
     /***
@@ -35,40 +38,61 @@ public class ProductProperty implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
-     * Parent {@link MerchantType} entity with many to one relation.
+     * Parent {@link MerchantCategory} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MerchantTypeId", nullable = false)
-    private MerchantType merchantType;
+    @JoinColumn(name = "merchantCategoryId", nullable = false)
+    private MerchantCategory merchantCategory;
 
     /***
-     * Foreign key to parent {@link MerchantType} entity Id.
+     * Foreign key to parent {@link MerchantCategory} entity Id.
      */
-    @Column(name = "MerchantTypeId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
-    private int merchantTypeId;
+    private int merchantCategoryId;
 
     /***
      * Name of product property.
      */
     // todo: what is an attribute? what is a property?
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false, length = 19)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

@@ -3,7 +3,10 @@ schema {
   mutation: GraphQLMutation
 }
 
+scalar BigDecimal
+
 directive @defer on FIELD
+
 type AddressQT {
   active: Boolean
   addressLine1: String
@@ -11,10 +14,12 @@ type AddressQT {
   district: DistrictQT
   districtId: Int
   id: Int
+  insertedBy: String
+  insertedDate: String
   lastUpdate: String
+  lastUpdatedBy: String
+  spatialLocation: String
 }
-
-scalar BigDecimal
 
 input CashAccountMT {
   merchantId: ID!
@@ -28,7 +33,10 @@ type CashAccountQT {
   cashTransaction: [CashTransactionQT]
   fiscalYear: Int
   id: Int
+  insertedBy: String
+  insertedDate: String
   lastUpdate: String
+  lastUpdatedBy: String
   merchant: MerchantQT
   merchantId: String
   outstandingBalance: BigDecimal
@@ -51,7 +59,10 @@ type CashTransactionQT {
   cashAccountId: Int
   explanation: String
   id: Int
+  insertedBy: String
+  insertedDate: String
   lastUpdate: String
+  lastUpdatedBy: String
   transactionAmount: BigDecimal
   transactionDate: String
   transactionType: CashTransactionType
@@ -68,14 +79,22 @@ type CityQT {
   countryId: Int
   districts: [DistrictQT]
   id: Int
+  insertedBy: String
+  insertedDate: String
+  lastUpdate: String
+  lastUpdatedBy: String
   name: String
 }
 
 type CountryQT {
   city: [CityQT]
   id: Int
+  insertedBy: String
+  insertedDate: String
   iso2: String
   iso3: String
+  lastUpdate: String
+  lastUpdatedBy: String
   name: String
 }
 
@@ -86,7 +105,10 @@ type CustomerAddressQT {
   customerId: String
   description: String
   id: Int
+  insertedBy: String
+  insertedDate: String
   lastUpdate: String
+  lastUpdatedBy: String
 }
 
 type CustomerDebitQT {
@@ -155,8 +177,8 @@ type CustomerQT {
   iban: String
   id: String
   lastUpdate: String
-  liasonPerson: String
-  liasonPhone: String
+  liaisonPerson: String
+  liaisonPhone: String
   maturityDaysLimit: Int
   maturityDaysTotal: Int
   maturityOverdueCount: Int
@@ -185,6 +207,13 @@ type DistrictQT {
   cityId: Int
   id: Int
   name: String
+  subDistrictName: String
+  neighborhoodName: String
+  postalCode: String
+  insertedBy: String
+  insertedDate: String
+  lastUpdate: String
+  lastUpdatedBy: String
 }
 
 type DocumentInvoiceQT {
@@ -244,9 +273,9 @@ enum DocumentType {
   UNDOCUMENTED
   BILL
   INVOICE
-  INVOICEDNOTE
-  EINVOICE
-  EARCHIVE
+  INVOICED_NOTE
+  E_INVOICE
+  E_ARCHIVE
 }
 
 type EmployeeAddressQT {
@@ -265,14 +294,14 @@ type EmployeeLeaveQT {
   employeeId: String
   id: ID
   insertedAt: String
-  laeveFrom: String
+  leaveFrom: String
   leaveTo: String
 }
 
 type EmployeeQT {
   active: Boolean
   aspUserId: String
-  bitrhDate: String
+  birthDate: String
   employeeAddress: [EmployeeAddressQT]
   employeeLeave: [EmployeeLeaveQT]
   firstName: String
@@ -401,11 +430,11 @@ type MerchantQT {
   id: String
   job: [JobQT]
   lastUpdate: String
-  liasonPerson: String
-  liasonPhone: String
+  legalName: String
+  liaisonPerson: String
+  liaisonPhone: String
   merchantAddress: [MerchantAddressQT]
   mersisId: String
-  name: String
   phone: String
   product: [ProductQT]
   order: [SaleQT]
@@ -476,7 +505,7 @@ type ProductQT {
   productCategory: ProductCategoryQT
   productCategoryId: Int
   orderItem: [SaleDetailQT]
-  standartCost: BigDecimal
+  standardCost: BigDecimal
   taxRate: BigDecimal
   weight: Int
 }
@@ -693,7 +722,7 @@ type VehicleDriverQT {
 
 type VehicleQT {
   active: Boolean
-  assesmentDate: String
+  assessmentDate: String
   assuranceRenewalDate: String
   id: ID
   lastUpdate: String

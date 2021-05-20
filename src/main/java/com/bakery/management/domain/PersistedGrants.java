@@ -19,69 +19,69 @@ import java.time.OffsetDateTime;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "PersistedGrants", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class PersistedGrants implements java.io.Serializable {
 
     /***
      * Id of the entity.
      */
     @Id
-    @Column(name = "Key", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String key;
 
     /***
      * Type definition of grant.
      */
-    @Column(name = "Type", nullable = false)
+    @Column(nullable = false)
     private String type;
 
     /***
      * Subject Id claim.
      */
-    @Column(name = "SubjectId")
+    @Column(nullable = false)
     private String subjectId;
 
     /***
      * Session token.
      */
-    @Column(name = "SessionId")
+    @Column(nullable = false)
     private String sessionId;
 
     /***
      * Client Id.
      */
-    @Column(name = "ClientId", nullable = false)
+    @Column(nullable = false)
     private String clientId;
 
     /***
      * Description for grant.
      */
-    @Column(name = "Description")
+    @Column(nullable = false)
     private String description;
 
     /***
      * Date and time with offset token produced.
      */
-    @Column(name = "CreationTime", nullable = false, length = 27)
+    @Column(nullable = false, length = 27)
     private OffsetDateTime creationTime;
 
     /***
      * Date and time with offset token will expire.
      */
-    @Column(name = "Expiration", length = 27)
+    @Column(length = 27)
     private OffsetDateTime expiration;
 
     /***
      * Date and time with offset token consumed.
      */
-    @Column(name = "ConsumedTime", length = 27)
+    @Column(length = 27)
     private OffsetDateTime consumedTime;
 
     /***
      * Data.
      */
     // todo: Enhance Javadoc. What is it for?
-    @Column(name = "Data", nullable = false)
+    @Column(nullable = false)
     private String data;
 
     /***

@@ -2,11 +2,12 @@ package com.bakery.management.graphql.datafetchers;
 
 import com.bakery.management.domain.Address;
 import com.bakery.management.domain.City;
+import com.bakery.management.domain.Country;
 import com.bakery.management.repository.AddressRepository;
 import com.bakery.management.repository.CityRepository;
+import com.bakery.management.repository.CountryRepository;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingFieldSelectionSet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,14 +23,31 @@ public class AddressDataFetcher {
     /***
      * Injection for AddressRepository object.
      */
-    @Autowired
-    private AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
 
     /***
      * Injection for CityRepository object.
      */
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
+
+    /***
+     * Injection for CountryRepository object.
+     */
+    private final CountryRepository countryRepository;
+
+    /***
+     * Class constructor.
+     * @param addressRepo Address repository
+     * @param cityRepo City repository
+     * @param countryRepo Country repository
+     */
+    public AddressDataFetcher(final AddressRepository addressRepo,
+                              final CityRepository cityRepo,
+                              final CountryRepository countryRepo) {
+        this.addressRepository = addressRepo;
+        this.cityRepository = cityRepo;
+        this.countryRepository = countryRepo;
+    }
 
     /***
      * Fetches the {@link Address} entity with given id from database.
@@ -83,6 +101,17 @@ public class AddressDataFetcher {
             Optional<Address> address = addressRepository
                     .getCustomerAddress(customerId);
             return address.orElse(null);
+        };
+    }
+
+    /***
+     * Fetches {@link Country} data from database.
+     * @return fetched Country result or null
+     */
+    public DataFetcher<List<Country>> fetchCountries() {
+        return environment -> {
+            return countryRepository
+                    .findAll();
         };
     }
 }

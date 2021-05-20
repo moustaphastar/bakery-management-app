@@ -5,6 +5,8 @@ import com.bakery.management.enums.converters.ShipmentStatusConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -15,13 +17,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.UUID;
 
 /***
  * Domain model class to hold user data.
@@ -32,7 +30,7 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "Shipment", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class Shipment implements java.io.Serializable {
 
     /***
@@ -40,51 +38,44 @@ public class Shipment implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
-
-    /***
-     * Parent {@link ShipmentRoute} entity with many to one relation.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ShipmentRouteId")
-    private ShipmentRoute shipmentRoute;
 
     /***
      * Parent {@link Driver} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CarrierId", nullable = false)
+    @JoinColumn(name = "driverId", nullable = false)
     private Driver driver;
 
     /***
-     * Date of shipment.
+     * Foreign key to parent {@link Driver} entity Id.
      */
-    @Column(name = "Date", nullable = false, length = 10)
-    private LocalDate date;
+    @Column(nullable = false, updatable = false, insertable = false)
+    private int driverId;
 
     /***
-     * Starting time of shipment.
+     * Starting date and time of shipment.
      */
-    @Column(name = "TimeStart", length = 8)
-    private LocalTime timeStart;
+    @Column(length = 8)
+    private OffsetDateTime timeOfStart;
 
     /***
-     * Ending time of shipment.
+     * Ending date and time of shipment.
      */
-    @Column(name = "TimeEnd", length = 8)
-    private LocalDate timeEnd;
+    @Column(length = 8)
+    private OffsetDateTime timeOfEnd;
 
     /***
      * Odometer starting number.
      */
-    @Column(name = "OdometerStart")
+    @Column(nullable = false)
     private int odometerStart;
 
     /***
      * Odometer ending number.
      */
-    @Column(name = "OdometerEnd")
+    @Column(nullable = true)
     private int odometerEnd;
 
     /***
@@ -93,26 +84,41 @@ public class Shipment implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = ShipmentStatusConverter.class)
-    @Column(name = "Status", nullable = false, length = 1)
+    @Column(nullable = false, length = 1)
     private ShipmentStatus status;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false, length = 19)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
-
-    /***
-     * Set of child {@link ShipmentLoad} with one to many relation.
-     */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shipment")
-    private Set<ShipmentLoad> shipmentLoads = new HashSet<>(0);
 
     /***
      * Class constructor.

@@ -7,6 +7,8 @@ import com.bakery.management.enums.converters.ShipmentPartsOfDayConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -34,7 +36,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "SaleDetail", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class OrderItem implements java.io.Serializable {
 
     /***
@@ -42,7 +44,7 @@ public class OrderItem implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     // todo: Refactor to use long or uuid.
     private int id;
 
@@ -50,13 +52,13 @@ public class OrderItem implements java.io.Serializable {
      * Parent {@link Product} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ProductId", nullable = false)
+    @JoinColumn(name = "productId", nullable = false)
     private Product product;
 
     /***
      * Foreign key to parent {@link Product} entity Id.
      */
-    @Column(name = "ProductId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID productId;
 
@@ -64,53 +66,53 @@ public class OrderItem implements java.io.Serializable {
      * Parent {@link Order} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SaleId", nullable = false)
+    @JoinColumn(name = "oderId", nullable = false)
     private Order order;
 
     /***
      * Foreign key to parent {@link Order} entity Id.
      */
-    @Column(name = "SaleId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int orderId;
 
     /***
      * Reference number to track order item as load of a carrier and shipment.
      */
-    @Column(name = "CarrierTrackingNumber")
+    @Column(name = "carrierTrackingNumber")
     private String carrierTrackingNumber;
 
     /***
      * Quantity of ordered product.
      */
-    @Column(name = "Quantity", nullable = false)
+    @Column(nullable = false)
     private int quantity;
 
     /***
      * Unit price of ordered product.
      */
     // todo: Include unit data in a separate field?
-    @Column(name = "UnitPrice", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal unitPrice;
 
     /***
      * Calculated total amount excluding tax.
      */
-    @Column(name = "LineTotal", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal lineTotal;
 
     /***
      * Calculated tax amount.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "TaxAmount", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal taxAmount;
 
     /***
      * Calculated total amount including tax.
      */
     // todo: Define decimal point indicator and precision.
-    @Column(name = "TotalDue", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal totalDue;
 
     /***
@@ -119,14 +121,35 @@ public class OrderItem implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = ShipmentPartsOfDayConverter.class)
-    @Column(name = "ShippingDayPart", nullable = false, length = 1)
+    @Column(nullable = false, length = 1)
     private ShipmentPartsOfDay shippingDayPart;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false, length = 19)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of order item from {@link OrderItemStatus}
@@ -134,13 +157,13 @@ public class OrderItem implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = OrderItemStatusConverter.class)
-    @Column(name = "Status", nullable = false, length = 1)
+    @Column(nullable = false, length = 1)
     private OrderItemStatus status;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***

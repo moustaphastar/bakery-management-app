@@ -5,6 +5,8 @@ import com.bakery.management.enums.converters.ShipmentLoadStatusConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -20,6 +22,7 @@ import javax.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /***
  * Domain model class to hold user data.
@@ -30,7 +33,7 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "ShipmentLoad", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class ShipmentLoad implements java.io.Serializable {
 
     /***
@@ -45,16 +48,14 @@ public class ShipmentLoad implements java.io.Serializable {
      * Parent {@link OrderItem} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SaleDetailId", nullable = false)
-    // todo: OrderItem's Id field will be changed to UUID.
+    @JoinColumn(name = "orderItemId", nullable = false)
     private OrderItem orderItem;
 
     /***
      * Foreign key to parent {@link OrderItem} entity Id.
      */
-    @Column(name = "SaleDetailId", nullable = false, updatable = false,
-            insertable = false)
-    private int orderItemId;
+    @Column(nullable = false, updatable = false, insertable = false)
+    private long orderItemId;
 
     /***
      * Parent {@link Shipment} entity with many to one relation.
@@ -93,10 +94,31 @@ public class ShipmentLoad implements java.io.Serializable {
     private ShipmentLoadStatus status;
 
     /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(name = "InsertDate", nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "InsertedBy", nullable = false)
+    private UUID insertedBy;
+
+    /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false, length = 19)
+    @Column(name = "LastUpdate", nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(name = "LastUpdatedBy", nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.

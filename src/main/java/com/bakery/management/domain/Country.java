@@ -3,6 +3,8 @@ package com.bakery.management.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,8 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /***
  * Domain model class to hold country data.
@@ -22,9 +26,9 @@ import java.util.Set;
  */
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"cities"})
 @Entity
-@Table(name = "Country", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class Country implements java.io.Serializable {
 
     /***
@@ -32,26 +36,53 @@ public class Country implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * ISO 3166-1 alpha-2 codes.
      */
-    @Column(name = "ISO2", nullable = false, length = 2)
+    @Column(nullable = false, length = 2)
     private String iso2;
 
     /***
      * ISO 3166-1 alpha-3 codes.
      */
-    @Column(name = "ISO3", length = 3)
+    @Column(length = 3)
     private String iso3;
 
     /***
      * Name of country.
      */
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = false)
     private String name;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID insertedBy;
+
+    /***
+     * Date and time of last update with an offset.
+     */
+    @Column(nullable = false)
+    private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * Set of child {@link City} with one to many relation.

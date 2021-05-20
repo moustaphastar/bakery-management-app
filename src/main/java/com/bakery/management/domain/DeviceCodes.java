@@ -22,7 +22,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "DeviceCodes", schema = "dbo", catalog = "onlineaccounting",
+@Table(schema = "public",
         uniqueConstraints = @UniqueConstraint(columnNames = "DeviceCode"))
 public class DeviceCodes implements java.io.Serializable {
 
@@ -31,56 +31,56 @@ public class DeviceCodes implements java.io.Serializable {
      */
     @Id
     @GeneratedValue
-    @Column(name = "UserCode", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private UUID userCode;
 
     /***
      * Device identification code.
      */
-    @Column(name = "DeviceCode", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String deviceCode;
 
     /***
      * Subject Id claim.
      */
-    @Column(name = "SubjectId")
+    @Column(nullable = false)
     private String subjectId;
 
     /***
      * Session token.
      */
-    @Column(name = "SessionId")
+    @Column(nullable = false)
     private String sessionId;
 
     /***x
      * Client Id.
      */
-    @Column(name = "ClientId", nullable = false)
+    @Column(nullable = false)
     private String clientId;
 
     /***
      * Description for device.
      */
-    @Column(name = "Description")
+    @Column(nullable = false)
     private String description;
 
     /***
      * Date and time with offset token produced.
      */
-    @Column(name = "CreationTime", nullable = false, length = 27)
+    @Column(nullable = false, length = 27)
     private OffsetDateTime creationTime;
 
     /***
      * Date and time with offset token will expire.
      */
-    @Column(name = "Expiration", nullable = false, length = 27)
+    @Column(nullable = false, length = 27)
     private OffsetDateTime expiration;
 
     /***
      * Data.
      */
     // todo: Enhance Javadoc. What is it for?
-    @Column(name = "Data", nullable = false)
+    @Column(nullable = false)
     private String data;
 
     /***

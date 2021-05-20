@@ -28,7 +28,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "AspNetUsers", schema = "dbo", catalog = "onlineaccounting",
+@Table(schema = "public",
         uniqueConstraints =
         @UniqueConstraint(columnNames = "NormalizedUserName"))
 public class AspNetUsers implements java.io.Serializable {
@@ -38,92 +38,92 @@ public class AspNetUsers implements java.io.Serializable {
      */
     @Id
     @GeneratedValue
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private UUID id;
 
     /***
      * Name of user.
      */
-    @Column(name = "UserName")
+    @Column(nullable = false)
     private String userName;
 
     /***
      * Name of user, all letters in uppercase.
      */
-    @Column(name = "NormalizedUserName", unique = true)
+    @Column(unique = true)
     private String normalizedUserName;
 
     /***
      * Email address.
      */
-    @Column(name = "Email")
+    @Column(nullable = false)
     private String email;
 
     /***
      * Email address, all characters in uppercase.
      */
-    @Column(name = "NormalizedEmail")
+    @Column(nullable = false)
     private String normalizedEmail;
 
     /***
      * State of email confirmation.
      */
-    @Column(name = "EmailConfirmed", nullable = false)
+    @Column(nullable = false)
     private boolean emailConfirmed;
 
     /***
      * Password hash string.
      */
-    @Column(name = "PasswordHash")
+    @Column(nullable = false)
     private String passwordHash;
 
     /***
      * Timestamp for a security check.
      */
-    @Column(name = "SecurityStamp")
+    @Column(nullable = false)
     private String securityStamp;
 
     /***
      * Timestamp to avoid concurrency in database.
      */
-    @Column(name = "ConcurrencyStamp")
+    @Column(nullable = false)
     private String concurrencyStamp;
 
     /***
      * Phone number with country and area codes.
      */
-    @Column(name = "PhoneNumber")
+    @Column(nullable = false)
     private String phoneNumber;
 
     /***
      * State of phone number confirmation.
      */
-    @Column(name = "PhoneNumberConfirmed", nullable = false)
+    @Column(nullable = false)
     private boolean phoneNumberConfirmed;
 
     /***
      * State of 2FA availability.
      */
-    @Column(name = "TwoFactorEnabled", nullable = false)
+    @Column(nullable = false)
     private boolean twoFactorEnabled;
 
     /***
      * End of lock out.
      */
     // todo: Enhance Javadoc. What is lock end for?
-    @Column(name = "LockoutEnd")
+    @Column(nullable = false)
     private String lockoutEnd;
 
     /***
      * State of lock out availability.
      */
-    @Column(name = "LockoutEnabled", nullable = false)
+    @Column(nullable = false)
     private boolean lockoutEnabled;
 
     /***
      * Count of failed access attempt.
      */
-    @Column(name = "AccessFailedCount", nullable = false)
+    @Column(nullable = false)
     private int accessFailedCount;
 
     /***
@@ -142,8 +142,7 @@ public class AspNetUsers implements java.io.Serializable {
      * Set of child {@link AspNetRoles} with many to many relation.
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "AspNetUserRoles", schema = "dbo",
-            catalog = "onlineaccounting",
+    @JoinTable(name = "AspNetUserRoles",
             joinColumns = {
                     @JoinColumn(
                             name = "UserId",

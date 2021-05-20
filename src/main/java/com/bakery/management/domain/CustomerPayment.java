@@ -7,6 +7,8 @@ import com.bakery.management.enums.converters.PaymentTypeConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -31,7 +33,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "CustomerPayment", schema = "dbo", catalog = "onlineaccounting")
+@Table(schema = "public")
 public class CustomerPayment implements java.io.Serializable {
 
     /***
@@ -39,20 +41,20 @@ public class CustomerPayment implements java.io.Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private int id;
 
     /***
      * Parent {@link Customer} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerId", nullable = false)
+    @JoinColumn(name = "customerId", nullable = false)
     private Customer customer;
 
     /***
      * Foreign key to parent {@link Customer} entity Id.
      */
-    @Column(name = "CustomerId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private UUID customerId;
 
@@ -60,13 +62,13 @@ public class CustomerPayment implements java.io.Serializable {
      * Parent {@link CustomerDebit} entity with many to one relation.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerDebitId", nullable = false)
+    @JoinColumn(name = "customerDebitId", nullable = false)
     private CustomerDebit customerDebit;
 
     /***
      * Foreign key to parent {@link CustomerDebit} entity Id.
      */
-    @Column(name = "CustomerDebitId", nullable = false, updatable = false,
+    @Column(nullable = false, updatable = false,
             insertable = false)
     private int customerDebitId;
 
@@ -74,13 +76,13 @@ public class CustomerPayment implements java.io.Serializable {
      * Amount of payment received.
      */
     // todo: Enhance Javadoc. Define decimal point separator and precision.
-    @Column(name = "AmountPaid", nullable = false, precision = 9)
+    @Column(nullable = false, precision = 9)
     private BigDecimal amountPaid;
 
     /***
      * Date and time with offset the payment received from customer.
      */
-    @Column(name = "PaymentDate", nullable = false, length = 19)
+    @Column(nullable = false, length = 19)
     private OffsetDateTime paymentDate;
 
     /***
@@ -89,7 +91,7 @@ public class CustomerPayment implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = PaymentTypeConverter.class)
-    @Column(name = "PaymentType", nullable = false, length = 1)
+    @Column(nullable = false, length = 1)
     private PaymentType paymentType;
 
     /***
@@ -98,19 +100,40 @@ public class CustomerPayment implements java.io.Serializable {
      * before persisting to database.
      */
     @Convert(converter = PaymentStatusConverter.class)
-    @Column(name = "ApprovalStatus", nullable = false, length = 1)
+    @Column(nullable = false, length = 1)
     private PaymentStatus approvalStatus;
+
+    /***
+     * Date and time of insertion with an offset.
+     */
+    @Column(nullable = false)
+    @Generated(value = GenerationTime.INSERT)
+    private OffsetDateTime insertedDate;
+
+    /***
+     * Application user id who committed the insert.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID insertedBy;
 
     /***
      * Date and time of last update with an offset.
      */
-    @Column(name = "LastUpdate", nullable = false, length = 19)
+    @Column(nullable = false)
     private OffsetDateTime lastUpdate;
+
+    /***
+     * Application user id who committed the last update.
+     * Corresponds to an authorized employee id.
+     */
+    @Column(nullable = false)
+    private UUID lastUpdatedBy;
 
     /***
      * State of existence in persistence.
      */
-    @Column(name = "Active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     /***
